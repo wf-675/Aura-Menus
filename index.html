@@ -23,7 +23,7 @@
             width: 100%;
             height: 100%;
             background-color: transparent !important;
-            overflow: hidden;
+            overflow: hidden; /* لمنع أي سكرول بار */
             font-family: 'Roboto', sans-serif;
         }
 
@@ -35,21 +35,22 @@
 
         /* حاوية القائمة الرئيسية */
         .menu-container {
-            width: 380px; /* **تعديل:** عرض المنيو ليتناسب مع الصورة الجديدة (ضيق) */
+            width: 350px; /* **تعديل:** عرض أصغر قليلاً */
             height: auto;
-            min-height: 650px; /* **تعديل:** ارتفاع المنيو ليتناسب مع الصورة (طويل) */
+            min-height: 600px; /* **تعديل:** ارتفاع أصغر قليلاً */
             
             background-color: rgba(0, 0, 0, 0.9);
             border-radius: 10px;
-            border: 1px solid #10B981; /* **تعديل:** لون أخضر نيون للحدود */
+            border: 1px solid #FFD700; /* **تعديل:** لون ذهبي/أصفر للحدود */
             box-shadow:
-                0 0 20px rgba(16, 185, 129, 0.5), /* **تعديل:** ظل أخضر نيون */
-                inset 0 0 10px rgba(16, 185, 129, 0.2);
+                0 0 20px rgba(255, 215, 0, 0.5), /* **تعديل:** ظل ذهبي/أصفر */
+                inset 0 0 10px rgba(255, 215, 0, 0.2);
             overflow: hidden;
             animation: menuSlideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
             position: absolute;
-            top: 8%; /* يبعد 8% من أعلى الشاشة */
-            left: 5%; /* يبعد 5% من يسار الشاشة */
+            top: 50%; /* **تعديل:** للمنتصف العمودي */
+            left: 50%; /* **تعديل:** للمنتصف الأفقي */
+            transform: translate(-50%, -50%); /* **تعديل:** لمركز العنصر نفسه */
             display: flex;
             flex-direction: column;
         }
@@ -61,12 +62,12 @@
         @keyframes menuSlideIn {
             0% {
                 opacity: 0;
-                transform: translateX(-50px) scale(0.95);
+                transform: translate(-50%, -50%) translateX(-50px) scale(0.95); /* تعديل ليتوافق مع التحريك للمنتصف */
                 filter: blur(10px);
             }
             100% {
                 opacity: 1;
-                transform: translateX(0) scale(1);
+                transform: translate(-50%, -50%) translateX(0) scale(1); /* تعديل ليتوافق مع التحريك للمنتصف */
                 filter: blur(0);
             }
         }
@@ -79,7 +80,7 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            border-bottom: 1px solid #10B981; /* **تعديل:** لون أخضر نيون */
+            border-bottom: 1px solid #FFD700; /* **تعديل:** لون ذهبي/أصفر */
             position: relative;
             overflow: hidden;
             flex-shrink: 0;
@@ -99,7 +100,7 @@
             font-size: 20px;
             font-weight: 700;
             letter-spacing: 1.5px;
-            text-shadow: 0 0 10px rgba(16, 185, 129, 0.8); /* **تعديل:** ظل أخضر نيون */
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.8); /* **تعديل:** ظل ذهبي/أصفر */
             text-transform: uppercase;
         }
 
@@ -108,14 +109,20 @@
         .menu-items {
             padding: 10px 0;
             flex-grow: 1;
-            overflow: hidden;
+            overflow-y: auto; /* **تعديل: إضافة سكرول بار إذا زادت العناصر عن الارتفاع** */
+            scrollbar-width: none; /* إخفاء سكرول بار Firefox */
+        }
+
+        /* إخفاء سكرول بار WebKit (Chrome, Safari) */
+        .menu-items::-webkit-scrollbar {
+            display: none;
         }
 
         .menu-item {
             display: flex;
             align-items: center;
             padding: 12px 30px;
-            border-bottom: 1px solid rgba(16, 185, 129, 0.1); /* **تعديل:** حدود خضراء نيون شفافة */
+            border-bottom: 1px solid rgba(255, 215, 0, 0.1); /* **تعديل:** حدود ذهبية/صفراء شفافة */
             cursor: pointer;
             transition: background-color 0.2s ease-in-out, border-left 0.2s ease-in-out, color 0.2s ease-in-out; /* **تعديل:** انتقالات سلسة */
             position: relative;
@@ -134,8 +141,8 @@
         }
 
         .menu-item.selected {
-            background-color: #2D3A3B; /* لون خلفية العنصر المحدد كما في الصورة */
-            border-left: 5px solid #32CD32; /* **تعديل:** حدود خضراء نيون (ليمون) سميكة */
+            background-color: rgba(255, 215, 0, 0.2); /* **تعديل:** خلفية ذهبية/صفراء شفافة عند التحديد */
+            border-left: 5px solid #FFD700; /* **تعديل:** حدود ذهبية/صفراء سميكة */
             padding-left: 25px;
             transform: translateX(0);
             box-shadow: none;
@@ -159,8 +166,8 @@
         .menu-item.selected .icon {
             opacity: 1;
             transform: scale(1.0);
-            filter: drop-shadow(0 0 10px rgba(50, 205, 50, 0.8)); /* **تعديل:** ظل أخضر نيون */
-            color: #32CD32; /* **تعديل:** لون أخضر نيون (ليمون) للأيقونة المحددة */
+            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.8)); /* **تعديل:** ظل ذهبي/أصفر */
+            color: #FFEA00; /* **تعديل:** لون أصفر نيون أفتح للأيقونة المحددة */
         }
 
         .menu-item .text {
@@ -188,9 +195,9 @@
         }
 
         .menu-item.selected .arrow {
-            color: #32CD32; /* **تعديل:** أخضر نيون (ليمون) عند التحديد */
+            color: #FFEA00; /* **تعديل:** أصفر نيون أفتح عند التحديد */
             transform: translateX(0);
-            filter: drop-shadow(0 0 8px #32CD32); /* **تعديل:** ظل أخضر نيون */
+            filter: drop-shadow(0 0 8px #FFEA00); /* **تعديل:** ظل ذهبي/أصفر */
             opacity: 1;
         }
 
@@ -201,7 +208,7 @@
             font-family: 'Roboto', sans-serif;
             font-size: 12px;
             color: #909090;
-            border-top: 1px solid rgba(16, 185, 129, 0.15); /* **تعديل:** حدود خضراء نيون شفافة */
+            border-top: 1px solid rgba(255, 215, 0, 0.15); /* **تعديل:** حدود ذهبية/صفراء شفافة */
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -236,13 +243,13 @@
         }
 
         .notification {
-            background: #2D3A3B;
-            border: 1px solid #32CD32; /* **تعديل:** حدود خضراء نيون */
+            background: #2D2D2D;
+            border: 1px solid #FFD700; /* **تعديل:** حدود ذهبية/صفراء */
             padding: 14px 20px;
             border-radius: 8px;
             min-width: 280px;
             max-width: 350px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), 0 0 10px rgba(50, 205, 50, 0.4); /* **تعديل:** ظل أخضر نيون */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), 0 0 10px rgba(255, 215, 0, 0.4); /* **تعديل:** ظل ذهبي/أصفر */
             display: flex;
             align-items: center;
             animation: notificationSlideIn 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
@@ -279,8 +286,8 @@
         .notification-icon {
             font-size: 24px;
             margin-right: 10px;
-            color: #32CD32; /* **تعديل:** أيقونة إشعار باللون الأخضر النيون */
-            filter: drop-shadow(0 0 6px #32CD32);
+            color: #FFEA00; /* **تعديل:** أيقونة إشعار باللون الأصفر النيون */
+            filter: drop-shadow(0 0 6px #FFEA00);
             animation: iconPulse 1.5s infinite ease-in-out;
         }
 
@@ -313,7 +320,7 @@
         .notification-timer {
             width: 100%;
             height: 3px;
-            background: #32CD32; /* **تعديل:** شريط الإشعار باللون الأخضر النيون */
+            background: #FFD700; /* **تعديل:** شريط الإشعار باللون الذهبي */
             position: absolute;
             bottom: 0;
             left: 0;
@@ -372,7 +379,8 @@
         </div>
 
         <div class="menu-footer">
-            <span class="version">Version: Beta | 24hrs ago</span> <span class="counter">5/9</span>
+            <span class="version">Version: Beta | 24hrs ago</span>
+            <span class="counter">5/9</span>
         </div>
     </div>
 
@@ -391,8 +399,8 @@
         // تحديث مصفوفة menuOptions لتشمل Font Awesome icons
         const menuOptions = [
             { name: "Self", icon: '<i class="fa-solid fa-user"></i>', desc: "Player Options" },
-            { name: "Online", icon: '<i class="fa-solid fa-desktop"></i>', desc: "Online Features" }, // **تغيير الأيقونة**
-            { name: "Combat/Weapons", icon: '<i class="fa-solid fa-crosshairs"></i>', desc: "Weapon System" }, // **تغيير الأيقونة**
+            { name: "Online", icon: '<i class="fa-solid fa-desktop"></i>', desc: "Online Features" },
+            { name: "Combat/Weapons", icon: '<i class="fa-solid fa-crosshairs"></i>', desc: "Weapon System" },
             { name: "Visual", icon: '<i class="fa-solid fa-eye"></i>', desc: "Visual Effects" },
             { name: "Vehicle", icon: '<i class="fa-solid fa-car"></i>', desc: "Vehicle Menu" },
             { name: "Miscellaneous", icon: '<i class="fa-solid fa-folder-open"></i>', desc: "Other Options" },

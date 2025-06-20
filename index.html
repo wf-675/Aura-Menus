@@ -35,9 +35,9 @@
 
         /* حاوية القائمة الرئيسية */
         .menu-container {
-            width: 410px; /* **تعديل:** عرض المنيو ليتناسب مع الصورة الأخيرة (أعرض قليلاً من 380px) */
+            width: 410px; /* **تعديل:** عرض المنيو ليتناسب مع الصورة الأخيرة */
             height: auto;
-            min-height: 680px; /* **تعديل:** ارتفاع المنيو ليتناسب مع الصورة الأخيرة (أطول قليلاً) */
+            min-height: 680px; /* **تعديل:** ارتفاع المنيو ليتناسب مع الصورة الأخيرة */
             
             background-color: rgba(0, 0, 0, 0.9);
             border-radius: 10px;
@@ -58,22 +58,7 @@
             display: none !important;
         }
 
-        @keyframes menuSlideIn {
-            0% {
-                opacity: 0;
-                transform: translate(-50%, -50%) translateX(-50px) scale(0.95); /* تعديل ليتوافق مع التحريك للمنتصف */
-                filter: blur(10px);
-            }
-            100% {
-                opacity: 1;
-                transform: translate(0, 0) translateX(0) scale(1); /* تعديل ليتوافق مع التحريك من الزاوية */
-                filter: blur(0);
-            }
-        }
-        /* لتصحيح الـ transform في animation بما أننا نستخدم top/left */
-        .menu-container {
-            animation: menuSlideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
+        /* تعديل الـ keyframes لتتوافق مع الوضع المطلق والتحريك من الزاوية */
         @keyframes menuSlideIn {
             0% {
                 opacity: 0;

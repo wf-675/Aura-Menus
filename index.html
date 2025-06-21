@@ -27,7 +27,8 @@
         .menu-container {
             width: 370px;
             height: 530px; 
-            background: rgba(12, 12, 12, 0.95);
+            /* هنا شفافية خلفية المنيو السوداء */
+            background: rgba(12, 12, 12, 0.50); /* تم تغيير الشفافية هنا إلى 0.85 */
             border-radius: 8px;
             position: absolute;
             top: 90px;
@@ -68,7 +69,7 @@
 
         .menu-items {
             padding: 4px 0;
-            height: calc(100% - 150px - 32px); /* الارتفاع الكلي للقائمة - ارتفاع البنر - ارتفاع التذييل */
+            height: calc(100% - 150px - 32px); 
             overflow-y: hidden; 
             position: relative;
             display: flex;
@@ -79,33 +80,8 @@
             display: none;
         }
 
-        /* شريط التمرير الخارجي والداخلي - تم حذف هذا القسم بناءً على طلبك السابق لكونه "ما ضبط" */
-        /*
-        .external-slider {
-            position: absolute;
-            left: -20px; 
-            top: calc(150px + 4px); 
-            height: calc(100% - 150px - 32px - 8px); 
-            width: 4px;
-            background: rgba(255, 255, 0, 0.15); 
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            border-radius: 2px;
-            z-index: 10;
-        }
-
-        .slider-thumb {
-            position: absolute;
-            left: 0;
-            width: 4px; 
-            height: 38px; 
-            background: rgb(255, 255, 0); 
-            border-radius: 2px;
-            transition: top 0.3s cubic-bezier(0.4, 0.0, 0.2, 1); 
-            box-shadow: 0 1px 5px rgba(255, 255, 0, 0.4); 
-        }
-        */
-
+        /* تم إزالة أكواد شريط التمرير الخارجي بناءً على طلبك السابق */
+        
         .menu-item {
             display: flex;
             align-items: center;
@@ -379,8 +355,8 @@
     </div>
 
     <script>
-        // === هنا تضع رابط صورة البنر لتعديله بسهولة ===
-        const bannerImageUrl = 'https://media.discordapp.net/attachments/1385473748068728922/1385867972425547870/e894689b-7900-41ef-a713-f127a60031c2.png?ex=6857a1a0&is=68565020&hm=a1254a9aa22432befccb4f94faebe2b800f130145797c6bd117b657cc23899c2&=&format=webp&quality=lossless&width=1392&height=928'; // ضع رابط صورتك هنا
+        // === هنا تضع رابط صورة البنر لتعديله بسهولة ===// هنا تحط رابط البنر 
+        const bannerImageUrl = 'https://media.discordapp.net/attachments/1385473748068728922/1385867972425547870/e894689b-7900-41ef-a713-f127a60031c2.png?ex=6857a1a0&is=68565020&hm=a1254a9aa22432befccb4f94faebe2b800f130145797c6bd117b657cc23899c2&=&format=webp&quality=lossless&width=1392&height=928'; // ضع رابط صورتك هنا (مثال لصورة صفراء 370x150)
         // ===========================================
 
         console.log('🌟 Lean Menu - Final Yellow Glassmorphism Theme');
@@ -390,8 +366,6 @@
         const counter = document.querySelector('.counter');
         const notificationContainer = document.getElementById('notificationContainer');
         const menuContainer = document.querySelector('.menu-container');
-        // تم إزالة تعريف sliderThumb هنا لأنه لم يعد موجودًا في HTML
-        // const sliderThumb = document.getElementById('sliderThumb'); 
         const highlightBar = document.querySelector('.highlight-bar');
 
         const menuOptions = [
@@ -431,34 +405,8 @@
                     highlightBar.style.top = `${topPosition}px`;
                 }
 
-                // تم حذف جزء تحديث sliderThumb هنا لأنه لم يعد موجودًا
-                /*
-                if (sliderThumb) {
-                    const itemHeight = menuItems[0].offsetHeight;
-                    const menuItemsContainer = document.querySelector('.menu-items');
-                    const externalSliderTrack = document.querySelector('.external-slider');
-
-                    const scrollableContentHeight = menuItemsContainer.scrollHeight; 
-                    const visibleMenuItemsHeight = menuItemsContainer.offsetHeight;
-                    const thumbTrackHeight = externalSliderTrack.offsetHeight;
-                    const thumbHeight = sliderThumb.offsetHeight;
-
-                    let thumbTop = 0;
-                    if (scrollableContentHeight > visibleMenuItemsHeight && menuItems.length > 1) {
-                        const maxScroll = scrollableContentHeight - visibleMenuItemsHeight;
-                        const currentScroll = currentIndex * itemHeight;
-                        const scrollPercentage = currentScroll / maxScroll;
-                        const maxThumbTravel = thumbTrackHeight - thumbHeight;
-                        thumbTop = scrollPercentage * maxThumbTravel;
-                    } else if (menuItems.length > 1) { 
-                        const maxThumbTravel = thumbTrackHeight - thumbHeight;
-                        thumbTop = (currentIndex / (menuItems.length - 1)) * maxThumbTravel;
-                    }
-                    
-                    sliderThumb.style.top = `${thumbTop}px`;
-                }
-                */
-
+                // تم إزالة جزء تحديث sliderThumb هنا لأنه لم يعد موجودًا في HTML
+                
                 counter.textContent = `${currentIndex + 1}/${menuItems.length}`;
             }
         }
@@ -523,7 +471,7 @@
                 });
             });
             
-            // استدعاء دالة تعيين صورة البنر هنا
+            // استدعاء دالة تعيين صورة البنر هنا لتطبيق الصورة الافتراضية
             setHeaderImage(bannerImageUrl); 
         });
 
@@ -550,7 +498,7 @@
                 } else if (data.type === 'hideMenu') {
                     menuContainer.style.display = 'none';
                 } else if (data.type === 'setHeaderImage') {
-                    setHeaderImage(data.imageUrl); // هذا يستقبل الصورة من FiveM إذا أرسلت
+                    setHeaderImage(data.imageUrl); 
                 }
             } catch (error) {
                 console.error('Error processing message from FiveM:', error);

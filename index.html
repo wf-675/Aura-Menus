@@ -28,9 +28,9 @@
         .menu-container {
             width: 370px;
             height: 530px; 
-            /* التعديل هنا: استخدام opacity لجعل الخلفية شفافة بالكامل (بما في ذلك المحتوى) */
-            background: rgb(12, 12, 12); /* لون أسود صلب للخلفية */
-            opacity: 0.85; /* تطبيق الشفافية على العنصر بالكامل */
+            /* التعديل هنا: خلفية شفافة بنسبة 50% (رمادي داكن) بدون تأثير بلوري */
+            background: rgba(0, 0, 0, 0.5); /* لون أسود تمامًا مع شفافية 50% */
+            /* تم إزالة backdrop-filter و -webkit-backdrop-filter هنا */
             border-radius: 8px;
             position: absolute;
             top: 90px;
@@ -106,10 +106,9 @@
             left: 0;
             width: 100%;
             height: 38px;
-            /* هذا سيظل بلورياً، مما قد يعطي تأثيراً جميلاً إذا كانت opacity تعمل */
-            background: rgba(255, 255, 0, 0.1); 
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
+            background: rgba(255, 255, 0, 0.1); /* أصفر شفاف بلوري للمربع المتحرك */
+            backdrop-filter: blur(5px); /* هذا قد لا يعمل في FiveM */
+            -webkit-backdrop-filter: blur(5px); /* هذا قد لا يعمل في FiveM */
             z-index: 1; 
             transition: top 0.4s ease-out;
         }
@@ -169,8 +168,8 @@
         .menu-footer {
             /* الحفاظ على البلورية في التذييل */
             background: rgba(8, 8, 8, 0.7); 
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px); /* هذا قد لا يعمل في FiveM */
+            -webkit-backdrop-filter: blur(8px); /* هذا قد لا يعمل في FiveM */
             padding: 8px 16px;
             font-family: 'Roboto', sans-serif;
             font-size: 11px;
@@ -194,8 +193,8 @@
             font-size: 11px;
             padding: 2px 5px;
             background: rgba(255, 255, 0, 0.15); 
-            backdrop-filter: blur(3px);
-            -webkit-backdrop-filter: blur(3px);
+            backdrop-filter: blur(3px); /* هذا قد لا يعمل في FiveM */
+            -webkit-backdrop-filter: blur(3px); /* هذا قد لا يعمل في FiveM */
             border-radius: 6px;
         }
 
@@ -212,8 +211,8 @@
         .notification {
             /* الحفاظ على البلورية في الإشعارات */
             background: rgba(12, 12, 12, 0.85); 
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px); /* هذا قد لا يعمل في FiveM */
+            -webkit-backdrop-filter: blur(12px); /* هذا قد لا يعمل في FiveM */
             border: 1px solid rgba(255, 255, 0, 0.5);
             padding: 14px 18px;
             border-radius: 10px;

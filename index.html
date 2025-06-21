@@ -11,7 +11,6 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            /* إضافة هذه الخصائص لتحسين جودة عرض الخطوط */
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             text-rendering: optimizeLegibility;
@@ -20,33 +19,37 @@
         html, body {
             width: 100%;
             height: 100%;
-            background: transparent; /* تأكد من أن الخلفية شفافة تماماً */
+            background: transparent !important; /* تأكد أن الخلفية شفافة تماماً */
             overflow: hidden;
             font-family: 'Roboto', sans-serif;
         }
 
         .menu-container {
-            width: 380px; /* **عرض المنيو من الصورة الأخيرة** */
-            height: 600px; /* **ارتفاع المنيو من الصورة الأخيرة** */
-            background: rgba(12, 12, 12, 0.96); /* **لون خلفية المنيو من الصورة** */
+            width: 380px; /* عرض المنيو من الصورة الأخيرة */
+            height: 600px; /* ارتفاع المنيو من الصورة الأخيرة */
+            background: rgba(12, 12, 12, 0.7); /* **تعديل هنا: alpha إلى 0.7، مثل كودك القديم الذي يعمل للشفافية** */
             border-radius: 10px;
             position: absolute;
-            top: 100px; /* **موضع Y من الصورة** */
-            left: 95px; /* **موضع X من الصورة** */
+            top: 100px; /* موضع Y من الصورة */
+            left: 95px; /* موضع X من الصورة */
             overflow: hidden;
             box-shadow: 
                 0 8px 32px rgba(0, 0, 0, 0.6),
                 0 0 0 1px rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px); /* تأثير الضبابية للخلفية */
+            /* **تعديل هنا: إزالة backdrop-filter تماماً، لأنه كان سبب المشكلة** */
+            /* backdrop-filter: blur(10px); */ 
+            /* -webkit-backdrop-filter: blur(10px); */
         }
 
         .menu-header {
-            height: 120px; /* **ارتفاع رأس القائمة من الصورة** */
-            background: linear-gradient(135deg, #1a4d3a 0%, #0d2818 100%); /* **تدرج لوني لرأس القائمة من الصورة** */
+            height: 120px; /* ارتفاع رأس القائمة من الصورة */
+            background: linear-gradient(135deg, #1a4d3a 0%, #0d2818 100%); /* تدرج لوني لرأس القائمة من الصورة */
             position: relative;
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
+            /* **لإضافة صورة LEAN MENU في الهيدر، ضع هذا السطر وعدل الرابط:** */
+            /* background-image: url('https://i.imgur.com/your_lean_menu_image.png'); */
         }
 
         .header-home-text {
@@ -54,7 +57,7 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.7); /* **تعديل: alpha إلى 0.7** */
             color: #ffffff;
             font-family: 'Roboto', sans-serif;
             font-size: 13px;
@@ -68,18 +71,18 @@
         .menu-items {
             padding: 6px 0;
             overflow-y: auto;
-            height: 450px; /* **ارتفاع منطقة العناصر من الصورة** */
+            height: 450px; /* ارتفاع منطقة العناصر من الصورة */
             position: relative;
         }
 
         /* السلايدر الخارجي على اليسار - تفاصيل دقيقة من الصورة */
         .external-slider {
             position: absolute;
-            left: -15px; /* **موضع X للسلايدر من الصورة** */
-            top: 126px; /* **موضع Y للسلايدر ليبدأ بعد البنر** */
+            left: -15px; /* موضع X للسلايدر من الصورة */
+            top: 126px; /* موضع Y للسلايدر ليبدأ بعد البنر */
             width: 6px;
-            height: 450px; /* **ارتفاع السلايدر ليتناسب مع .menu-items** */
-            background: rgba(34, 197, 94, 0.2); /* **لون شفاف للسلايدر** */
+            height: 450px; /* ارتفاع السلايدر ليتناسب مع .menu-items */
+            background: rgba(34, 197, 94, 0.2); /* لون شفاف للسلايدر */
             border-radius: 3px;
             z-index: 10;
         }
@@ -88,10 +91,10 @@
             position: absolute;
             left: 0;
             width: 6px;
-            height: 44px; /* **ارتفاع السلايدر الثمب من الصورة** */
-            background: #22c55e; /* **لون أخضر للسلايدر الثمب** */
+            height: 44px; /* ارتفاع السلايدر الثمب من الصورة */
+            background: #22c55e; /* لون أخضر للسلايدر الثمب */
             border-radius: 3px;
-            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1); /* **سلاسة حركة السلايدر** */
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1); 
             box-shadow: 0 2px 8px rgba(34, 197, 94, 0.4);
         }
 
@@ -102,26 +105,26 @@
         .menu-item {
             display: flex;
             align-items: center;
-            padding: 8px 16px; /* **بادينغ عناصر القائمة من الصورة** */
+            padding: 8px 16px; /* بادينغ عناصر القائمة من الصورة */
             margin: 1px 0;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
             position: relative;
             background: transparent;
-            border-left: 3px solid transparent; /* **عرض خط التحديد من الصورة** */
-            min-height: 47px; /* **ارتفاع عناصر القائمة من الصورة** */
+            border-left: 3px solid transparent; 
+            min-height: 47px; /* ارتفاع عناصر القائمة من الصورة */
         }
 
         .menu-item:hover {
-            background: rgba(34, 197, 94, 0.08); /* **لون خلفية عند التحويم من الصورة** */
-            border-left: 3px solid rgba(34, 197, 94, 0.4); /* **لون خط عند التحويم من الصورة** */
-            transform: translateX(2px); /* **حركة بسيطة عند التحويم** */
+            background: rgba(34, 197, 94, 0.08); /* لون خلفية عند التحويم من الصورة */
+            border-left: 3px solid rgba(34, 197, 94, 0.4); /* لون خط عند التحويم من الصورة */
+            transform: translateX(2px); 
         }
 
         .menu-item.selected {
-            background: rgba(34, 197, 94, 0.12); /* **لون خلفية العنصر المحدد من الصورة** */
-            border-left: 3px solid #22c55e; /* **لون خط العنصر المحدد من الصورة** */
-            transform: translateX(4px); /* **حركة أعمق للعنصر المحدد** */
+            background: rgba(34, 197, 94, 0.12); /* لون خلفية العنصر المحدد من الصورة */
+            border-left: 3px solid #22c55e; /* لون خط العنصر المحدد من الصورة */
+            transform: translateX(4px); 
         }
 
         .menu-item.selected::after {
@@ -138,60 +141,60 @@
         }
 
         .menu-item .icon {
-            width: 20px; /* **حجم أيقونة من الصورة** */
+            width: 20px; /* حجم أيقونة من الصورة */
             height: 20px;
             margin-right: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px; /* **حجم خط أيقونة Font Awesome من الصورة** */
-            color: #9ca3af; /* **لون أيقونة غير محددة من الصورة** */
+            font-size: 14px; /* حجم خط أيقونة Font Awesome من الصورة */
+            color: #9ca3af; /* لون أيقونة غير محددة من الصورة */
             transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
         }
 
         .menu-item.selected .icon {
-            color: #22c55e; /* **لون أيقونة محددة من الصورة** */
+            color: #22c55e; /* لون أيقونة محددة من الصورة */
         }
 
         .menu-item .icon i {
             display: block;
-            font-size: 14px; /* **حجم خط أيقونة Font Awesome من الصورة (تكرار للوضوح)** */
+            font-size: 14px; 
         }
 
         .menu-item .text {
             flex: 1;
             font-family: 'Roboto', sans-serif;
-            font-size: 14px; /* **حجم خط نص العنصر من الصورة** */
+            font-size: 14px; /* حجم خط نص العنصر من الصورة */
             font-weight: 500;
-            color: #e5e7eb; /* **لون نص العنصر غير المحدد من الصورة** */
+            color: #e5e7eb; /* لون نص العنصر غير المحدد من الصورة */
             transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
         }
 
         .menu-item.selected .text {
-            color: #22c55e; /* **لون نص العنصر المحدد من الصورة** */
+            color: #22c55e; /* لون نص العنصر المحدد من الصورة */
             font-weight: 600;
         }
 
         .menu-item .arrow {
-            font-size: 12px; /* **حجم السهم من الصورة** */
-            color: #6b7280; /* **لون السهم من الصورة** */
+            font-size: 12px; /* حجم السهم من الصورة */
+            color: #6b7280; /* لون السهم من الصورة */
             transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
             font-weight: bold;
             margin-left: 8px;
         }
 
         .menu-item.selected .arrow {
-            color: #22c55e; /* **لون السهم المحدد من الصورة** */
-            transform: translateX(2px); /* **حركة بسيطة للسهم المحدد** */
+            color: #22c55e; /* لون السهم المحدد من الصورة */
+            transform: translateX(2px);
         }
 
         .menu-footer {
-            background: rgba(8, 8, 8, 0.9); /* **لون خلفية الفوتر من الصورة** */
+            background: rgba(8, 8, 8, 0.9); /* لون خلفية الفوتر من الصورة */
             padding: 8px 16px;
             font-family: 'Roboto', sans-serif;
             font-size: 11px;
             color: #9ca3af;
-            border-top: 1px solid rgba(34, 197, 94, 0.15); /* **حدود الفوتر من الصورة** */
+            border-top: 1px solid rgba(34, 197, 94, 0.15); /* حدود الفوتر من الصورة */
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -199,16 +202,16 @@
         }
 
         .menu-footer .version {
-            color: #9ca3af; /* **لون نص الفوتر من الصورة** */
+            color: #9ca3af; /* لون نص الفوتر من الصورة */
             font-weight: 500;
         }
 
         .menu-footer .counter {
-            color: #22c55e; /* **لون عداد الفوتر من الصورة** */
+            color: #22c55e; /* لون عداد الفوتر من الصورة */
             font-weight: 600;
             font-size: 11px;
             padding: 2px 6px;
-            background: rgba(34, 197, 94, 0.1); /* **خلفية العداد من الصورة** */
+            background: rgba(34, 197, 94, 0.1); /* خلفية العداد من الصورة */
             border-radius: 8px;
         }
 
@@ -223,8 +226,8 @@
         }
 
         .notification {
-            background: rgba(12, 12, 12, 0.96); /* **خلفية الإشعار من الصورة** */
-            border: 1px solid rgba(34, 197, 94, 0.3); /* **حدود الإشعار من الصورة** */
+            background: rgba(12, 12, 12, 0.96); /* خلفية الإشعار من الصورة */
+            border: 1px solid rgba(34, 197, 94, 0.3); /* حدود الإشعار من الصورة */
             padding: 14px 18px;
             border-radius: 10px;
             min-width: 260px;
@@ -237,7 +240,9 @@
             animation: notificationSlideIn 0.4s ease forwards;
             opacity: 0;
             transform: translateY(20px);
-            backdrop-filter: blur(10px); /* تأثير الضبابية */
+            /* **تعديل هنا: إزالة backdrop-filter تماماً، لأنه كان سبب المشكلة** */
+            /* backdrop-filter: blur(10px); */ 
+            /* -webkit-backdrop-filter: blur(10px); */
         }
 
         .notification.fade-out {
@@ -265,7 +270,7 @@
         .notification-icon {
             font-size: 18px;
             margin-right: 10px;
-            color: #22c55e; /* **لون أيقونة الإشعار من الصورة** */
+            color: #22c55e; /* لون أيقونة الإشعار من الصورة */
         }
 
         .notification-text {
@@ -290,7 +295,7 @@
         .notification-timer {
             width: 100%;
             height: 2px;
-            background: #22c55e; /* **لون شريط الإشعار من الصورة** */
+            background: #22c55e; /* لون شريط الإشعار من الصورة */
             position: absolute;
             bottom: 0;
             left: 0;
@@ -321,11 +326,13 @@
                 <div class="arrow">»</div>
             </div>
             <div class="menu-item" data-index="1" data-action="online">
-                <div class="icon"><i class="fa-solid fa-desktop"></i></div> <div class="text">Online</div>
+                <div class="icon"><i class="fa-solid fa-desktop"></i></div>
+                <div class="text">Online</div>
                 <div class="arrow">»</div>
             </div>
             <div class="menu-item" data-index="2" data-action="combat">
-                <div class="icon"><i class="fa-solid fa-crosshairs"></i></div> <div class="text">Combat/Weapons</div>
+                <div class="icon"><i class="fa-solid fa-crosshairs"></i></div>
+                <div class="text">Combat/Weapons</div>
                 <div class="arrow">»</div>
             </div>
             <div class="menu-item" data-index="3" data-action="visual">
@@ -344,7 +351,8 @@
                 <div class="arrow">»</div>
             </div>
             <div class="menu-item" data-index="6" data-action="destructive">
-                <div class="icon"><i class="fa-solid fa-bomb"></i></div> <div class="text">Destructive</div>
+                <div class="icon"><i class="fa-solid fa-bomb"></i></div>
+                <div class="text">Destructive</div>
                 <div class="arrow">»</div>
             </div>
             <div class="menu-item" data-index="7" data-action="triggers">
@@ -376,7 +384,7 @@
         const counter = document.querySelector('.counter');
         const notificationContainer = document.getElementById('notificationContainer');
         const menuContainer = document.querySelector('.menu-container');
-        const sliderThumb = document.getElementById('sliderThumb'); // جلب عنصر السلايدر ثامب
+        const sliderThumb = document.getElementById('sliderThumb'); 
 
         const menuOptions = [
             { name: "Self", icon: '<i class="fa-solid fa-user"></i>', desc: "Player Options" },
@@ -412,9 +420,8 @@
             });
 
             // تحديث موضع السلايدر الخارجي
-            // تأكد من أن sliderThumb موجود قبل محاولة تعديله
             if (sliderThumb) {
-                const itemHeight = menuItems[0] ? menuItems[0].offsetHeight : 47; // استخدم ارتفاع العنصر الفعلي أو قيمة افتراضية
+                const itemHeight = menuItems[0] ? menuItems[0].offsetHeight : 47; // ارتفاع العنصر الفعلي أو قيمة افتراضية
                 const topPosition = currentIndex * itemHeight;
                 sliderThumb.style.top = `${topPosition}px`;
             }
@@ -483,7 +490,7 @@
             });
 
             // مثال لاستخدام صورة مخصصة لرأس القائمة:
-             setHeaderImage('https://media.discordapp.net/attachments/1385406372740464710/1385410059391205510/Gemini_Generated_Image_safm9ssafm9ssafm.png?ex=68569fe9&is=68554e69&hm=016824a8db20976740a2ee6def4e219cc223b34526f6d5718428266c45abc26e&=&format=webp&quality=lossless'); 
+            // setHeaderImage('https://i.imgur.com/your_lean_menu_image.png'); 
         });
 
         window.addEventListener('message', function(event) {
@@ -504,7 +511,7 @@
                 } else if (data.type === 'enter') {
                     selectEffect(currentIndex);
                 } else if (data.type === 'showMenu') {
-                    menuContainer.style.display = 'block'; // استخدم 'block' ليتوافق مع .menu-container الأصلي
+                    menuContainer.style.display = 'block'; 
                     updateSelection(data.currentIndex !== undefined ? data.currentIndex : currentIndex);
                 } else if (data.type === 'hideMenu') {
                     menuContainer.style.display = 'none';

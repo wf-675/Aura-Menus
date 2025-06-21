@@ -25,54 +25,56 @@
         }
 
         .menu-container {
-            width: 350px; /* **تعديل: عرض أصغر قليلاً** */
-            height: 520px; /* **تعديل: ارتفاع أقصر بكثير للمنيو بأكمله** */
-            background: rgba(12, 12, 12, 0.7); /* شفافية 0.7 */
-            border-radius: 8px; /* حواف أقل استدارة */
+            width: 380px; /* عرض المنيو من الصورة الأخيرة */
+            /* **تعديل هنا:** حساب الارتفاع ليتناسب مع المحتوى بالضبط */
+            /* Header (120px) + menu-items (440px) + footer (32px) + menu-items padding (4px top + 4px bottom) = 120 + 440 + 32 + 8 = 600px */
+            height: 600px; 
+            background: rgba(12, 12, 12, 0.85); /* **تعديل: تقليل الشفافية إلى 0.85** */
+            border-radius: 10px;
             position: absolute;
-            top: 80px; /* **تعديل: موضع أعلى قليلاً** */
-            left: 80px; /* **تعديل: موضع أقرب للزاوية** */
+            top: 100px; /* موضع Y من الصورة */
+            left: 95px; /* موضع X من الصورة */
             overflow: hidden;
             box-shadow: 
-                0 6px 20px rgba(0, 0, 0, 0.5), /* ظل أخف */
-                0 0 0 1px rgba(255, 255, 255, 0.03); /* حدود رقيقة جداً */
-            display: flex; /* لكي يعمل flex-direction: column */
-            flex-direction: column;
+                0 8px 32px rgba(0, 0, 0, 0.6),
+                0 0 0 1px rgba(255, 255, 255, 0.05);
         }
 
         .menu-header {
-            height: 100px; /* **تعديل: ارتفاع الهيدر أقصر** */
-            background: linear-gradient(135deg, #1a4d3a 0%, #0d2818 100%);
+            height: 120px; 
+            background: linear-gradient(135deg, rgba(26, 77, 58, 0.9) 0%, rgba(13, 40, 24, 0.9) 100%); /* قيم rgba معدلة */
             position: relative;
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            display: flex;
-            justify-content: center;
-            align-items: flex-end; /* ليبقى HOME في الأسفل */
-            padding-bottom: 8px; /* تباعد HOME عن الأسفل */
+            /* إذا أردت صورة LEAN MENU، ضعها هنا كـ background-image: url('URL_صورة_LEAN_MENU.png'); */
         }
 
         .header-home-text {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.85); /* **تعديل: تقليل الشفافية إلى 0.85** */
             color: #ffffff;
             font-family: 'Roboto', sans-serif;
-            font-size: 12px; /* **تعديل: خط HOME أصغر** */
+            font-size: 13px;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1px;
             text-align: center;
-            background: rgba(0, 0, 0, 0.5); /* خلفية شفافة لـ HOME */
-            padding: 4px 10px; /* بادينغ أصغر لـ HOME */
-            border-radius: 4px;
+            padding: 8px;
         }
 
         .menu-items {
             padding: 4px 0; /* **تعديل: بادينغ عام أقل لعناصر القائمة** */
-            flex-grow: 1; /* لتأخذ المساحة المتبقية */
-            overflow-y: auto; /* لإظهار سكرول بار إذا لزم الأمر */
-            scrollbar-width: none; /* إخفاء سكرول بار Firefox */
+            /* **تعديل هنا:** ارتفاع ثابت ليتناسب مع 9 عناصر بالضبط */
+            /* 9 عناصر * 47px (min-height + padding) = 423px + 4px*2 (menu-items padding) = 431px. تقريباً 440px مع أي بكسلات غير محسوبة */
+            height: 440px; 
+            overflow-y: hidden; /* **تعديل: إخفاء السكرول بار لأنه لم يعد هناك فراغ** */
+            position: relative;
             display: flex;
-            flex-direction: column; /* لجعل العناصر تحت بعضها */
+            flex-direction: column;
         }
 
         .menu-items::-webkit-scrollbar {
@@ -81,11 +83,11 @@
 
         .external-slider {
             position: absolute;
-            left: -12px; /* **تعديل: موضع X أقرب للمنيو** */
-            top: 104px; /* **تعديل: موضع Y بعد الهيدر** */
-            width: 4px; /* **تعديل: عرض السلايدر أرفع** */
-            height: 380px; /* **تعديل: ارتفاع السلايدر ليتناسب مع العناصر الجديدة** */
-            background: rgba(34, 197, 94, 0.1); /* لون شفاف للسلايدر */
+            left: -12px; 
+            top: 124px; /* **تعديل: موضع Y بعد الهيدر وبادينغ menu-items** */
+            width: 4px; 
+            height: 440px; /* **تعديل: ارتفاع السلايدر ليتناسب مع menu-items** */
+            background: rgba(34, 197, 94, 0.1); 
             border-radius: 2px;
             z-index: 10;
         }
@@ -93,37 +95,37 @@
         .slider-thumb {
             position: absolute;
             left: 0;
-            width: 4px; /* **تعديل: عرض الثمب أرفع** */
-            height: 38px; /* **تعديل: ارتفاع الثمب ليتناسب مع عنصر المنيو المصغر** */
+            width: 4px; 
+            height: 38px; /* ارتفاع الثمب ليتناسب مع عنصر المنيو المصغر */
             background: #22c55e;
             border-radius: 2px;
-            transition: all 0.2s ease-out; /* **انتقال أسرع وأكثر سلاسة** */
-            box-shadow: 0 1px 5px rgba(34, 197, 94, 0.3); /* ظل أخف */
+            transition: all 0.2s ease-out; 
+            box-shadow: 0 1px 5px rgba(34, 197, 94, 0.3);
         }
 
         .menu-item {
             display: flex;
             align-items: center;
-            padding: 5px 12px; /* **تعديل: بادينغ أصغر لعنصر المنيو** */
-            margin: 0; /* إزالة المارجن بين العناصر لتقريبها */
+            padding: 5px 12px; /* بادينغ أصغر لعنصر المنيو */
+            margin: 0; /* إزالة المارجن لتقريب العناصر */
             cursor: pointer;
-            transition: all 0.2s ease-out; /* **انتقالات سريعة وسلسة** */
+            transition: all 0.2s ease-out; 
             position: relative;
             background: transparent;
-            border-left: 2px solid transparent; /* **تعديل: خط تحديد أرفع** */
-            min-height: 38px; /* **تعديل: ارتفاع العنصر أقصر** */
+            border-left: 2px solid transparent; 
+            min-height: 38px; /* ارتفاع العنصر أقصر */
         }
 
         .menu-item:hover {
-            background: rgba(34, 197, 94, 0.05); /* تأثير تحويم أخف */
-            border-left: 2px solid rgba(34, 197, 94, 0.3); /* خط تحديد أخف عند التحويم */
-            transform: translateX(1px); /* حركة بسيطة جداً */
+            background: rgba(34, 197, 94, 0.05); 
+            border-left: 2px solid rgba(34, 197, 94, 0.3); 
+            transform: translateX(0); /* إزالة الحركة الزائدة */
         }
 
         .menu-item.selected {
-            background: rgba(34, 197, 94, 0.1); /* خلفية عند التحديد */
-            border-left: 2px solid #22c55e; /* خط تحديد ساطع عند التحديد */
-            transform: translateX(2px); /* حركة بسيطة جداً */
+            background: rgba(34, 197, 94, 0.1); 
+            border-left: 2px solid #22c55e; 
+            transform: translateX(0); /* إزالة الحركة الزائدة */
             box-shadow: none; /* إزالة الظل للتحديد لجعلها أنظف */
         }
 
@@ -132,60 +134,60 @@
         }
 
         .menu-item .icon {
-            width: 20px; /* حجم الأيقونة */
+            width: 20px; 
             height: 20px;
-            margin-right: 10px; /* مسافة أيقونة أصغر */
+            margin-right: 10px; 
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 13px; /* **تعديل: حجم خط الأيقونة أصغر** */
-            color: #b0b0b0; /* لون أيقونة أفتح قليلاً */
+            font-size: 13px; 
+            color: #b0b0b0; 
             transition: all 0.2s ease-out;
         }
 
         .menu-item.selected .icon {
-            color: #22c55e; /* لون أيقونة ساطع عند التحديد */
+            color: #22c55e; 
             transform: scale(1.0); /* إزالة التكبير */
         }
 
         .menu-item .text {
             flex: 1;
             font-family: 'Roboto', sans-serif;
-            font-size: 13px; /* **تعديل: حجم خط النص أصغر** */
+            font-size: 13px; 
             font-weight: 500;
-            color: #e0e0e0; /* لون نص أفتح قليلاً */
+            color: #e0e0e0; 
             transition: all 0.2s ease-out;
         }
 
         .menu-item.selected .text {
-            color: #ffffff; /* نص أبيض عند التحديد */
+            color: #ffffff; 
             font-weight: 600;
         }
 
         .menu-item .arrow {
-            font-size: 11px; /* **تعديل: حجم السهم أصغر** */
-            color: #606060; /* لون سهم أغمق */
+            font-size: 11px; 
+            color: #606060; 
             transition: all 0.2s ease-out;
             font-weight: bold;
             margin-left: 6px;
         }
 
         .menu-item.selected .arrow {
-            color: #22c55e; /* سهم ساطع عند التحديد */
+            color: #22c55e; 
             transform: translateX(0); /* إزالة الحركة */
         }
 
         .menu-footer {
             background: rgba(8, 8, 8, 0.9);
-            padding: 6px 12px; /* **تعديل: بادينغ أصغر للفوتر** */
+            padding: 6px 12px; /* بادينغ أصغر للفوتر */
             font-family: 'Roboto', sans-serif;
-            font-size: 10px; /* **تعديل: خط الفوتر أصغر** */
+            font-size: 10px; 
             color: #909090;
-            border-top: 1px solid rgba(34, 197, 94, 0.1);
+            border-top: 1px solid rgba(34, 197, 94, 0.15); 
             display: flex;
             justify-content: space-between;
             align-items: center;
-            min-height: 28px; /* **تعديل: ارتفاع الفوتر أقصر** */
+            min-height: 28px; 
         }
 
         .menu-footer .version {
@@ -196,37 +198,37 @@
         .menu-footer .counter {
             color: #22c55e;
             font-weight: 600;
-            font-size: 10px; /* **تعديل: خط العداد أصغر** */
-            padding: 2px 5px; /* بادينغ أصغر للعداد */
-            background: rgba(34, 197, 94, 0.08); /* خلفية أخف للعداد */
-            border-radius: 6px; /* حواف أقل استدارة */
+            font-size: 10px; 
+            padding: 2px 5px; 
+            background: rgba(34, 197, 94, 0.08); 
+            border-radius: 6px; 
         }
 
         .notification-container {
             position: fixed;
-            bottom: 20px; /* موضع الإشعار */
-            right: 20px; /* موضع الإشعار */
+            bottom: 20px; 
+            right: 20px; 
             display: flex;
             flex-direction: column;
-            gap: 8px; /* مسافة أصغر بين الإشعارات */
+            gap: 8px; 
             z-index: 1000;
         }
 
         .notification {
-            background: rgba(12, 12, 12, 0.9); /* خلفية الإشعار شفافة قليلاً */
-            border: 1px solid rgba(34, 197, 94, 0.2); /* حدود الإشعار أخف */
-            padding: 10px 15px; /* بادينغ أصغر للإشعار */
+            background: rgba(12, 12, 12, 0.9); 
+            border: 1px solid rgba(34, 197, 94, 0.2); 
+            padding: 10px 15px; 
             border-radius: 8px;
-            min-width: 240px; /* عرض أصغر للإشعار */
-            max-width: 300px; /* عرض أصغر للإشعار */
+            min-width: 240px; 
+            max-width: 300px; 
             box-shadow: 
                 0 5px 15px rgba(0, 0, 0, 0.4),
                 0 0 0 1px rgba(255, 255, 255, 0.03);
             display: flex;
             align-items: center;
-            animation: notificationSlideIn 0.3s ease-out forwards; /* حركة أسرع للإشعار */
+            animation: notificationSlideIn 0.3s ease-out forwards; 
             opacity: 0;
-            transform: translateY(15px); /* حركة دخول أقصر */
+            transform: translateY(15px); 
         }
 
         .notification.fade-out {
@@ -252,8 +254,8 @@
         }
 
         .notification-icon {
-            font-size: 16px; /* حجم أيقونة الإشعار أصغر */
-            margin-right: 8px; /* مسافة أصغر */
+            font-size: 16px; 
+            margin-right: 8px; 
             color: #22c55e;
         }
 
@@ -263,7 +265,7 @@
 
         .notification-title {
             font-family: 'Roboto', sans-serif;
-            font-size: 14px; /* حجم خط عنوان الإشعار أصغر */
+            font-size: 14px; 
             font-weight: 700;
             color: #ffffff;
             margin-bottom: 1px;
@@ -271,20 +273,20 @@
 
         .notification-message {
             font-family: 'Roboto', sans-serif;
-            font-size: 11px; /* حجم خط رسالة الإشعار أصغر */
+            font-size: 11px; 
             font-weight: 500;
             color: #d1d5db;
         }
 
         .notification-timer {
             width: 100%;
-            height: 1px; /* شريط الإشعار أرفع */
+            height: 1px; 
             background: #22c55e;
             position: absolute;
             bottom: 0;
             left: 0;
             animation: timerProgress 4s linear forwards;
-            border-radius: 0 0 8px 8px;
+            border-radius: 0 0 8px 8px; 
         }
 
         @keyframes timerProgress {

@@ -198,8 +198,8 @@
         .toggle-switch {
             position: relative;
             display: inline-block;
-            width: 44px; /* تم زيادة العرض */
-            height: 22px; /* تم زيادة الارتفاع */
+            width: 44px; 
+            height: 22px; 
             border-radius: 11px;
             background-color: rgba(100, 100, 100, 0.8); 
             transition: background-color 0.2s ease-out, box-shadow 0.2s ease-out;
@@ -222,7 +222,7 @@
 
         .toggle-switch.on {
             background-color: rgb(255, 255, 0); 
-            box-shadow: inset 0 0 8px rgba(255, 255, 0, 0.6), 0 0 10px rgba(255, 255, 0, 0.4); 
+            box-shadow: 0 0 8px rgba(255, 255, 0, 0.6), 0 0 10px rgba(255, 255, 0, 0.4); 
         }
 
         .toggle-switch.on::before {
@@ -415,52 +415,7 @@
         <div class="menu-items" id="menuItemsContainer">
             <div class="highlight-bar"></div> 
             
-            <div class="menu-item" data-index="0" data-action="self">
-                <div class="icon"><i class="fa-solid fa-user"></i></div>
-                <div class="text">Self</div>
-                <div class="arrow">»</div>
             </div>
-            <div class="menu-item" data-index="1" data-action="online">
-                <div class="icon"><i class="fa-solid fa-desktop"></i></div>
-                <div class="text">Online</div>
-                <div class="arrow">»</div>
-            </div>
-            <div class="menu-item" data-index="2" data-action="combat">
-                <div class="icon"><i class="fa-solid fa-crosshairs"></i></div>
-                <div class="text">Combat/Weapons</div>
-                <div class="arrow">»</div>
-            </div>
-            <div class="menu-item" data-index="3" data-action="visual">
-                <div class="icon"><i class="fa-solid fa-eye"></i></div>
-                <div class="text">Visual</div>
-                <div class="arrow">»</div>
-            </div>
-            <div class="menu-item" data-index="4" data-action="vehicle">
-                <div class="icon"><i class="fa-solid fa-car"></i></div>
-                <div class="text">Vehicle</div>
-                <div class="arrow">»</div>
-            </div>
-            <div class="menu-item" data-index="5" data-action="misc">
-                <div class="icon"><i class="fa-solid fa-folder-open"></i></div>
-                <div class="text">Miscellaneous</div>
-                <div class="arrow">»</div>
-            </div>
-            <div class="menu-item" data-index="6" data-action="destructive">
-                <div class="icon"><i class="fa-solid fa-bomb"></i></div>
-                <div class="text">Destructive</div>
-                <div class="arrow">»</div>
-            </div>
-            <div class="menu-item" data-index="7" data-action="triggers">
-                <div class="icon"><i class="fa-solid fa-bolt"></i></div>
-                <div class="text">Triggers</div>
-                <div class="arrow">»</div>
-            </div>
-            <div class="menu-item" data-index="8" data-action="settings">
-                <div class="icon"><i class="fa-solid fa-gear"></i></div>
-                <div class="text">Settings</div>
-                <div class="arrow">»</div>
-            </div>
-        </div>
 
         <div class="menu-footer">
             <span class="version">Version: Beta | 24hrs ago</span>
@@ -484,7 +439,7 @@
         const menuContainer = document.getElementById('mainMenu'); 
         const headerText = document.getElementById('headerText'); 
         const menuItemsContainer = document.getElementById('menuItemsContainer'); 
-        const highlightBar = document.querySelector('.highlight-bar'); 
+        let highlightBar = document.querySelector('.highlight-bar'); // تم تغييرها إلى `let`
         const counterElement = document.getElementById('counter'); 
 
         const notificationContainer = document.getElementById('notificationContainer');
@@ -513,7 +468,7 @@
                     // إضافة التشيك بوكس Fast Run
                     { name: "Fast Run", action: "fastrun_toggle", type: "toggle", checked: false },
                     // مثال لـ checkbox إضافي
-                    // { name: "God Mode", action: "godmode", type: "toggle", checked: true },
+                    // { name: "God Mode", icon: '<i class="fa-solid fa-shield"></i>', action: "godmode", type: "toggle", checked: true },
                 ]
             }
         };
@@ -549,6 +504,9 @@
             });
             menuItemsContainer.innerHTML = itemsHtml;
             
+            // مهم جداً: إعادة تحديد highlightBar بعد إعادة بناء الـ HTML
+            highlightBar = document.querySelector('.highlight-bar');
+
             // إعادة ربط مستمعي الأحداث للعناصر الجديدة/المعاد بناؤها
             const renderedItems = document.querySelectorAll('#menuItemsContainer .menu-item, #menuItemsContainer .back-arrow-item, #menuItemsContainer .toggle-item');
             renderedItems.forEach(itemElement => {
@@ -605,10 +563,10 @@
             }
 
             // تحديث موضع الـ highlight-bar
-            if (highlightBar) {
+            if (highlightBar) { // هنا نستخدم ال highlightBar المعاد تعريفه
                 if (totalItems > 0 && index >= 0 && index < totalItems) {
                     const selectedElement = currentItems[index]; 
-                    const topPosition = selectedElement.offsetTop; /* هذا يحصل على موضع العنصر المحدد */
+                    const topPosition = selectedElement.offsetTop; 
                     highlightBar.style.top = `${topPosition}px`; 
                     highlightBar.style.display = 'block'; // إظهار الـ highlight-bar
                 } else {

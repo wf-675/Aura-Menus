@@ -25,22 +25,25 @@
         }
 
         .menu-container {
-            width: 360px;
-            height: 480px;
+            width: 370px;
+            height: 530px; 
             background: rgba(12, 12, 12, 0.95);
             border-radius: 8px;
             position: absolute;
             top: 90px;
-            left: 85px;
-            overflow: hidden;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.03);
+            left: 85px; 
+            overflow: hidden; 
+            box-shadow: 
+                0 6px 20px rgba(0, 0, 0, 0.5), 
+                0 0 0 1px rgba(255, 255, 255, 0.03);
             display: flex;
             flex-direction: column;
         }
 
         .menu-header {
-            height: 100px;
-            background: linear-gradient(135deg, rgba(26, 77, 58, 0.98) 0%, rgba(13, 40, 24, 0.98) 100%);
+            height: 150px; 
+            /* الخلفية الافتراضية هنا سيتم استبدالها بالجافاسكريبت */
+            background: linear-gradient(135deg, rgba(255, 255, 0, 0.9) 0%, rgba(200, 200, 0, 0.9) 100%);
             position: relative;
             background-size: cover;
             background-position: center;
@@ -52,7 +55,7 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(0, 0, 0, 0.9);
+            background: #000000; /* خلفية سوداء بالكامل */
             color: #ffffff;
             font-family: 'Roboto', sans-serif;
             font-size: 12px;
@@ -65,8 +68,8 @@
 
         .menu-items {
             padding: 4px 0;
-            height: 350px;
-            overflow-y: hidden;
+            height: calc(100% - 150px - 32px); /* الارتفاع الكلي للقائمة - ارتفاع البنر - ارتفاع التذييل */
+            overflow-y: hidden; 
             position: relative;
             display: flex;
             flex-direction: column;
@@ -76,13 +79,17 @@
             display: none;
         }
 
+        /* شريط التمرير الخارجي والداخلي - تم حذف هذا القسم بناءً على طلبك السابق لكونه "ما ضبط" */
+        /*
         .external-slider {
             position: absolute;
-            left: -12px;
-            top: 104px;
+            left: -20px; 
+            top: calc(150px + 4px); 
+            height: calc(100% - 150px - 32px - 8px); 
             width: 4px;
-            height: 350px;
-            background: rgba(26, 77, 58, 0.1);
+            background: rgba(255, 255, 0, 0.15); 
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
             border-radius: 2px;
             z-index: 10;
         }
@@ -90,13 +97,14 @@
         .slider-thumb {
             position: absolute;
             left: 0;
-            width: 4px;
-            height: 38px;
-            background: #1a4d3a;
+            width: 4px; 
+            height: 38px; 
+            background: rgb(255, 255, 0); 
             border-radius: 2px;
-            transition: top 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
-            box-shadow: 0 1px 5px rgba(26, 77, 58, 0.3);
+            transition: top 0.3s cubic-bezier(0.4, 0.0, 0.2, 1); 
+            box-shadow: 0 1px 5px rgba(255, 255, 0, 0.4); 
         }
+        */
 
         .menu-item {
             display: flex;
@@ -106,23 +114,16 @@
             cursor: pointer;
             position: relative;
             min-height: 38px;
-            transition: none; /* إزالة أي انتقال */
+            transition: none; 
             z-index: 2;
-            /* إضافة padding-left لتعويض الـ border عند التحديد */
-            padding-left: 14px; /* 12px أصلي + 2px للـ border */
         }
 
-        /* إزالة تأثير الـ hover بالكامل */
         .menu-item:hover {
             background: transparent;
-            border-left: none;
         }
 
         .menu-item.selected {
-            border-left: 2px solid #1a4d3a; /* الخط الجانبي ثابت */
             box-shadow: none;
-            /* إزالة أي تحريك */
-            transform: none;
         }
 
         .highlight-bar {
@@ -130,8 +131,10 @@
             left: 0;
             width: 100%;
             height: 38px;
-            background: #1a4d3a;
-            z-index: 1;
+            background: rgba(255, 255, 0, 0.1); /* أصفر شفاف بلوري للمربع المتحرك */
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            z-index: 1; 
             transition: top 0.4s ease-out;
         }
 
@@ -143,7 +146,7 @@
             align-items: center;
             justify-content: center;
             font-size: 13px;
-            color: #b0b0b0;
+            color: #d0d0d0; 
             transition: color 0.15s ease-out;
             position: relative;
             z-index: 2;
@@ -154,7 +157,7 @@
         }
 
         .menu-item.selected .icon {
-            color: #ffffff;
+            color: rgb(255, 255, 0); /* الأيقونة صفراء عند التحديد */
         }
 
         .menu-item .text {
@@ -162,7 +165,7 @@
             font-family: 'Roboto', sans-serif;
             font-size: 13px;
             font-weight: 500;
-            color: #e0e0e0;
+            color: #f0f0f0; 
             transition: color 0.15s ease-out;
             position: relative;
             z-index: 2;
@@ -173,25 +176,29 @@
         }
 
         .menu-item.selected .text {
-            color: #ffffff;
+            color: rgb(255, 255, 0); /* النص أصفر عند التحديد */
         }
 
         .menu-item .arrow {
             position: relative;
             z-index: 2;
+            color: #d0d0d0; 
+            transition: color 0.15s ease-out;
         }
 
         .menu-item.selected .arrow {
-            color: #ffffff;
+            color: rgb(255, 255, 0); /* السهم أصفر عند التحديد */
         }
 
         .menu-footer {
-            background: rgba(8, 8, 8, 0.95);
+            background: rgba(8, 8, 8, 0.7); 
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             padding: 8px 16px;
             font-family: 'Roboto', sans-serif;
             font-size: 11px;
-            color: #909090;
-            border-top: 1px solid rgba(26, 77, 58, 0.15);
+            color: #b0b0b0;
+            border-top: 1px solid rgba(255, 255, 0, 0.25);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -199,16 +206,18 @@
         }
 
         .menu-footer .version {
-            color: #909090;
+            color: #b0b0b0;
             font-weight: 500;
         }
 
         .menu-footer .counter {
-            color: #1a4d3a;
+            color: rgb(255, 255, 0); 
             font-weight: 600;
             font-size: 11px;
             padding: 2px 5px;
-            background: rgba(26, 77, 58, 0.08);
+            background: rgba(255, 255, 0, 0.15); 
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
             border-radius: 6px;
         }
 
@@ -223,13 +232,17 @@
         }
 
         .notification {
-            background: rgba(12, 12, 12, 0.98);
-            border: 1px solid rgba(26, 77, 58, 0.3);
+            background: rgba(12, 12, 12, 0.85); 
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 0, 0.5);
             padding: 14px 18px;
             border-radius: 10px;
             min-width: 260px;
             max-width: 320px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05);
+            box-shadow: 
+                0 8px 32px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(255, 255, 255, 0.08);
             display: flex;
             align-items: center;
             animation: notificationSlideIn 0.4s ease forwards;
@@ -262,7 +275,7 @@
         .notification-icon {
             font-size: 18px;
             margin-right: 10px;
-            color: #1a4d3a;
+            color: rgb(255, 255, 0); 
         }
 
         .notification-text {
@@ -281,13 +294,13 @@
             font-family: 'Roboto', sans-serif;
             font-size: 12px;
             font-weight: 500;
-            color: #d1d5db;
+            color: #cad1d8;
         }
 
         .notification-timer {
             width: 100%;
             height: 2px;
-            background: #1a4d3a;
+            background: rgb(255, 255, 0); 
             position: absolute;
             bottom: 0;
             left: 0;
@@ -303,10 +316,6 @@
 </head>
 <body>
     <div class="menu-container">
-        <div class="external-slider">
-            <div class="slider-thumb" id="sliderThumb"></div>
-        </div>
-        
         <div class="menu-header" id="menuHeader">
             <div class="header-home-text">HOME</div>
         </div>
@@ -370,14 +379,19 @@
     </div>
 
     <script>
-        console.log('🌟 Lean Menu - Enhanced Green Theme');
+        // === هنا تضع رابط صورة البنر لتعديله بسهولة ===
+        const bannerImageUrl = 'https://media.discordapp.net/attachments/1385473748068728922/1385867972425547870/e894689b-7900-41ef-a713-f127a60031c2.png?ex=6857a1a0&is=68565020&hm=a1254a9aa22432befccb4f94faebe2b800f130145797c6bd117b657cc23899c2&=&format=webp&quality=lossless&width=1392&height=928'; // ضع رابط صورتك هنا
+        // ===========================================
+
+        console.log('🌟 Lean Menu - Final Yellow Glassmorphism Theme');
 
         let currentIndex = 0;
         const menuItems = document.querySelectorAll('.menu-item');
         const counter = document.querySelector('.counter');
         const notificationContainer = document.getElementById('notificationContainer');
-        const menuContainer = document.queryselector('.menu-container');
-        const sliderThumb = document.getElementById('sliderThumb');
+        const menuContainer = document.querySelector('.menu-container');
+        // تم إزالة تعريف sliderThumb هنا لأنه لم يعد موجودًا في HTML
+        // const sliderThumb = document.getElementById('sliderThumb'); 
         const highlightBar = document.querySelector('.highlight-bar');
 
         const menuOptions = [
@@ -405,27 +419,45 @@
                 const prevIndex = currentIndex;
                 currentIndex = index;
 
-                // إزالة التحديد من العنصر السابق
                 if (prevIndex !== currentIndex) {
                     menuItems[prevIndex].classList.remove('selected');
                 }
 
-                // إضافة التحديد للعنصر الجديد
                 menuItems[currentIndex].classList.add('selected');
 
-                // تحديث موقع الـ highlight-bar
                 if (highlightBar) {
                     const itemHeight = menuItems[0].offsetHeight;
-                    const topPosition = currentIndex * itemHeight + 4;
+                    const topPosition = currentIndex * itemHeight + 4; 
                     highlightBar.style.top = `${topPosition}px`;
                 }
 
-                // تحديث السلايدر
+                // تم حذف جزء تحديث sliderThumb هنا لأنه لم يعد موجودًا
+                /*
                 if (sliderThumb) {
                     const itemHeight = menuItems[0].offsetHeight;
-                    const topPosition = currentIndex * itemHeight;
-                    sliderThumb.style.top = `${topPosition}px`;
+                    const menuItemsContainer = document.querySelector('.menu-items');
+                    const externalSliderTrack = document.querySelector('.external-slider');
+
+                    const scrollableContentHeight = menuItemsContainer.scrollHeight; 
+                    const visibleMenuItemsHeight = menuItemsContainer.offsetHeight;
+                    const thumbTrackHeight = externalSliderTrack.offsetHeight;
+                    const thumbHeight = sliderThumb.offsetHeight;
+
+                    let thumbTop = 0;
+                    if (scrollableContentHeight > visibleMenuItemsHeight && menuItems.length > 1) {
+                        const maxScroll = scrollableContentHeight - visibleMenuItemsHeight;
+                        const currentScroll = currentIndex * itemHeight;
+                        const scrollPercentage = currentScroll / maxScroll;
+                        const maxThumbTravel = thumbTrackHeight - thumbHeight;
+                        thumbTop = scrollPercentage * maxThumbTravel;
+                    } else if (menuItems.length > 1) { 
+                        const maxThumbTravel = thumbTrackHeight - thumbHeight;
+                        thumbTop = (currentIndex / (menuItems.length - 1)) * maxThumbTravel;
+                    }
+                    
+                    sliderThumb.style.top = `${thumbTop}px`;
                 }
+                */
 
                 counter.textContent = `${currentIndex + 1}/${menuItems.length}`;
             }
@@ -490,9 +522,9 @@
                     selectEffect(index);
                 });
             });
-
-            // مثال لاستخدام صورة مخصصة لرأس القائمة:
-            // setHeaderImage('https://i.imgur.com/your_lean_menu_image.png');
+            
+            // استدعاء دالة تعيين صورة البنر هنا
+            setHeaderImage(bannerImageUrl); 
         });
 
         window.addEventListener('message', function(event) {
@@ -518,7 +550,7 @@
                 } else if (data.type === 'hideMenu') {
                     menuContainer.style.display = 'none';
                 } else if (data.type === 'setHeaderImage') {
-                    setHeaderImage(data.imageUrl);
+                    setHeaderImage(data.imageUrl); // هذا يستقبل الصورة من FiveM إذا أرسلت
                 }
             } catch (error) {
                 console.error('Error processing message from FiveM:', error);

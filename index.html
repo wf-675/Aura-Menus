@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lean Menu - Final</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Aura Menu - Yellow Edition</title> <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -17,41 +16,90 @@
         }
 
         html, body {
+            margin: 0;
+            padding: 0;
             width: 100%;
             height: 100%;
+            /* هذا السطر حيوي لشفافية الـ NUI في FiveM - كما في كود Aura */
             background-color: transparent !important; 
             overflow: hidden;
             font-family: 'Roboto', sans-serif;
         }
 
+        body {
+            color: white;
+            cursor: default;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding-left: 30px; /* لتبدأ القائمة من اليسار قليلاً */
+            background-color: transparent !important; /* تأكيد الشفافية */
+        }
+
         .menu-container {
-            width: 370px;
-            height: 530px; 
-            background: rgba(0, 0, 0, 0.6); /* شفافة بنسبة 60% */
+            width: 370px; /* العرض الذي تفضله */
+            height: 530px; /* الارتفاع الذي تفضله */
+            /* خلفية شفافة 0.60 */
+            background: rgba(0, 0, 0, 0.6); 
+            /* حواف ناعمة للمنيو ككل */
             border-radius: 12px; 
-            position: absolute;
-            top: 90px;
-            left: 85px; 
-            overflow: hidden; 
+            /* تم إزالة الحدود الصفراء */
+            /* border: 1px solid rgba(255, 255, 0, 0.3); */
+            /* ظل Box-shadow من كود Aura ولكن بألوان صفراء */
             box-shadow: 
                 0 6px 20px rgba(0, 0, 0, 0.5), 
-                inset 0 0 10px rgba(255, 255, 0, 0.1); 
+                inset 0 0 10px rgba(255, 255, 0, 0.1); /* ظل داخلي خفيف أصفر */
+            overflow: hidden;
+            /* Animation من كود Aura (يمكن تعديلها أو إزالتها إذا سببت مشاكل) */
+            animation: menuSlideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
             display: flex;
             flex-direction: column;
+            /* موضع القائمة بناءً على padding-left في body */
+            /* لا داعي لـ top/left هنا إذا كان body هو المسؤول عن التموضع */
+        }
+
+        /* إزالة ::before من menu-container من كود Aura (لم نستخدمها) */
+        .menu-container::before {
+            display: none !important;
+        }
+
+        /* Keep Aura's menuSlideIn animation */
+        @keyframes menuSlideIn {
+            0% {
+                opacity: 0;
+                transform: translateX(-50px) scale(0.95);
+                filter: blur(10px); /* قد لا يعمل هذا في FiveM - لكنه جزء من الأنميشن الأصلي */
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+                filter: blur(0); /* قد لا يعمل هذا في FiveM */
+            }
         }
 
         .menu-header {
-            height: 150px; 
+            height: 150px; /* ارتفاع البنر أطول */
+            /* تدرج لوني أصفر فخم - من كود Lean Menu */
             background: linear-gradient(135deg, rgba(255, 255, 0, 0.9) 0%, rgba(200, 200, 0, 0.9) 100%);
+            padding: 30px 36px; /* بادينج من كود Aura */
+            text-align: center;
+            /* حدود سفلية أصفر شفاف */
+            border-bottom: 1px solid rgba(255, 255, 0, 0.2); 
             position: relative;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            overflow: hidden;
+            flex-shrink: 0;
+            /* حواف ناعمة للبانر (أعلى المنيو) - لتتناسب مع menu-container */
             border-top-left-radius: 11px; 
             border-top-right-radius: 11px;
         }
 
-        .header-home-text {
+        /* إزالة ::before من menu-header من كود Aura (لم نستخدمها) */
+        .menu-header::before {
+            display: none !important; 
+        }
+
+        .header-home-text { /* هذا كان عنصرك الخاص بكلمة HOME */
             position: absolute;
             bottom: 0;
             left: 0;
@@ -68,9 +116,10 @@
         }
 
         .menu-items {
-            padding: 4px 0;
-            height: calc(100% - 150px - 32px); 
-            overflow-y: hidden; 
+            padding: 4px 0; /* padding من كود Lean Menu */
+            height: calc(100% - 150px - 32px); /* الارتفاع الكلي للقائمة - ارتفاع البنر - ارتفاع التذييل */
+            flex-grow: 1; /* من كود Aura لتملأ المساحة المتبقية */
+            overflow: hidden; /* إزالة أي سكرول بار */
             position: relative;
             display: flex;
             flex-direction: column;
@@ -83,13 +132,17 @@
         .menu-item {
             display: flex;
             align-items: center;
-            padding: 5px 12px;
+            padding: 5px 12px; /* تم تعديل البادينج ليتناسب مع حجم الخطوط */
             margin: 0;
             cursor: pointer;
             position: relative;
-            min-height: 38px;
-            transition: none; 
-            z-index: 2;
+            min-height: 38px; /* ارتفاع العنصر */
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* انتقال سلس */
+            user-select: none; /* لمنع تحديد النص عند الضغط */
+            background: transparent !important; /* لضمان عدم وجود خلفية بيضاء */
+            overflow: hidden; /* لضمان عدم خروج محتوى */
+            width: 100%;
+            z-index: 2; /* ليكون فوق ال highlight-bar */
         }
 
         .menu-item:hover {
@@ -97,24 +150,31 @@
         }
 
         .menu-item.selected {
-            box-shadow: none;
+            /* خلفية التحديد (المربع المتحرك) - بدون backdrop-filter */
+            background: rgba(255, 255, 0, 0.15); /* أصفر شفاف */
+            /* لا يوجد border-left لجعل المربع يتحرك بحرية */
+            /* transform: translateX(10px) scale(1.02); -- إزالة هذا لتجنب التحرك */
+            box-shadow: 
+                inset 0 0 15px rgba(255, 255, 0, 0.1), /* ظل داخلي خفيف أصفر */
+                0 4px 15px rgba(255, 255, 0, 0.15); /* ظل خارجي خفيف أصفر */
+            /* حواف ناعمة للمربع المتحرك */
+            border-radius: 4px; 
         }
 
-        .highlight-bar {
+        .highlight-bar { /* هذا هو المربع الذي يتحرك خلف العناصر */
             position: absolute;
             left: 0;
             width: 100%;
-            height: 38px;
-            background: rgba(255, 255, 0, 0.1); 
-            border-radius: 4px; 
-            /* تم إزالة backdrop-filter من هنا أيضًا للحفاظ على التناسق */
-            /* backdrop-filter: blur(5px); */ 
-            /* -webkit-backdrop-filter: blur(5px); */ 
-            z-index: 1; 
+            height: 38px; /* نفس ارتفاع العنصر */
+            background: rgba(255, 255, 0, 0.1); /* أصفر شفاف */
+            /* لا يوجد backdrop-filter هنا */
+            border-radius: 4px; /* حواف ناعمة للمربع المتحرك */
+            z-index: 1; /* يبقى خلف النصوص والأيقونات */
             transition: top 0.4s ease-out;
         }
 
         .menu-item .icon {
+            /* أيقونات Lean Menu - من كودك السابق */
             width: 20px;
             height: 20px;
             margin-right: 10px;
@@ -123,9 +183,10 @@
             justify-content: center;
             font-size: 13px;
             color: #d0d0d0; 
-            transition: color 0.15s ease-out;
+            transition: color 0.15s ease-out; /* إزالة transform لضمان الثبات */
             position: relative;
             z-index: 2;
+            /* filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4)); -- إزالة هذا لتجنب أي مشاكل بالشفافية */
         }
 
         .menu-item:not(.selected) .icon {
@@ -133,10 +194,13 @@
         }
 
         .menu-item.selected .icon {
-            color: rgb(255, 255, 0); 
+            color: rgb(255, 255, 0); /* الأيقونة صفراء عند التحديد */
+            /* transform: scale(1.1); -- إزالة هذا لتجنب التحرك */
+            /* filter: drop-shadow(0 0 8px rgba(255, 255, 0, 0.8)); -- إزالة هذا لتجنب أي مشاكل بالشفافية */
         }
 
         .menu-item .text {
+            /* نصوص Lean Menu - من كودك السابق */
             flex: 1;
             font-family: 'Roboto', sans-serif;
             font-size: 13px;
@@ -145,6 +209,7 @@
             transition: color 0.15s ease-out;
             position: relative;
             z-index: 2;
+            text-shadow: none; /* إزالة text-shadow لتجنب مشاكل الشفافية */
         }
 
         .menu-item:not(.selected) .text {
@@ -152,53 +217,52 @@
         }
 
         .menu-item.selected .text {
-            color: rgb(255, 255, 0); 
+            color: rgb(255, 255, 0); /* النص أصفر عند التحديد */
         }
 
         .menu-item .arrow {
+            /* أسهم Lean Menu - من كودك السابق */
             position: relative;
             z-index: 2;
             color: #d0d0d0; 
-            transition: color 0.15s ease-out;
+            transition: color 0.15s ease-out; /* إزالة transform لضمان الثبات */
         }
 
         .menu-item.selected .arrow {
-            color: rgb(255, 255, 0); 
+            color: rgb(255, 255, 0); /* السهم أصفر عند التحديد */
         }
 
         .menu-footer {
-            background: rgba(8, 8, 8, 0.7); 
-            /* تم إزالة backdrop-filter من التذييل */
-            /* backdrop-filter: blur(8px); */
-            /* -webkit-backdrop-filter: blur(8px); */
-            padding: 8px 16px;
-            font-family: 'Roboto', sans-serif;
-            font-size: 11px;
-            color: #b0b0b0;
-            border-top: 1px solid rgba(255, 255, 0, 0.25);
+            /* التذييل - بناءً على كود Aura */
+            background: rgba(0, 0, 0, 0.7); /* خلفية سوداء شفافة */
+            padding: 8px 16px; /* بادينج Lean Menu */
+            font-size: 11px; /* حجم خط Lean Menu */
+            color: #b0b0b0; /* لون نص Lean Menu */
+            border-top: 1px solid rgba(255, 255, 0, 0.25); /* حدود صفراء خفيفة */
             display: flex;
             justify-content: space-between;
             align-items: center;
-            min-height: 32px;
+            min-height: 32px; /* ارتفاع Lean Menu */
+            flex-shrink: 0; /* من كود Aura */
+            /* حواف ناعمة سفلية */
             border-bottom-left-radius: 11px; 
             border-bottom-right-radius: 11px;
         }
 
         .menu-footer .version {
-            color: #b0b0b0;
-            font-weight: 500;
+            color: #b0b0b0; /* لون نص Lean Menu */
+            font-weight: 500; /* وزن خط Lean Menu */
         }
 
         .menu-footer .counter {
-            background: rgba(255, 255, 0, 0.15); 
-            /* تم إزالة backdrop-filter من العداد */
-            /* backdrop-filter: blur(3px); */
-            /* -webkit-backdrop-filter: blur(3px); */
-            border-radius: 6px;
-            color: rgb(255, 255, 0); 
-            font-weight: 600;
-            font-size: 11px;
-            padding: 2px 5px;
+            /* العداد - بناءً على كود Aura */
+            color: rgb(255, 255, 0); /* أصفر نقي */
+            font-weight: 600; /* وزن خط Lean Menu */
+            font-size: 11px; /* حجم خط Lean Menu */
+            padding: 2px 5px; /* بادينج Lean Menu */
+            background: rgba(255, 255, 0, 0.15); /* خلفية صفراء شفافة */
+            border-radius: 6px; /* حواف ناعمة */
+            border: 1px solid rgba(255, 255, 0, 0.3); /* حدود صفراء خفيفة */
         }
 
         .notification-container {
@@ -212,10 +276,9 @@
         }
 
         .notification {
-            /* الإشعارات - تم إزالة البلورية منها */
-            background: rgba(12, 12, 12, 0.85); 
-            /* تم إزالة backdrop-filter و -webkit-backdrop-filter */
-            border: 1px solid rgba(255, 255, 0, 0.5);
+            /* الإشعارات - بناءً على كود Aura، بدون backdrop-filter */
+            background: rgba(12, 12, 12, 0.85); /* خلفية شفافة */
+            border: 1px solid rgba(255, 255, 0, 0.5); /* حدود صفراء */
             padding: 14px 18px;
             border-radius: 10px;
             min-width: 260px;

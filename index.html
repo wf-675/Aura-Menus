@@ -28,8 +28,8 @@
         }
 
         .menu-container {
-            width: 370px; 
-            height: 550px; /* الارتفاع الذي اخترته أنت */
+            width: 373px; 
+            height: 550px; 
             background: rgba(0, 0, 0, 0.6); /* شفافية 0.60 */
             border-radius: 12px; 
             box-shadow: 
@@ -39,24 +39,9 @@
             position: relative; 
             display: flex;
             flex-direction: column;
-            /* تم إزالة أنيميشن الدخول */
-            opacity: 1; /* مرئي تماماً عند التحميل */
+            opacity: 1; 
         }
-
-        /* تم إزالة keyframes menuFadeInScale لأن الأنيميشن لم يعد موجوداً */
-        /*
-        @keyframes menuFadeInScale {
-            0% {
-                opacity: 0;
-                transform: scale(0.95); 
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-        */
-
+        
         .menu-header {
             height: 170px; 
             background: linear-gradient(135deg, rgba(255, 255, 0, 0.95) 0%, rgba(200, 200, 0, 0.95) 100%); 
@@ -89,7 +74,7 @@
 
         .menu-items {
             padding: 4px 0;
-            height: calc(100% - 170px - 32px); /* تم تعديله ليتناسب مع ارتفاع البنر 170px */
+            height: calc(100% - 170px - 32px); 
             overflow-y: hidden; 
             position: relative;
             display: flex;
@@ -108,7 +93,7 @@
             cursor: pointer;
             position: relative;
             min-height: 38px;
-            transition: background 0.15s ease-out, box-shadow 0.15s ease-out; 
+            transition: none; /* إزالة جميع تأثيرات الانتقال من العنصر نفسه */
             z-index: 2;
         }
 
@@ -117,12 +102,11 @@
         }
 
         .menu-item.selected {
-            background: rgba(255, 255, 0, 0.1); 
-            box-shadow: 
-                inset 0 0 8px rgba(255, 255, 0, 0.08), 
-                0 2px 8px rgba(255, 255, 0, 0.08); 
+            background: transparent; /* تم إزالة الخلفية والظل الفوري هنا */ 
+            box-shadow: none; 
             border-radius: 4px; 
             transform: none; 
+            transition: none; 
         }
 
         .highlight-bar {
@@ -133,7 +117,7 @@
             background: rgba(255, 255, 0, 0.08); 
             border-radius: 4px; 
             z-index: 1; 
-            transition: top 0.2s ease-out; 
+            transition: top 0.4s ease-out; /* إعادة تأثير الانتقال لجعل الحركة سلسة للمربع */
         }
 
         .menu-item .icon {
@@ -145,15 +129,11 @@
             justify-content: center;
             font-size: 13px;
             color: #d0d0d0; 
-            transition: color 0.15s ease-out; 
+            transition: none; /* إزالة تأثيرات الانتقال من الأيقونة */
             position: relative;
             z-index: 2;
         }
-
-        .menu-item:not(.selected) .icon {
-            transition: color 0.15s ease-out 0.05s; 
-        }
-
+        
         .menu-item.selected .icon {
             color: rgb(255, 255, 0); 
         }
@@ -164,15 +144,11 @@
             font-size: 13px;
             font-weight: 500;
             color: #f0f0f0; 
-            transition: color 0.15s ease-out; 
+            transition: none; /* إزالة تأثيرات الانتقال من النص */
             position: relative;
             z-index: 2;
         }
-
-        .menu-item:not(.selected) .text {
-            transition: color 0.15s ease-out 0.05s; 
-        }
-
+        
         .menu-item.selected .text {
             color: rgb(255, 255, 0); 
         }
@@ -181,7 +157,7 @@
             position: relative;
             z-index: 2;
             color: #d0d0d0; 
-            transition: color 0.15s ease-out; 
+            transition: none; /* إزالة تأثيرات الانتقال من السهم */
         }
 
         .menu-item.selected .arrow {
@@ -194,7 +170,7 @@
             font-family: 'Roboto', sans-serif;
             font-size: 11px;
             color: #b0b0b0;
-            border-top: 1px solid rgba(255, 255, 0, 0.2); 
+            border-top: 1px solid rgba(255, 255, 0, 0.25); 
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -229,8 +205,9 @@
         }
 
         .notification {
-            background: rgba(25, 25, 25, 0.85); 
-            border: 1px solid rgba(255, 255, 0, 0.4); 
+            /* تصميم إشعارات محسن */
+            background: rgba(25, 25, 25, 0.85); /* خلفية معتمة قليلاً لتمييزها */
+            border: 1px solid rgba(255, 255, 0, 0.4); /* حدود صفراء متناسقة */
             padding: 14px 18px; 
             border-radius: 10px; 
             min-width: 260px;
@@ -240,34 +217,36 @@
                 0 0 0 1px rgba(255, 255, 255, 0.05); 
             display: flex;
             align-items: center;
-            /* تم إزالة أنيميشن الدخول والخروج من هنا */
-            opacity: 0; /* يبقى مخفيًا بشكل افتراضي لتتحكم بها FiveM */
-            /* transform: translateY(15px); */ /* تم إزالة التحويل الافتراضي */
+            /* أنيميشن دخول وخروج مريحة */
+            animation: notificationIn 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; /* حركة أسرع وأكثر سلاسة */
+            opacity: 0;
+            transform: translateY(10px); /* حركة صعود خفيفة */
         }
 
-        /* تم إزالة keyframes notificationFadeIn و notificationFadeOut */
-        /*
-        @keyframes notificationFadeIn {
+        .notification.fade-out {
+            animation: notificationOut 0.2s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards; /* حركة خروج سريعة */
+        }
+
+        @keyframes notificationIn {
             0% {
                 opacity: 0;
-                transform: translateY(15px);
+                transform: translateY(10px);
             }
             100% {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-        @keyframes notificationFadeOut {
+        @keyframes notificationOut {
             0% {
                 opacity: 1;
                 transform: translateY(0);
             }
             100% {
                 opacity: 0;
-                transform: translateY(15px);
+                transform: translateY(10px);
             }
         }
-        */
 
         .notification-content {
             display: flex;
@@ -329,7 +308,7 @@
         </div>
 
         <div class="menu-items">
-            <div class="highlight-bar"></div>
+            <div class="highlight-bar"></div> 
             <div class="menu-item" data-index="0" data-action="self">
                 <div class="icon"><i class="fa-solid fa-user"></i></div>
                 <div class="text">Self</div>
@@ -398,7 +377,7 @@
         const counter = document.querySelector('.counter');
         const notificationContainer = document.getElementById('notificationContainer');
         const menuContainer = document.querySelector('.menu-container');
-        const highlightBar = document.querySelector('.highlight-bar');
+        const highlightBar = document.querySelector('.highlight-bar'); 
 
         const menuOptions = [
             { name: "Self", icon: '<i class="fa-solid fa-user"></i>', desc: "Player Options" },
@@ -434,7 +413,7 @@
                 if (highlightBar) {
                     const itemHeight = menuItems[0].offsetHeight;
                     const topPosition = currentIndex * itemHeight + 4; 
-                    highlightBar.style.top = `${topPosition}px`;
+                    highlightBar.style.top = `${topPosition}px`; 
                 }
                 
                 counter.textContent = `${currentIndex + 1}/${menuItems.length}`;
@@ -481,14 +460,13 @@
 
             notificationContainer.appendChild(notification);
 
+            // الإشعارات ستظهر وتختفي بدون أنيميشن مخصص (تعتمد على ما يحدث في FiveM)
+            // لكن هنا نضمن إزالتها بعد وقت معين
             setTimeout(() => {
-                notification.classList.add('fade-out');
-                setTimeout(() => {
-                    if (notification.parentNode) {
-                        notification.parentNode.removeChild(notification);
-                    }
-                }, 400); 
-            }, 3500); 
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 4000); 
         }
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -521,12 +499,12 @@
                     updateSelection(currentIndex);
                 } else if (data.type === 'enter') {
                     selectEffect(currentIndex);
-                } else if (data.type === 'showMenu') { /* Open Menu */
+                } else if (data.type === 'showMenu') { 
                     menuContainer.style.display = 'flex';
-                    /* تم إزالة أنيميشن الدخول */
+                    menuContainer.style.opacity = '1';
+                    menuContainer.style.transform = 'none'; 
                     updateSelection(data.currentIndex !== undefined ? data.currentIndex : currentIndex);
-                } else if (data.type === 'hideMenu') { /* Close Menu */
-                    /* تم إزالة أنيميشن الخروج */
+                } else if (data.type === 'hideMenu') { 
                     menuContainer.style.display = 'none';
                 } else if (data.type === 'setHeaderImage') {
                     setHeaderImage(data.imageUrl); 

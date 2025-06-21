@@ -19,36 +19,34 @@
         html, body {
             width: 100%;
             height: 100%;
-            background: transparent !important; /* تأكد أن الخلفية شفافة تماماً */
+            background: transparent !important;
             overflow: hidden;
             font-family: 'Roboto', sans-serif;
         }
 
         .menu-container {
-            width: 360px; /* عرض المنيو */
-            height: 480px; /* ارتفاع المنيو */
-            background: rgba(12, 12, 12, 0.95); /* تقليل الشفافية إلى 0.95 (أكثر عتامة) */
+            width: 360px;
+            height: 480px;
+            background: rgba(12, 12, 12, 0.95);
             border-radius: 8px;
             position: absolute;
-            top: 90px; 
-            left: 85px; 
+            top: 90px;
+            left: 85px;
             overflow: hidden;
             box-shadow: 
                 0 6px 20px rgba(0, 0, 0, 0.5), 
                 0 0 0 1px rgba(255, 255, 255, 0.03);
-            display: flex; 
+            display: flex;
             flex-direction: column;
         }
 
         .menu-header {
-            height: 100px; /* ارتفاع الهيدر أقصر */
-            background: linear-gradient(135deg, rgba(26, 77, 58, 0.98) 0%, rgba(13, 40, 24, 0.98) 100%); /* قيم rgba معدلة، أكثر عتامة */
+            height: 100px;
+            background: linear-gradient(135deg, rgba(26, 77, 58, 0.98) 0%, rgba(13, 40, 24, 0.98) 100%);
             position: relative;
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            /* **لإضافة صورة LEAN MENU في الهيدر، ضع هذا السطر وعدل الرابط:** */
-            /* background-image: url('https://i.imgur.com/your_lean_menu_image.png'); */
         }
 
         .header-home-text {
@@ -56,21 +54,21 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(0, 0, 0, 0.9); 
+            background: rgba(0, 0, 0, 0.9);
             color: #ffffff;
             font-family: 'Roboto', sans-serif;
-            font-size: 12px; 
+            font-size: 12px;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1px;
             text-align: center;
-            padding: 8px; 
+            padding: 8px;
         }
 
         .menu-items {
-            padding: 4px 0; 
-            height: 350px; 
-            overflow-y: hidden; 
+            padding: 4px 0;
+            height: 350px;
+            overflow-y: hidden;
             position: relative;
             display: flex;
             flex-direction: column;
@@ -82,11 +80,11 @@
 
         .external-slider {
             position: absolute;
-            left: -12px; 
-            top: 104px; 
-            width: 4px; 
-            height: 350px; 
-            background: rgba(34, 197, 94, 0.1); 
+            left: -12px;
+            top: 104px;
+            width: 4px;
+            height: 350px;
+            background: rgba(34, 197, 94, 0.1);
             border-radius: 2px;
             z-index: 10;
         }
@@ -94,97 +92,98 @@
         .slider-thumb {
             position: absolute;
             left: 0;
-            width: 4px; 
-            height: 38px; 
+            width: 4px;
+            height: 38px;
             background: #22c55e;
             border-radius: 2px;
-            transition: top 0.3s cubic-bezier(0.4, 0.0, 0.2, 1); /* **تعديل: انتقال أطول قليلاً للسلايدر** */
-            box-shadow: 0 1px 5px rgba(34, 197, 94, 0.3); 
+            transition: top 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+            box-shadow: 0 1px 5px rgba(34, 197, 94, 0.3);
         }
 
         .menu-item {
             display: flex;
             align-items: center;
-            padding: 5px 12px; 
-            margin: 0; 
+            padding: 5px 12px;
+            margin: 0;
             cursor: pointer;
             position: relative;
-            background: transparent;
-            border-left: 2px solid transparent; 
-            min-height: 38px; 
-            /* **تعديل هنا:** انتقال لخلفية العنصر عند إلغاء التحديد (بدون تأخير) */
-            transition: background 0.3s ease-out, border-left 0.3s ease-out; /* أطول قليلاً */
+            min-height: 38px;
+            transition: border-left 0.3s ease-out;
+            position: relative;
         }
 
         .menu-item:hover {
-            background: rgba(34, 197, 94, 0.08); 
-            border-left: 2px solid transparent; 
-            transform: translateX(0); 
+            background: rgba(34, 197, 94, 0.08);
+            border-left: 2px solid transparent;
+            transform: translateX(0);
         }
 
         .menu-item.selected {
-            background: #1a4d3a; 
-            border-left: 2px solid transparent; 
-            transform: translateX(0); 
-            box-shadow: none; 
-            /* **تعديل هنا:** تأخير تغيير لون الخلفية بشكل واضح (0.15s) */
-            transition: background 0.3s ease-out 0.15s, border-left 0.3s ease-out 0.15s; 
+            border-left: 2px solid transparent;
+            transform: translateX(0);
+            box-shadow: none;
         }
 
-        .menu-item.selected::after {
-            display: none; 
+        .highlight-bar {
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 38px;
+            background: #1a4d3a;
+            z-index: -1;
+            transition: top 0.4s ease-out;
         }
 
         .menu-item .icon {
-            width: 20px; 
+            width: 20px;
             height: 20px;
-            margin-right: 10px; 
+            margin-right: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 13px; 
-            color: #b0b0b0; 
-            /* **تعديل هنا:** انتقال للون فقط، بدون تأخير عند التحديد، وتأخير عند إلغاء التحديد */
-            transition: color 0.15s ease-out; /* لون الأيقونة يتغير فوراً عند التحديد */
+            font-size: 13px;
+            color: #b0b0b0;
+            transition: color 0.15s ease-out;
         }
+
         .menu-item:not(.selected) .icon {
-            transition: color 0.2s ease-out 0.1s; /* لون الأيقونة يتغير بتأخير عند إلغاء التحديد */
+            transition: color 0.2s ease-out 0.1s;
         }
 
         .menu-item.selected .icon {
-            color: #ffffff; 
-            transform: scale(1.0); 
+            color: #ffffff;
+            transform: scale(1.0);
         }
 
         .menu-item .text {
             flex: 1;
             font-family: 'Roboto', sans-serif;
-            font-size: 13px; 
+            font-size: 13px;
             font-weight: 500;
-            color: #e0e0e0; 
-            /* **تعديل هنا:** انتقال للون فقط، بدون تأخير عند التحديد، وتأخير عند إلغاء التحديد */
-            transition: color 0.15s ease-out; /* لون النص يتغير فوراً عند التحديد */
+            color: #e0e0e0;
+            transition: color 0.15s ease-out;
         }
+
         .menu-item:not(.selected) .text {
-            transition: color 0.2s ease-out 0.1s; /* لون النص يتغير بتأخير عند إلغاء التحديد */
+            transition: color 0.2s ease-out 0.1s;
         }
 
         .menu-item.selected .arrow {
-            color: #ffffff; 
-            transform: translateX(0); 
+            color: #ffffff;
+            transform: translateX(0);
         }
 
         .menu-footer {
-            background: rgba(8, 8, 8, 0.95); 
+            background: rgba(8, 8, 8, 0.95);
             padding: 8px 16px;
             font-family: 'Roboto', sans-serif;
-            font-size: 11px; 
+            font-size: 11px;
             color: #909090;
-            border-top: 1px solid rgba(34, 197, 94, 0.15); 
+            border-top: 1px solid rgba(34, 197, 94, 0.15);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            min-height: 32px; 
+            min-height: 32px;
         }
 
         .menu-footer .version {
@@ -195,37 +194,37 @@
         .menu-footer .counter {
             color: #22c55e;
             font-weight: 600;
-            font-size: 11px; 
-            padding: 2px 5px; 
-            background: rgba(34, 197, 94, 0.08); 
-            border-radius: 6px; 
+            font-size: 11px;
+            padding: 2px 5px;
+            background: rgba(34, 197, 94, 0.08);
+            border-radius: 6px;
         }
 
         .notification-container {
             position: fixed;
-            bottom: 30px; 
-            right: 30px; 
+            bottom: 30px;
+            right: 30px;
             display: flex;
             flex-direction: column;
-            gap: 10px; 
+            gap: 10px;
             z-index: 1000;
         }
 
         .notification {
-            background: rgba(12, 12, 12, 0.98); 
-            border: 1px solid rgba(34, 197, 94, 0.3); 
-            padding: 14px 18px; 
+            background: rgba(12, 12, 12, 0.98);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            padding: 14px 18px;
             border-radius: 10px;
-            min-width: 260px; 
-            max-width: 320px; 
+            min-width: 260px;
+            max-width: 320px;
             box-shadow: 
                 0 8px 32px rgba(0, 0, 0, 0.4),
                 0 0 0 1px rgba(255, 255, 255, 0.05);
             display: flex;
             align-items: center;
-            animation: notificationSlideIn 0.4s ease forwards; 
+            animation: notificationSlideIn 0.4s ease forwards;
             opacity: 0;
-            transform: translateY(20px); 
+            transform: translateY(20px);
         }
 
         .notification.fade-out {
@@ -251,8 +250,8 @@
         }
 
         .notification-icon {
-            font-size: 18px; 
-            margin-right: 10px; 
+            font-size: 18px;
+            margin-right: 10px;
             color: #22c55e;
         }
 
@@ -262,7 +261,7 @@
 
         .notification-title {
             font-family: 'Roboto', sans-serif;
-            font-size: 15px; 
+            font-size: 15px;
             font-weight: 700;
             color: #ffffff;
             margin-bottom: 2px;
@@ -270,20 +269,20 @@
 
         .notification-message {
             font-family: 'Roboto', sans-serif;
-            font-size: 12px; 
+            font-size: 12px;
             font-weight: 500;
             color: #d1d5db;
         }
 
         .notification-timer {
             width: 100%;
-            height: 2px; 
+            height: 2px;
             background: #22c55e;
             position: absolute;
             bottom: 0;
             left: 0;
             animation: timerProgress 4s linear forwards;
-            border-radius: 0 0 8px 8px; 
+            border-radius: 0 0 8px 8px;
         }
 
         @keyframes timerProgress {
@@ -303,6 +302,7 @@
         </div>
 
         <div class="menu-items">
+            <div class="highlight-bar"></div> <!-- الشريط الأخضر الواحد هنا -->
             <div class="menu-item" data-index="0" data-action="self">
                 <div class="icon"><i class="fa-solid fa-user"></i></div>
                 <div class="text">Self</div>
@@ -362,12 +362,13 @@
     <script>
         console.log('🌟 Lean Menu - Enhanced Green Theme');
 
-        let currentIndex = 0; // **تعديل: المنيو في الصورة يبدأ من "Self" وهو Index 0**
+        let currentIndex = 0;
         const menuItems = document.querySelectorAll('.menu-item');
         const counter = document.querySelector('.counter');
         const notificationContainer = document.getElementById('notificationContainer');
         const menuContainer = document.querySelector('.menu-container');
-        const sliderThumb = document.getElementById('sliderThumb'); 
+        const sliderThumb = document.getElementById('sliderThumb');
+        const highlightBar = document.querySelector('.highlight-bar');
 
         const menuOptions = [
             { name: "Self", icon: '<i class="fa-solid fa-user"></i>', desc: "Player Options" },
@@ -381,7 +382,6 @@
             { name: "Settings", icon: '<i class="fa-solid fa-gear"></i>', desc: "System Settings" }
         ];
 
-        // وظيفة لتحديث صورة البنر في الهيدر (إذا أردت استخدامها)
         function setHeaderImage(imageUrl) {
             const header = document.getElementById('menuHeader');
             if (header && imageUrl) {
@@ -392,24 +392,33 @@
 
         function updateSelection(index) {
             if (index !== undefined && index >= 0 && index < menuItems.length) {
+                const prevIndex = currentIndex;
                 currentIndex = index;
-            }
 
-            menuItems.forEach((item, i) => {
-                item.classList.remove('selected');
-                if (i === currentIndex) {
-                    item.classList.add('selected');
+                // إزالة التحديد من العنصر السابق
+                if (prevIndex !== currentIndex) {
+                    menuItems[prevIndex].classList.remove('selected');
                 }
-            });
 
-            // تحديث موضع السلايدر الخارجي
-            if (sliderThumb) {
-                const itemHeight = menuItems[0] ? menuItems[0].offsetHeight : 38; // **تعديل: استخدام الارتفاع الجديد لعنصر القائمة**
-                const topPosition = currentIndex * itemHeight;
-                sliderThumb.style.top = `${topPosition}px`;
+                // إضافة التحديد للعنصر الجديد
+                menuItems[currentIndex].classList.add('selected');
+
+                // تحديث موقع الـ highlight-bar
+                if (highlightBar) {
+                    const itemHeight = menuItems[0].offsetHeight;
+                    const topPosition = currentIndex * itemHeight + 4; // +4 لتضمين padding من .menu-items
+                    highlightBar.style.top = `${topPosition}px`;
+                }
+
+                // تحديث السلايدر
+                if (sliderThumb) {
+                    const itemHeight = menuItems[0].offsetHeight;
+                    const topPosition = currentIndex * itemHeight;
+                    sliderThumb.style.top = `${topPosition}px`;
+                }
+
+                counter.textContent = `${currentIndex + 1}/${menuItems.length}`;
             }
-            
-            counter.textContent = `${currentIndex + 1}/${menuItems.length}`;
         }
 
         function selectEffect(index) {
@@ -473,7 +482,7 @@
             });
 
             // مثال لاستخدام صورة مخصصة لرأس القائمة:
-            // setHeaderImage('https://i.imgur.com/your_lean_menu_image.png'); 
+            // setHeaderImage('https://i.imgur.com/your_lean_menu_image.png');
         });
 
         window.addEventListener('message', function(event) {
@@ -494,7 +503,7 @@
                 } else if (data.type === 'enter') {
                     selectEffect(currentIndex);
                 } else if (data.type === 'showMenu') {
-                    menuContainer.style.display = 'block'; 
+                    menuContainer.style.display = 'block';
                     updateSelection(data.currentIndex !== undefined ? data.currentIndex : currentIndex);
                 } else if (data.type === 'hideMenu') {
                     menuContainer.style.display = 'none';

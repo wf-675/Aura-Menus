@@ -28,17 +28,18 @@
         .menu-container {
             width: 370px;
             height: 530px; 
-            /* التعديل هنا: خلفية شفافة بنسبة 50% (رمادي داكن) بدون تأثير بلوري */
-            background: rgba(0, 0, 0, 0.5); /* لون أسود تمامًا مع شفافية 50% */
+            /* تطبيق شفافية مشابهة لـ Aura Menu */
+            background: rgba(0, 0, 0, 0.75); /* لون أسود مع شفافية 75% */
             /* تم إزالة backdrop-filter و -webkit-backdrop-filter هنا */
-            border-radius: 8px;
+            border-radius: 8px; /* يمكن تعديل radius ليكون أكبر إذا أردت مظهر Aura */
+            border: 1px solid rgba(255, 255, 0, 0.3); /* حدود صفراء خفيفة */
             position: absolute;
             top: 90px;
             left: 85px; 
             overflow: hidden; 
             box-shadow: 
                 0 6px 20px rgba(0, 0, 0, 0.5), 
-                0 0 0 1px rgba(255, 255, 255, 0.03);
+                inset 0 0 10px rgba(255, 255, 0, 0.1); /* ظل داخلي خفيف */
             display: flex;
             flex-direction: column;
         }
@@ -107,8 +108,8 @@
             width: 100%;
             height: 38px;
             background: rgba(255, 255, 0, 0.1); /* أصفر شفاف بلوري للمربع المتحرك */
-            backdrop-filter: blur(5px); /* هذا قد لا يعمل في FiveM */
-            -webkit-backdrop-filter: blur(5px); /* هذا قد لا يعمل في FiveM */
+            backdrop-filter: blur(5px); /* هذا قد لا يعمل في FiveM ولكنه يحافظ على المظهر في المتصفح */
+            -webkit-backdrop-filter: blur(5px);
             z-index: 1; 
             transition: top 0.4s ease-out;
         }

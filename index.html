@@ -1,520 +1,516 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lean Menu</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lean Menu - Compact</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+        }
 
-        /* التعديل هنا: إضافة !important لضمان الشفافية وإخفاء التمرير */
-        html, body {
-            width: 100%;
-            height: 100%;
-            background: transparent !important; 
-            overflow: hidden !important; 
-            font-family: 'Roboto', sans-serif;
-        }
+        html, body {
+            width: 100%;
+            height: 100%;
+            background: transparent !important; /* تأكد أن الخلفية شفافة تماماً */
+            overflow: hidden;
+            font-family: 'Roboto', sans-serif;
+        }
 
-        .menu-container {
-            width: 380px;
-            height: 480px;
-            background: rgba(12, 12, 12, 0.96);
-            border-radius: 10px;
-            position: absolute;
-            top: 100px;
-            left: 95px;
-            overflow: hidden;
-            box-shadow: 
-                0 8px 32px rgba(0, 0, 0, 0.6),
-                0 0 0 1px rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            display: flex;
-            flex-direction: column;
-        }
+        .menu-container {
+            width: 360px; /* **تعديل: عرض أصغر قليلاً بناءً على "انت كبرته اكثر"** */
+            /* **تعديل هنا:** الارتفاع الكلي للمنيو ليتناسب مع المحتوى بالضبط */
+            /* Header (100px) + menu-items (350px) + footer (28px) + padding = 478px. نضع 480px تقريباً */
+            height: 480px; 
+            background: rgba(12, 12, 12, 0.88); /* **تعديل: تقليل الشفافية أكثر (أكثر عتامة)** */
+            border-radius: 8px;
+            position: absolute;
+            top: 90px; /* **تعديل: موضع أعلى قليلاً** */
+            left: 85px; /* **تعديل: موضع أقرب للزاوية** */
+            overflow: hidden;
+            box-shadow: 
+                0 6px 20px rgba(0, 0, 0, 0.5), 
+                0 0 0 1px rgba(255, 255, 255, 0.03);
+            display: flex; 
+            flex-direction: column;
+        }
 
-        .menu-header {
-            height: 120px; /* زيادة الارتفاع من 90px إلى 120px */
-            background: linear-gradient(135deg, #1a4d3a 0%, #0d2818 100%);
-            position: relative;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
+        .menu-header {
+            height: 100px; /* **تعديل: ارتفاع الهيدر أقصر** */
+            background: linear-gradient(135deg, rgba(26, 77, 58, 0.95) 0%, rgba(13, 40, 24, 0.95) 100%); /* قيم rgba معدلة، أكثر عتامة */
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            /* **لإضافة صورة LEAN MENU في الهيدر، ضع هذا السطر وعدل الرابط:** */
+            /* background-image: url('https://i.imgur.com/your_lean_menu_image.png'); */
+        }
 
-        .header-home-text {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(0, 0, 0, 0.7);
-            color: #ffffff;
-            font-family: 'Roboto', sans-serif;
-            font-size: 13px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-align: center;
-            padding: 8px;
-        }
+        .header-home-text {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.8); /* **تعديل: أكثر عتامة** */
+            color: #ffffff;
+            font-family: 'Roboto', sans-serif;
+            font-size: 12px; /* خط HOME أصغر */
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+            padding: 8px; /* بادينغ لـ HOME */
+        }
 
-        .menu-items {
-            padding: 6px 0;
-            overflow-y: auto;
-            height: 450px; /* تقليل الارتفاع من 480px إلى 450px لتعويض زيادة البنر */
-            position: relative;
-        }
+        .menu-items {
+            padding: 4px 0; /* بادينغ عام أقل لعناصر القائمة */
+            /* **تعديل هنا:** ارتفاع ثابت ليتناسب مع 9 عناصر بالضبط */
+            /* 9 عناصر * 38px (min-height) = 342px. نضيف عليها 4px بادينغ علوي وسفلي لعناصر القائمة = 342 + 8 = 350px */
+            height: 350px; 
+            overflow-y: hidden; /* **إخفاء السكرول بار لأنه لم يعد هناك فراغ زائد** */
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
 
-        /* السلايدر الخارجي على اليسار */
-        .external-slider {
-            position: absolute;
-            left: -15px;
-            top: 126px; /* تعديل الموضع ليبدأ بعد البنر الجديد */
-            width: 6px;
-            height: 450px; /* تعديل الارتفاع ليتناسب مع .menu-items */
-            background: rgba(34, 197, 94, 0.2);
-            border-radius: 3px;
-            z-index: 10;
-        }
+        .menu-items::-webkit-scrollbar {
+            display: none;
+        }
 
-        .slider-thumb {
-            position: absolute;
-            left: 0;
-            width: 6px;
-            height: 36px;
-            background: #22c55e;
-            border-radius: 3px;
-            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
-            box-shadow: 0 2px 8px rgba(34, 197, 94, 0.4);
-        }
+        .external-slider {
+            position: absolute;
+            left: -12px; 
+            top: 104px; /* **تعديل: موضع Y بعد الهيدر وبادينغ menu-items** */
+            width: 4px; 
+            height: 350px; /* **تعديل: ارتفاع السلايدر ليتناسب مع menu-items** */
+            background: rgba(34, 197, 94, 0.1); 
+            border-radius: 2px;
+            z-index: 10;
+        }
 
-        .menu-items::-webkit-scrollbar {
-            display: none;
-        }
+        .slider-thumb {
+            position: absolute;
+            left: 0;
+            width: 4px; 
+            height: 38px; /* ارتفاع الثمب ليتناسب مع عنصر المنيو المصغر */
+            background: #22c55e;
+            border-radius: 2px;
+            transition: all 0.2s ease-out; 
+            box-shadow: 0 1px 5px rgba(34, 197, 94, 0.3); 
+        }
 
-        .menu-item {
-            display: flex;
-            align-items: center;
-            padding: 6px 16px;
-            margin: 0;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
-            position: relative;
-            background: transparent;
-            border-left: 3px solid transparent;
-            min-height: 38px;
-        }
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 5px 12px; /* بادينغ أصغر لعنصر المنيو */
+            margin: 0; /* إزالة المارجن لتقريب العناصر */
+            cursor: pointer;
+            transition: all 0.2s ease-out; 
+            position: relative;
+            background: transparent;
+            border-left: 2px solid transparent; 
+            min-height: 38px; /* ارتفاع العنصر أقصر */
+        }
 
-        .menu-item:hover {
-            background: rgba(34, 197, 94, 0.08);
-            border-left: 3px solid rgba(34, 197, 94, 0.4);
-            transform: translateX(2px);
-        }
+        .menu-item:hover {
+            background: rgba(34, 197, 94, 0.08); 
+            border-left: 2px solid rgba(34, 197, 94, 0.3); 
+            transform: translateX(0); /* إزالة الحركة الزائدة */
+        }
 
-        .menu-item.selected {
-            background: rgba(34, 197, 94, 0.12);
-            border-left: 3px solid #22c55e;
-            transform: translateX(4px);
-        }
+        .menu-item.selected {
+            background: rgba(34, 197, 94, 0.1); 
+            border-left: 2px solid #22c55e; 
+            transform: translateX(0); /* إزالة الحركة الزائدة */
+            box-shadow: none; 
+        }
 
-        .menu-item.selected::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, 
-                rgba(34, 197, 94, 0.1) 0%, 
-                transparent 70%);
-            pointer-events: none;
-        }
+        .menu-item.selected::after {
+            display: none; 
+        }
 
-        .menu-item .icon {
-            width: 16px;
-            height: 16px;
-            margin-right: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            color: #9ca3af;
-            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
-        }
+        .menu-item .icon {
+            width: 20px; 
+            height: 20px;
+            margin-right: 10px; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px; 
+            color: #b0b0b0; 
+            transition: all 0.2s ease-out;
+        }
 
-        .menu-item.selected .icon {
-            color: #22c55e;
-        }
+        .menu-item.selected .icon {
+            color: #22c55e; 
+            transform: scale(1.0); 
+        }
 
-        .menu-item .icon i {
-            display: block;
-            font-size: 12px;
-        }
+        .menu-item .text {
+            flex: 1;
+            font-family: 'Roboto', sans-serif;
+            font-size: 13px; 
+            font-weight: 500;
+            color: #e0e0e0; 
+            transition: all 0.2s ease-out;
+        }
 
-        .menu-item .text {
-            flex: 1;
-            font-family: 'Roboto', sans-serif;
-            font-size: 13px;
-            font-weight: 500;
-            color: #e5e7eb;
-            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
-        }
+        .menu-item.selected .text {
+            color: #ffffff; 
+            font-weight: 600;
+        }
 
-        .menu-item.selected .text {
-            color: #22c55e;
-            font-weight: 600;
-        }
+        .menu-item .arrow {
+            font-size: 11px; 
+            color: #606060; 
+            transition: all 0.2s ease-out;
+            font-weight: bold;
+            margin-left: 6px;
+        }
 
-        .menu-item .arrow {
-            font-size: 10px;
-            color: #6b7280;
-            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
-            font-weight: bold;
-            margin-left: 8px;
-        }
+        .menu-item.selected .arrow {
+            color: #22c55e; 
+            transform: translateX(0); 
+        }
 
-        .menu-item.selected .arrow {
-            color: #22c55e;
-            transform: translateX(2px);
-        }
+        .menu-footer {
+            background: rgba(8, 8, 8, 0.9); 
+            padding: 6px 12px; 
+            font-family: 'Roboto', sans-serif;
+            font-size: 10px; 
+            color: #909090;
+            border-top: 1px solid rgba(34, 197, 94, 0.15); 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 28px; 
+        }
 
-        .menu-footer {
-            background: rgba(8, 8, 8, 0.9);
-            padding: 8px 16px;
-            font-family: 'Roboto', sans-serif;
-            font-size: 11px;
-            color: #9ca3af;
-            border-top: 1px solid rgba(34, 197, 94, 0.15);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 40px;
-            flex-shrink: 0;
-        }
+        .menu-footer .version {
+            color: #909090;
+            font-weight: 500;
+        }
 
-        .menu-footer .version {
-            color: #9ca3af;
-            font-weight: 500;
-        }
+        .menu-footer .counter {
+            color: #22c55e;
+            font-weight: 600;
+            font-size: 10px; 
+            padding: 2px 5px; 
+            background: rgba(34, 197, 94, 0.08); 
+            border-radius: 6px; 
+        }
 
-        .menu-footer .counter {
-            color: #22c55e;
-            font-weight: 600;
-            font-size: 11px;
-            padding: 2px 6px;
-            background: rgba(34, 197, 94, 0.1);
-            border-radius: 8px;
-        }
+        .notification-container {
+            position: fixed;
+            bottom: 20px; 
+            right: 20px; 
+            display: flex;
+            flex-direction: column;
+            gap: 8px; 
+            z-index: 1000;
+        }
 
-        .notification-container {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            z-index: 1000;
-        }
+        .notification {
+            background: rgba(12, 12, 12, 0.9); 
+            border: 1px solid rgba(34, 197, 94, 0.2); 
+            padding: 10px 15px; 
+            border-radius: 8px;
+            min-width: 240px; 
+            max-width: 300px; 
+            box-shadow: 
+                0 5px 15px rgba(0, 0, 0, 0.4),
+                0 0 0 1px rgba(255, 255, 255, 0.03);
+            display: flex;
+            align-items: center;
+            animation: notificationSlideIn 0.3s ease-out forwards; 
+            opacity: 0;
+            transform: translateY(15px); 
+        }
 
-        .notification {
-            background: rgba(12, 12, 12, 0.96);
-            border: 1px solid rgba(34, 197, 94, 0.3);
-            padding: 14px 18px;
-            border-radius: 10px;
-            min-width: 260px;
-            max-width: 320px;
-            box-shadow: 
-                0 8px 32px rgba(0, 0, 0, 0.4),
-                0 0 0 1px rgba(255, 255, 255, 0.05);
-            display: flex;
-            align-items: center;
-            animation: notificationSlideIn 0.4s ease forwards;
-            opacity: 0;
-            transform: translateY(20px);
-            backdrop-filter: blur(10px);
-        }
+        .notification.fade-out {
+            opacity: 0;
+            transform: translateY(15px);
+        }
 
-        .notification.fade-out {
-            opacity: 0;
-            transform: translateY(20px);
-        }
+        @keyframes notificationSlideIn {
+            0% {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-        @keyframes notificationSlideIn {
-            0% {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+        .notification-content {
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
 
-        .notification-content {
-            display: flex;
-            align-items: center;
-            flex: 1;
-        }
+        .notification-icon {
+            font-size: 16px; 
+            margin-right: 8px; 
+            color: #22c55e;
+        }
 
-        .notification-icon {
-            font-size: 18px;
-            margin-right: 10px;
-            color: #22c55e;
-        }
+        .notification-text {
+            flex: 1;
+        }
 
-        .notification-text {
-            flex: 1;
-        }
+        .notification-title {
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px; 
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 1px;
+        }
 
-        .notification-title {
-            font-family: 'Roboto', sans-serif;
-            font-size: 15px;
-            font-weight: 700;
-            color: #ffffff;
-            margin-bottom: 2px;
-        }
+        .notification-message {
+            font-family: 'Roboto', sans-serif;
+            font-size: 11px; 
+            font-weight: 500;
+            color: #d1d5db;
+        }
 
-        .notification-message {
-            font-family: 'Roboto', sans-serif;
-            font-size: 12px;
-            font-weight: 500;
-            color: #d1d5db;
-        }
+        .notification-timer {
+            width: 100%;
+            height: 1px; 
+            background: #22c55e;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            animation: timerProgress 4s linear forwards;
+            border-radius: 0 0 8px 8px; 
+        }
 
-        .notification-timer {
-            width: 100%;
-            height: 2px;
-            background: #22c55e;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            animation: timerProgress 4s linear forwards;
-            border-radius: 0 0 8px 8px;
-        }
-
-        @keyframes timerProgress {
-            0% { width: 100%; }
-            100% { width: 0; }
-        }
-    </style>
+        @keyframes timerProgress {
+            0% { width: 100%; }
+            100% { width: 0; }
+        }
+    </style>
 </head>
 <body>
-    <div class="menu-container">
-                <div class="external-slider">
-            <div class="slider-thumb" id="sliderThumb"></div>
-        </div>
-        
-        <div class="menu-header" id="menuHeader">
-            <div class="header-home-text">HOME</div>
-        </div>
+    <div class="menu-container">
+        <div class="external-slider">
+            <div class="slider-thumb" id="sliderThumb"></div>
+        </div>
+        
+        <div class="menu-header" id="menuHeader">
+            <div class="header-home-text">HOME</div>
+        </div>
 
-        <div class="menu-items">
-            <div class="menu-item" data-index="0" data-action="self">
-                <div class="icon"><i class="fa-solid fa-user"></i></div>
-                <div class="text">Self</div>
-                <div class="arrow">»</div>
-            </div>
-            <div class="menu-item" data-index="1" data-action="online">
-                <div class="icon"><i class="fa-solid fa-globe"></i></div>
-                <div class="text">Online</div>
-                <div class="arrow">»</div>
-            </div>
-            <div class="menu-item" data-index="2" data-action="combat">
-                <div class="icon"><i class="fa-solid fa-gun"></i></div>
-                <div class="text">Combat/Weapons</div>
-                <div class="arrow">»</div>
-            </div>
-            <div class="menu-item" data-index="3" data-action="visual">
-                <div class="icon"><i class="fa-solid fa-eye"></i></div>
-                <div class="text">Visual</div>
-                <div class="arrow">»</div>
-            </div>
-            <div class="menu-item" data-index="4" data-action="vehicle">
-                <div class="icon"><i class="fa-solid fa-car"></i></div>
-                <div class="text">Vehicle</div>
-                <div class="arrow">»</div>
-            </div>
-            <div class="menu-item" data-index="5" data-action="misc">
-                <div class="icon"><i class="fa-solid fa-folder-open"></i></div>
-                <div class="text">Miscellaneous</div>
-                <div class="arrow">»</div>
-            </div>
-            <div class="menu-item" data-index="6" data-action="destructive">
-                <div class="icon"><i class="fa-solid fa-bomb"></i></div>
-                <div class="text">Destructive</div>
-                <div class="arrow">»</div>
-            </div>
-            <div class="menu-item" data-index="7" data-action="triggers">
-                <div class="icon"><i class="fa-solid fa-bolt"></i></div>
-                <div class="text">Triggers</div>
-                <div class="arrow">»</div>
-            </div>
-            <div class="menu-item" data-index="8" data-action="settings">
-                <div class="icon"><i class="fa-solid fa-gear"></i></div>
-                <div class="text">Settings</div>
-                <div class="arrow">»</div>
-            </div>
-        </div>
+        <div class="menu-items">
+            <div class="menu-item" data-index="0" data-action="self">
+                <div class="icon"><i class="fa-solid fa-user"></i></div>
+                <div class="text">Self</div>
+                <div class="arrow">»</div>
+            </div>
+            <div class="menu-item" data-index="1" data-action="online">
+                <div class="icon"><i class="fa-solid fa-desktop"></i></div>
+                <div class="text">Online</div>
+                <div class="arrow">»</div>
+            </div>
+            <div class="menu-item" data-index="2" data-action="combat">
+                <div class="icon"><i class="fa-solid fa-crosshairs"></i></div>
+                <div class="text">Combat/Weapons</div>
+                <div class="arrow">»</div>
+            </div>
+            <div class="menu-item" data-index="3" data-action="visual">
+                <div class="icon"><i class="fa-solid fa-eye"></i></div>
+                <div class="text">Visual</div>
+                <div class="arrow">»</div>
+            </div>
+            <div class="menu-item" data-index="4" data-action="vehicle">
+                <div class="icon"><i class="fa-solid fa-car"></i></div>
+                <div class="text">Vehicle</div>
+                <div class="arrow">»</div>
+            </div>
+            <div class="menu-item" data-index="5" data-action="misc">
+                <div class="icon"><i class="fa-solid fa-folder-open"></i></div>
+                <div class="text">Miscellaneous</div>
+                <div class="arrow">»</div>
+            </div>
+            <div class="menu-item" data-index="6" data-action="destructive">
+                <div class="icon"><i class="fa-solid fa-bomb"></i></div>
+                <div class="text">Destructive</div>
+                <div class="arrow">»</div>
+            </div>
+            <div class="menu-item" data-index="7" data-action="triggers">
+                <div class="icon"><i class="fa-solid fa-bolt"></i></div>
+                <div class="text">Triggers</div>
+                <div class="arrow">»</div>
+            </div>
+            <div class="menu-item" data-index="8" data-action="settings">
+                <div class="icon"><i class="fa-solid fa-gear"></i></div>
+                <div class="text">Settings</div>
+                <div class="arrow">»</div>
+            </div>
+        </div>
 
-        <div class="menu-footer">
-            <span class="version">Version: Beta | 24hrs ago</span>
-            <span class="counter" id="counter">2/9</span>
-        </div>
-    </div>
+        <div class="menu-footer">
+            <span class="version">Version: Beta | 24hrs ago</span>
+            <span class="counter">1/9</span>
+        </div>
+    </div>
 
-    <div class="notification-container" id="notificationContainer">
-    </div>
+    <div class="notification-container" id="notificationContainer">
+    </div>
 
-    <script>
-        console.log('🌟 Lean Menu - Enhanced Green Theme');
+    <script>
+        console.log('🌟 Lean Menu - Enhanced Green Theme');
 
-        let currentIndex = 1;
-        const menuItems = document.querySelectorAll('.menu-item');
-        const counter = document.querySelector('.counter');
-        const notificationContainer = document.getElementById('notificationContainer');
-        const menuContainer = document.querySelector('.menu-container');
+        let currentIndex = 0; // **تعديل: المنيو في الصورة يبدأ من "Self" وهو Index 0**
+        const menuItems = document.querySelectorAll('.menu-item');
+        const counter = document.querySelector('.counter');
+        const notificationContainer = document.getElementById('notificationContainer');
+        const menuContainer = document.querySelector('.menu-container');
+        const sliderThumb = document.getElementById('sliderThumb'); 
 
-        const menuOptions = [
-            { name: "Self", icon: '<i class="fa-solid fa-user"></i>', desc: "Player Options" },
-            { name: "Online", icon: '<i class="fa-solid fa-globe"></i>', desc: "Online Features" },
-            { name: "Combat/Weapons", icon: '<i class="fa-solid fa-gun"></i>', desc: "Weapon System" },
-            { name: "Visual", icon: '<i class="fa-solid fa-eye"></i>', desc: "Visual Effects" },
-            { name: "Vehicle", icon: '<i class="fa-solid fa-car"></i>', desc: "Vehicle Menu" },
-            { name: "Miscellaneous", icon: '<i class="fa-solid fa-folder-open"></i>', desc: "Other Options" },
-            { name: "Destructive", icon: '<i class="fa-solid fa-bomb"></i>', desc: "Destruction Tools" },
-            { name: "Triggers", icon: '<i class="fa-solid fa-bolt"></i>', desc: "Event Triggers" },
-            { name: "Settings", icon: '<i class="fa-solid fa-gear"></i>', desc: "System Settings" }
-        ];
+        const menuOptions = [
+            { name: "Self", icon: '<i class="fa-solid fa-user"></i>', desc: "Player Options" },
+            { name: "Online", icon: '<i class="fa-solid fa-desktop"></i>', desc: "Online Features" },
+            { name: "Combat/Weapons", icon: '<i class="fa-solid fa-crosshairs"></i>', desc: "Weapon System" },
+            { name: "Visual", icon: '<i class="fa-solid fa-eye"></i>', desc: "Visual Effects" },
+            { name: "Vehicle", icon: '<i class="fa-solid fa-car"></i>', desc: "Vehicle Menu" },
+            { name: "Miscellaneous", icon: '<i class="fa-solid fa-folder-open"></i>', desc: "Other Options" },
+            { name: "Destructive", icon: '<i class="fa-solid fa-bomb"></i>', desc: "Destruction Tools" },
+            { name: "Triggers", icon: '<i class="fa-solid fa-bolt"></i>', desc: "Event Triggers" },
+            { name: "Settings", icon: '<i class="fa-solid fa-gear"></i>', desc: "System Settings" }
+        ];
 
-        // وظيفة لتحديث صورة البنر
-        function setHeaderImage(imageUrl) {
-            const header = document.getElementById('menuHeader');
-            if (imageUrl) {
-                header.style.backgroundImage = `url('${imageUrl}')`;
-                console.log('Header image set to:', imageUrl);
-            }
-        }
+        // وظيفة لتحديث صورة البنر في الهيدر (إذا أردت استخدامها)
+        function setHeaderImage(imageUrl) {
+            const header = document.getElementById('menuHeader');
+            if (header && imageUrl) {
+                header.style.backgroundImage = `url('${imageUrl}')`;
+                console.log('Header image set to:', imageUrl);
+            }
+        }
 
-        function updateSelection(index) {
-            if (index !== undefined && index >= 0 && index < menuItems.length) {
-                currentIndex = index;
-            }
+        function updateSelection(index) {
+            if (index !== undefined && index >= 0 && index < menuItems.length) {
+                currentIndex = index;
+            }
 
-            menuItems.forEach((item, i) => {
-                item.classList.remove('selected');
-                if (i === currentIndex) {
-                    item.classList.add('selected');
-                }
-            });
+            menuItems.forEach((item, i) => {
+                item.classList.remove('selected');
+                if (i === currentIndex) {
+                    item.classList.add('selected');
+                }
+            });
 
-            // تحديث موضع السلايدر الخارجي
-            const sliderThumb = document.getElementById('sliderThumb');
-            const itemHeight = 38; // ارتفاع كل عنصر الجديد
-            const topPosition = currentIndex * itemHeight;
-            sliderThumb.style.top = `${topPosition}px`;
+            // تحديث موضع السلايدر الخارجي
+            if (sliderThumb) {
+                const itemHeight = menuItems[0] ? menuItems[0].offsetHeight : 38; // **تعديل: استخدام الارتفاع الجديد لعنصر القائمة**
+                const topPosition = currentIndex * itemHeight;
+                sliderThumb.style.top = `${topPosition}px`;
+            }
+            
+            counter.textContent = `${currentIndex + 1}/${menuItems.length}`;
+        }
 
-            counter.textContent = `${currentIndex + 1}/${menuItems.length}`;
-        }
+        function selectEffect(index) {
+            if (index !== undefined && index >= 0 && index < menuItems.length) {
+                currentIndex = index;
+            }
 
-        function selectEffect(index) {
-            if (index !== undefined && index >= 0 && index < menuItems.length) {
-                currentIndex = index;
-            }
+            const selectedItem = menuItems[currentIndex];
+            if (selectedItem && typeof (GetParentResourceName) !== 'undefined') {
+                fetch(`https://${GetParentResourceName()}/menuSelected`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json; charset=UTF-8',
+                    },
+                    body: JSON.stringify({
+                        action: selectedItem.dataset.action,
+                        index: currentIndex
+                    })
+                }).then(resp => resp.json()).then(resp => console.log('Sent menu selection to FiveM:', resp));
+            }
+        }
 
-            const selectedItem = menuItems[currentIndex];
-            if (selectedItem && typeof (GetParentResourceName) !== 'undefined') {
-                fetch(`https://${GetParentResourceName()}/menuSelected`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json; charset=UTF-8',
-                    },
-                    body: JSON.stringify({
-                        action: selectedItem.dataset.action,
-                        index: currentIndex
-                    })
-                }).then(resp => resp.json()).then(resp => console.log('Sent menu selection to FiveM:', resp));
-            }
-        }
+        function showNotification(index) {
+            const option = menuOptions[index];
+            if (!option) return;
 
-        function showNotification(index) {
-            const option = menuOptions[index];
-            if (!option) return;
+            const notification = document.createElement('div');
+            notification.className = 'notification';
 
-            const notification = document.createElement('div');
-            notification.className = 'notification';
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <div class="notification-icon"><i class="fa-solid fa-check"></i></div>
+                    <div class="notification-text">
+                        <div class="notification-title">Activated</div>
+                        <div class="notification-message">${option.name}</div>
+                    </div>
+                </div>
+                <div class="notification-timer"></div>
+            `;
 
-            notification.innerHTML = `
-                <div class="notification-content">
-                    <div class="notification-icon"><i class="fa-solid fa-check"></i></div>
-                    <div class="notification-text">
-                        <div class="notification-title">Activated</div>
-                        <div class="notification-message">${option.name}</div>
-                    </div>
-                </div>
-                <div class="notification-timer"></div>
-            `;
+            notificationContainer.appendChild(notification);
 
-            notificationContainer.appendChild(notification);
+            setTimeout(() => {
+                notification.classList.add('fade-out');
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 400);
+            }, 4000);
+        }
 
-            setTimeout(() => {
-                notification.classList.add('fade-out');
-                setTimeout(() => {
-                    if (notification.parentNode) {
-                        notification.parentNode.removeChild(notification);
-                    }
-                }, 400);
-            }, 4000);
-        }
+        document.addEventListener('DOMContentLoaded', function() {
+            updateSelection(currentIndex);
+            menuItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const index = parseInt(this.dataset.index);
+                    updateSelection(index);
+                    selectEffect(index);
+                });
+            });
 
-        document.addEventListener('DOMContentLoaded', function() {
-            updateSelection(currentIndex);
-            menuItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    const index = parseInt(this.dataset.index);
-                    updateSelection(index);
-                    selectEffect(index);
-                });
-            });
-        });
+            // مثال لاستخدام صورة مخصصة لرأس القائمة:
+            // setHeaderImage('https://i.imgur.com/your_lean_menu_image.png'); 
+        });
 
-        window.addEventListener('message', function(event) {
-            const data = event.data;
-            try {
-                if (data.type === 'updateSelection') {
-                    updateSelection(data.currentIndex);
-                } else if (data.type === 'selectEffect') {
-                    selectEffect(data.index);
-                } else if (data.type === 'showNotification') {
-                    showNotification(data.index || currentIndex);
-                } else if (data.type === 'moveUp') {
-                    currentIndex = (currentIndex - 1 + menuItems.length) % menuItems.length;
-                    updateSelection(currentIndex);
-                } else if (data.type === 'moveDown') {
-                    currentIndex = (currentIndex + 1) % menuItems.length;
-                    updateSelection(currentIndex);
-                } else if (data.type === 'enter') {
-                    selectEffect(currentIndex);
-                } else if (data.type === 'showMenu') {
-                    menuContainer.style.display = 'block';
-                    updateSelection(data.currentIndex !== undefined ? data.currentIndex : currentIndex);
-                } else if (data.type === 'hideMenu') {
-                    menuContainer.style.display = 'none';
-                } else if (data.type === 'setHeaderImage') {
-                    setHeaderImage(data.imageUrl);
-                }
-            } catch (error) {
-                console.error('Error processing message from FiveM:', error);
-            }
-        });
-
-        // مثال لاستخدام صورة مخصصة
-         setHeaderImage('https://media.discordapp.net/attachments/1385406372740464710/1385410059391205510/Gemini_Generated_Image_safm9ssafm9ssafm.png?ex=685748a9&is=6855f729&hm=ea0891ee66e034e99466901e2cf43a70df80ca6d1ae61d203ee89cef3361933e&=&format=webp&quality=lossless');
-    </script>
+        window.addEventListener('message', function(event) {
+            const data = event.data;
+            try {
+                if (data.type === 'updateSelection') {
+                    updateSelection(data.currentIndex);
+                } else if (data.type === 'selectEffect') {
+                    selectEffect(data.index);
+                } else if (data.type === 'showNotification') {
+                    showNotification(data.index || currentIndex);
+                } else if (data.type === 'moveUp') {
+                    currentIndex = (currentIndex - 1 + menuItems.length) % menuItems.length;
+                    updateSelection(currentIndex);
+                } else if (data.type === 'moveDown') {
+                    currentIndex = (currentIndex + 1) % menuItems.length;
+                    updateSelection(currentIndex);
+                } else if (data.type === 'enter') {
+                    selectEffect(currentIndex);
+                } else if (data.type === 'showMenu') {
+                    menuContainer.style.display = 'block'; 
+                    updateSelection(data.currentIndex !== undefined ? data.currentIndex : currentIndex);
+                } else if (data.type === 'hideMenu') {
+                    menuContainer.style.display = 'none';
+                } else if (data.type === 'setHeaderImage') {
+                    setHeaderImage(data.imageUrl);
+                }
+            } catch (error) {
+                console.error('Error processing message from FiveM:', error);
+            }
+        });
+    </script>
 </body>
 </html>

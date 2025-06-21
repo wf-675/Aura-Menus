@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aura Menu - Yellow Edition</title> <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <title>Lean Menu - Elite Edition</title> 
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         * {
@@ -16,110 +17,80 @@
         }
 
         html, body {
-            margin: 0;
-            padding: 0;
             width: 100%;
             height: 100%;
-            /* هذا السطر حيوي لشفافية الـ NUI في FiveM - كما في كود Aura */
             background-color: transparent !important; 
             overflow: hidden;
             font-family: 'Roboto', sans-serif;
-        }
-
-        body {
-            color: white;
-            cursor: default;
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            padding-left: 30px; /* لتبدأ القائمة من اليسار قليلاً */
-            background-color: transparent !important; /* تأكيد الشفافية */
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
         }
 
         .menu-container {
-            width: 370px; /* العرض الذي تفضله */
-            height: 530px; /* الارتفاع الذي تفضله */
-            /* خلفية شفافة 0.60 */
-            background: rgba(0, 0, 0, 0.6); 
-            /* حواف ناعمة للمنيو ككل */
+            width: 370px; 
+            height: 550px; /* الارتفاع الذي اخترته أنت */
+            background: rgba(0, 0, 0, 0.6); /* شفافية 0.60 */
             border-radius: 12px; 
-            /* تم إزالة الحدود الصفراء */
-            /* border: 1px solid rgba(255, 255, 0, 0.3); */
-            /* ظل Box-shadow من كود Aura ولكن بألوان صفراء */
             box-shadow: 
-                0 6px 20px rgba(0, 0, 0, 0.5), 
-                inset 0 0 10px rgba(255, 255, 0, 0.1); /* ظل داخلي خفيف أصفر */
+                0 4px 15px rgba(0, 0, 0, 0.4), 
+                inset 0 0 8px rgba(255, 255, 0, 0.08); 
             overflow: hidden;
-            /* Animation من كود Aura (يمكن تعديلها أو إزالتها إذا سببت مشاكل) */
-            animation: menuSlideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
+            position: relative; 
             display: flex;
             flex-direction: column;
-            /* موضع القائمة بناءً على padding-left في body */
-            /* لا داعي لـ top/left هنا إذا كان body هو المسؤول عن التموضع */
+            /* تم إزالة أنيميشن الدخول */
+            opacity: 1; /* مرئي تماماً عند التحميل */
         }
 
-        /* إزالة ::before من menu-container من كود Aura (لم نستخدمها) */
-        .menu-container::before {
-            display: none !important;
-        }
-
-        /* Keep Aura's menuSlideIn animation */
-        @keyframes menuSlideIn {
+        /* تم إزالة keyframes menuFadeInScale لأن الأنيميشن لم يعد موجوداً */
+        /*
+        @keyframes menuFadeInScale {
             0% {
                 opacity: 0;
-                transform: translateX(-50px) scale(0.95);
-                filter: blur(10px); /* قد لا يعمل هذا في FiveM - لكنه جزء من الأنميشن الأصلي */
+                transform: scale(0.95); 
             }
             100% {
                 opacity: 1;
-                transform: translateX(0) scale(1);
-                filter: blur(0); /* قد لا يعمل هذا في FiveM */
+                transform: scale(1);
             }
         }
+        */
 
         .menu-header {
-            height: 150px; /* ارتفاع البنر أطول */
-            /* تدرج لوني أصفر فخم - من كود Lean Menu */
-            background: linear-gradient(135deg, rgba(255, 255, 0, 0.9) 0%, rgba(200, 200, 0, 0.9) 100%);
-            padding: 30px 36px; /* بادينج من كود Aura */
-            text-align: center;
-            /* حدود سفلية أصفر شفاف */
-            border-bottom: 1px solid rgba(255, 255, 0, 0.2); 
+            height: 170px; 
+            background: linear-gradient(135deg, rgba(255, 255, 0, 0.95) 0%, rgba(200, 200, 0, 0.95) 100%); 
             position: relative;
-            overflow: hidden;
-            flex-shrink: 0;
-            /* حواف ناعمة للبانر (أعلى المنيو) - لتتناسب مع menu-container */
+            background-size: cover; 
+            background-position: center -35px; /* تم تعديله من قبلك لرفع الصورة بالبكسل */
+            background-repeat: no-repeat;
             border-top-left-radius: 11px; 
             border-top-right-radius: 11px;
+            box-shadow: inset 0 -3px 8px rgba(255, 255, 0, 0.1), 0 3px 10px rgba(0, 0, 0, 0.2); 
         }
 
-        /* إزالة ::before من menu-header من كود Aura (لم نستخدمها) */
-        .menu-header::before {
-            display: none !important; 
-        }
-
-        .header-home-text { /* هذا كان عنصرك الخاص بكلمة HOME */
-            position: absolute;
+        .header-home-text {
+            position: absolute; 
             bottom: 0;
             left: 0;
             right: 0;
-            background: #000000; /* خلفية سوداء بالكامل */
+            background: #000000; /* أسود صلب بالكامل */
             color: #ffffff;
             font-family: 'Roboto', sans-serif;
-            font-size: 12px;
-            font-weight: 600;
+            font-size: 12px; 
+            font-weight: 600; 
             text-transform: uppercase;
-            letter-spacing: 1px;
-            text-align: center;
-            padding: 8px;
+            letter-spacing: 1px; 
+            text-align: center; 
+            padding: 8px; 
+            border-radius: 0; 
+            box-shadow: none; 
         }
 
         .menu-items {
-            padding: 4px 0; /* padding من كود Lean Menu */
-            height: calc(100% - 150px - 32px); /* الارتفاع الكلي للقائمة - ارتفاع البنر - ارتفاع التذييل */
-            flex-grow: 1; /* من كود Aura لتملأ المساحة المتبقية */
-            overflow: hidden; /* إزالة أي سكرول بار */
+            padding: 4px 0;
+            height: calc(100% - 170px - 32px); /* تم تعديله ليتناسب مع ارتفاع البنر 170px */
+            overflow-y: hidden; 
             position: relative;
             display: flex;
             flex-direction: column;
@@ -132,17 +103,13 @@
         .menu-item {
             display: flex;
             align-items: center;
-            padding: 5px 12px; /* تم تعديل البادينج ليتناسب مع حجم الخطوط */
+            padding: 5px 12px;
             margin: 0;
             cursor: pointer;
             position: relative;
-            min-height: 38px; /* ارتفاع العنصر */
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* انتقال سلس */
-            user-select: none; /* لمنع تحديد النص عند الضغط */
-            background: transparent !important; /* لضمان عدم وجود خلفية بيضاء */
-            overflow: hidden; /* لضمان عدم خروج محتوى */
-            width: 100%;
-            z-index: 2; /* ليكون فوق ال highlight-bar */
+            min-height: 38px;
+            transition: background 0.15s ease-out, box-shadow 0.15s ease-out; 
+            z-index: 2;
         }
 
         .menu-item:hover {
@@ -150,31 +117,26 @@
         }
 
         .menu-item.selected {
-            /* خلفية التحديد (المربع المتحرك) - بدون backdrop-filter */
-            background: rgba(255, 255, 0, 0.15); /* أصفر شفاف */
-            /* لا يوجد border-left لجعل المربع يتحرك بحرية */
-            /* transform: translateX(10px) scale(1.02); -- إزالة هذا لتجنب التحرك */
+            background: rgba(255, 255, 0, 0.1); 
             box-shadow: 
-                inset 0 0 15px rgba(255, 255, 0, 0.1), /* ظل داخلي خفيف أصفر */
-                0 4px 15px rgba(255, 255, 0, 0.15); /* ظل خارجي خفيف أصفر */
-            /* حواف ناعمة للمربع المتحرك */
+                inset 0 0 8px rgba(255, 255, 0, 0.08), 
+                0 2px 8px rgba(255, 255, 0, 0.08); 
             border-radius: 4px; 
+            transform: none; 
         }
 
-        .highlight-bar { /* هذا هو المربع الذي يتحرك خلف العناصر */
+        .highlight-bar {
             position: absolute;
             left: 0;
             width: 100%;
-            height: 38px; /* نفس ارتفاع العنصر */
-            background: rgba(255, 255, 0, 0.1); /* أصفر شفاف */
-            /* لا يوجد backdrop-filter هنا */
-            border-radius: 4px; /* حواف ناعمة للمربع المتحرك */
-            z-index: 1; /* يبقى خلف النصوص والأيقونات */
-            transition: top 0.4s ease-out;
+            height: 38px;
+            background: rgba(255, 255, 0, 0.08); 
+            border-radius: 4px; 
+            z-index: 1; 
+            transition: top 0.2s ease-out; 
         }
 
         .menu-item .icon {
-            /* أيقونات Lean Menu - من كودك السابق */
             width: 20px;
             height: 20px;
             margin-right: 10px;
@@ -183,86 +145,77 @@
             justify-content: center;
             font-size: 13px;
             color: #d0d0d0; 
-            transition: color 0.15s ease-out; /* إزالة transform لضمان الثبات */
+            transition: color 0.15s ease-out; 
             position: relative;
             z-index: 2;
-            /* filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4)); -- إزالة هذا لتجنب أي مشاكل بالشفافية */
         }
 
         .menu-item:not(.selected) .icon {
-            transition: color 0.2s ease-out 0.1s;
+            transition: color 0.15s ease-out 0.05s; 
         }
 
         .menu-item.selected .icon {
-            color: rgb(255, 255, 0); /* الأيقونة صفراء عند التحديد */
-            /* transform: scale(1.1); -- إزالة هذا لتجنب التحرك */
-            /* filter: drop-shadow(0 0 8px rgba(255, 255, 0, 0.8)); -- إزالة هذا لتجنب أي مشاكل بالشفافية */
+            color: rgb(255, 255, 0); 
         }
 
         .menu-item .text {
-            /* نصوص Lean Menu - من كودك السابق */
             flex: 1;
             font-family: 'Roboto', sans-serif;
             font-size: 13px;
             font-weight: 500;
             color: #f0f0f0; 
-            transition: color 0.15s ease-out;
+            transition: color 0.15s ease-out; 
             position: relative;
             z-index: 2;
-            text-shadow: none; /* إزالة text-shadow لتجنب مشاكل الشفافية */
         }
 
         .menu-item:not(.selected) .text {
-            transition: color 0.2s ease-out 0.1s;
+            transition: color 0.15s ease-out 0.05s; 
         }
 
         .menu-item.selected .text {
-            color: rgb(255, 255, 0); /* النص أصفر عند التحديد */
+            color: rgb(255, 255, 0); 
         }
 
         .menu-item .arrow {
-            /* أسهم Lean Menu - من كودك السابق */
             position: relative;
             z-index: 2;
             color: #d0d0d0; 
-            transition: color 0.15s ease-out; /* إزالة transform لضمان الثبات */
+            transition: color 0.15s ease-out; 
         }
 
         .menu-item.selected .arrow {
-            color: rgb(255, 255, 0); /* السهم أصفر عند التحديد */
+            color: rgb(255, 255, 0); 
         }
 
         .menu-footer {
-            /* التذييل - بناءً على كود Aura */
-            background: rgba(0, 0, 0, 0.7); /* خلفية سوداء شفافة */
-            padding: 8px 16px; /* بادينج Lean Menu */
-            font-size: 11px; /* حجم خط Lean Menu */
-            color: #b0b0b0; /* لون نص Lean Menu */
-            border-top: 1px solid rgba(255, 255, 0, 0.25); /* حدود صفراء خفيفة */
+            background: rgba(8, 8, 8, 0.7); 
+            padding: 8px 16px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 11px;
+            color: #b0b0b0;
+            border-top: 1px solid rgba(255, 255, 0, 0.2); 
             display: flex;
             justify-content: space-between;
             align-items: center;
-            min-height: 32px; /* ارتفاع Lean Menu */
-            flex-shrink: 0; /* من كود Aura */
-            /* حواف ناعمة سفلية */
+            min-height: 32px;
             border-bottom-left-radius: 11px; 
             border-bottom-right-radius: 11px;
         }
 
         .menu-footer .version {
-            color: #b0b0b0; /* لون نص Lean Menu */
-            font-weight: 500; /* وزن خط Lean Menu */
+            color: #b0b0b0;
+            font-weight: 500;
         }
 
         .menu-footer .counter {
-            /* العداد - بناءً على كود Aura */
-            color: rgb(255, 255, 0); /* أصفر نقي */
-            font-weight: 600; /* وزن خط Lean Menu */
-            font-size: 11px; /* حجم خط Lean Menu */
-            padding: 2px 5px; /* بادينج Lean Menu */
-            background: rgba(255, 255, 0, 0.15); /* خلفية صفراء شفافة */
-            border-radius: 6px; /* حواف ناعمة */
-            border: 1px solid rgba(255, 255, 0, 0.3); /* حدود صفراء خفيفة */
+            background: rgba(255, 255, 0, 0.1); 
+            border-radius: 6px;
+            color: rgb(255, 255, 0); 
+            font-weight: 600;
+            font-size: 11px;
+            padding: 2px 5px;
+            box-shadow: 0 1px 3px rgba(255, 255, 0, 0.2); 
         }
 
         .notification-container {
@@ -276,38 +229,45 @@
         }
 
         .notification {
-            /* الإشعارات - بناءً على كود Aura، بدون backdrop-filter */
-            background: rgba(12, 12, 12, 0.85); /* خلفية شفافة */
-            border: 1px solid rgba(255, 255, 0, 0.5); /* حدود صفراء */
-            padding: 14px 18px;
-            border-radius: 10px;
+            background: rgba(25, 25, 25, 0.85); 
+            border: 1px solid rgba(255, 255, 0, 0.4); 
+            padding: 14px 18px; 
+            border-radius: 10px; 
             min-width: 260px;
             max-width: 320px;
             box-shadow: 
-                0 8px 32px rgba(0, 0, 0, 0.5),
-                0 0 0 1px rgba(255, 255, 255, 0.08);
+                0 6px 20px rgba(0, 0, 0, 0.5), 
+                0 0 0 1px rgba(255, 255, 255, 0.05); 
             display: flex;
             align-items: center;
-            animation: notificationSlideIn 0.4s ease forwards;
-            opacity: 0;
-            transform: translateY(20px);
+            /* تم إزالة أنيميشن الدخول والخروج من هنا */
+            opacity: 0; /* يبقى مخفيًا بشكل افتراضي لتتحكم بها FiveM */
+            /* transform: translateY(15px); */ /* تم إزالة التحويل الافتراضي */
         }
 
-        .notification.fade-out {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
-        @keyframes notificationSlideIn {
+        /* تم إزالة keyframes notificationFadeIn و notificationFadeOut */
+        /*
+        @keyframes notificationFadeIn {
             0% {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(15px);
             }
             100% {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
+        @keyframes notificationFadeOut {
+            0% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+        }
+        */
 
         .notification-content {
             display: flex;
@@ -316,39 +276,43 @@
         }
 
         .notification-icon {
-            font-size: 18px;
-            margin-right: 10px;
+            font-size: 18px; 
+            margin-right: 10px; 
             color: rgb(255, 255, 0); 
+            text-shadow: none; 
+            animation: none; 
         }
-
+        
         .notification-text {
             flex: 1;
         }
 
         .notification-title {
             font-family: 'Roboto', sans-serif;
-            font-size: 15px;
+            font-size: 15px; 
             font-weight: 700;
             color: #ffffff;
-            margin-bottom: 2px;
+            margin-bottom: 2px; 
+            text-shadow: none; 
         }
 
         .notification-message {
             font-family: 'Roboto', sans-serif;
-            font-size: 12px;
+            font-size: 12px; 
             font-weight: 500;
-            color: #cad1d8;
+            color: #d1d5db; 
+            text-shadow: none; 
         }
 
         .notification-timer {
             width: 100%;
-            height: 2px;
+            height: 2px; 
             background: rgb(255, 255, 0); 
             position: absolute;
             bottom: 0;
             left: 0;
             animation: timerProgress 4s linear forwards;
-            border-radius: 0 0 8px 8px;
+            border-radius: 0 0 8px 8px; 
         }
 
         @keyframes timerProgress {
@@ -424,10 +388,10 @@
 
     <script>
         // === هنا تضع رابط صورة البنر لتعديله بسهولة ===
-        const bannerImageUrl = 'https://media.discordapp.net/attachments/1385473748068728922/1385879507289899148/Untitled12_20250621101005.png?ex=6857ac5e&is=68565ade&hm=d6b1c32143168757f493fcfe79cb7dad4849f8b56e7ca841ad23888219fe491e&=&format=webp&quality=lossless'; // ضع رابط صورتك هنا (مثال لصورة صفراء 370x150)
+        const bannerImageUrl = 'https://media.discordapp.net/attachments/1385473748068728922/1385879507289899148/Untitled12_20250621101005.png?ex=6857ac5e&is=68565ade&hm=d6b1c32143168757f493fcfe79cb7dad4849f8b56e7ca841ad23888219fe491e&=&format=webp&quality=lossless'; 
         // ===========================================
 
-        console.log('🌟 Lean Menu - Final Yellow Glassmorphism Theme');
+        console.log('🌟 Lean Menu - Elite Edition Initialized');
 
         let currentIndex = 0;
         const menuItems = document.querySelectorAll('.menu-item');
@@ -508,7 +472,7 @@
                 <div class="notification-content">
                     <div class="notification-icon"><i class="fa-solid fa-check"></i></div>
                     <div class="notification-text">
-                        <div class="notification-title">Activated</div>
+                        <div class="notification-title">تم التفعيل</div>
                         <div class="notification-message">${option.name}</div>
                     </div>
                 </div>
@@ -523,8 +487,8 @@
                     if (notification.parentNode) {
                         notification.parentNode.removeChild(notification);
                     }
-                }, 400);
-            }, 4000);
+                }, 400); 
+            }, 3500); 
         }
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -557,10 +521,12 @@
                     updateSelection(currentIndex);
                 } else if (data.type === 'enter') {
                     selectEffect(currentIndex);
-                } else if (data.type === 'showMenu') {
-                    menuContainer.style.display = 'block';
+                } else if (data.type === 'showMenu') { /* Open Menu */
+                    menuContainer.style.display = 'flex';
+                    /* تم إزالة أنيميشن الدخول */
                     updateSelection(data.currentIndex !== undefined ? data.currentIndex : currentIndex);
-                } else if (data.type === 'hideMenu') {
+                } else if (data.type === 'hideMenu') { /* Close Menu */
+                    /* تم إزالة أنيميشن الخروج */
                     menuContainer.style.display = 'none';
                 } else if (data.type === 'setHeaderImage') {
                     setHeaderImage(data.imageUrl); 

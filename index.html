@@ -30,20 +30,15 @@
         body {
             color: #E0E0E0;
             cursor: default;
-            /* **تعديل هنا:** إزالة justify-content, align-items, padding-left */
-            /* الآن الـ menu-container نفسه سيستخدم absolute positioning داخل الـ DUI الذي تمدده Lua */
+            /* الموضع والحجم الآن يتم التحكم فيهما بالكامل بواسطة .menu-container */
             background-color: transparent !important;
         }
 
         /* حاوية القائمة الرئيسية */
         .menu-container {
-            /* **تعديل: هذه الأبعاد هي لتعويض تشويه DrawSprite الأصلي في Lua، ولجعلها تبدو كما في الصورة** */
-            /* Original DUI is 1200x1800, drawn at 0.5833 width (1120px on 1920 scr) x 1.0 height (1080px on 1080 scr) */
-            /* This means the 1200x1800 DUI is compressed horizontally to 1120px. Ratio 1200/1120 = 1.071 */
-            /* So, the HTML content needs to be slightly wider than it appears, to be squeezed correctly. */
-            width: 480px; /* **تعديل: عرض معدل ليعوض التشويه ويظهر 410px في النهاية** */
+            width: 385px; /* **تعديل: عرض المنيو ليتناسب مع الصورة الأخيرة (أصغر قليلاً)** */
             height: auto;
-            min-height: 720px; /* **تعديل: ارتفاع معدل ليعوض التشويه ويظهر 680px في النهاية** */
+            min-height: 620px; /* **تعديل: ارتفاع المنيو ليتناسب مع الصورة الأخيرة (أقصر قليلاً)** */
             
             background-color: rgba(0, 0, 0, 0.9);
             border-radius: 10px;
@@ -54,10 +49,8 @@
             overflow: hidden;
             animation: menuSlideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
             position: absolute;
-            /* **تعديل: هذه هي الأبعاد الدقيقة للموضع داخل الـ DUI 1200x1800 لتظهر في الزاوية** */
-            /* يتم حسابها بالنسبة المئوية من الـ DUI نفسه (1200x1800) */
-            top: 4%; /* 4% من ارتفاع الـ DUI 1800px = 72px */
-            left: 3%; /* 3% من عرض الـ DUI 1200px = 36px */
+            top: 6%; /* **تعديل: يبعد 6% من أعلى الشاشة** */
+            left: 4%; /* **تعديل: يبعد 4% من يسار الشاشة** */
             display: flex;
             flex-direction: column;
         }

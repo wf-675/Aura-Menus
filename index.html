@@ -27,8 +27,10 @@
         .menu-container {
             width: 370px;
             height: 530px; 
-            /* هنا شفافية خلفية المنيو السوداء */
-            background: rgba(12, 12, 12, 0.50); /* تم تغيير الشفافية هنا إلى 0.85 */
+            /* التعديل هنا: إزالة backdrop-filter والاعتماد على rgba فقط للشفافية */
+            background: rgba(12, 12, 12, 0.85); /* الخلفية شفافة بنسبة 15% */
+            /* backdrop-filter: blur(5px); تم إزالته */
+            /* -webkit-backdrop-filter: blur(5px); تم إزالته */
             border-radius: 8px;
             position: absolute;
             top: 90px;
@@ -43,7 +45,6 @@
 
         .menu-header {
             height: 150px; 
-            /* الخلفية الافتراضية هنا سيتم استبدالها بالجافاسكريبت */
             background: linear-gradient(135deg, rgba(255, 255, 0, 0.9) 0%, rgba(200, 200, 0, 0.9) 100%);
             position: relative;
             background-size: cover;
@@ -79,8 +80,6 @@
         .menu-items::-webkit-scrollbar {
             display: none;
         }
-
-        /* تم إزالة أكواد شريط التمرير الخارجي بناءً على طلبك السابق */
         
         .menu-item {
             display: flex;
@@ -167,6 +166,7 @@
         }
 
         .menu-footer {
+            /* الحفاظ على البلورية في التذييل */
             background: rgba(8, 8, 8, 0.7); 
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
@@ -187,6 +187,7 @@
         }
 
         .menu-footer .counter {
+            /* الحفاظ على البلورية في العداد */
             color: rgb(255, 255, 0); 
             font-weight: 600;
             font-size: 11px;
@@ -208,6 +209,7 @@
         }
 
         .notification {
+            /* الحفاظ على البلورية في الإشعارات */
             background: rgba(12, 12, 12, 0.85); 
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
@@ -355,7 +357,7 @@
     </div>
 
     <script>
-        // === هنا تضع رابط صورة البنر لتعديله بسهولة ===// هنا تحط رابط البنر 
+        // === هنا تضع رابط صورة البنر لتعديله بسهولة ===
         const bannerImageUrl = 'https://media.discordapp.net/attachments/1385473748068728922/1385867972425547870/e894689b-7900-41ef-a713-f127a60031c2.png?ex=6857a1a0&is=68565020&hm=a1254a9aa22432befccb4f94faebe2b800f130145797c6bd117b657cc23899c2&=&format=webp&quality=lossless&width=1392&height=928'; // ضع رابط صورتك هنا (مثال لصورة صفراء 370x150)
         // ===========================================
 
@@ -404,8 +406,6 @@
                     const topPosition = currentIndex * itemHeight + 4; 
                     highlightBar.style.top = `${topPosition}px`;
                 }
-
-                // تم إزالة جزء تحديث sliderThumb هنا لأنه لم يعد موجودًا في HTML
                 
                 counter.textContent = `${currentIndex + 1}/${menuItems.length}`;
             }

@@ -23,7 +23,7 @@
 
         .menu-container {
             width: 380px;
-            height: auto;
+            height: 480px;
             background: rgba(12, 12, 12, 0.96);
             border-radius: 10px;
             position: absolute;
@@ -34,6 +34,8 @@
                 0 8px 32px rgba(0, 0, 0, 0.6),
                 0 0 0 1px rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
         }
 
         .menu-header {
@@ -84,7 +86,7 @@
             position: absolute;
             left: 0;
             width: 6px;
-            height: 44px;
+            height: 36px;
             background: #22c55e;
             border-radius: 3px;
             transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
@@ -98,14 +100,14 @@
         .menu-item {
             display: flex;
             align-items: center;
-            padding: 8px 16px;
-            margin: 1px 0;
+            padding: 6px 16px;
+            margin: 0;
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
             position: relative;
             background: transparent;
             border-left: 3px solid transparent;
-            min-height: 47px;
+            min-height: 38px;
         }
 
         .menu-item:hover {
@@ -134,13 +136,13 @@
         }
 
         .menu-item .icon {
-            width: 20px;
-            height: 20px;
-            margin-right: 12px;
+            width: 16px;
+            height: 16px;
+            margin-right: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
+            font-size: 12px;
             color: #9ca3af;
             transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
         }
@@ -151,13 +153,13 @@
 
         .menu-item .icon i {
             display: block;
-            font-size: 14px;
+            font-size: 12px;
         }
 
         .menu-item .text {
             flex: 1;
             font-family: 'Roboto', sans-serif;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 500;
             color: #e5e7eb;
             transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
@@ -169,7 +171,7 @@
         }
 
         .menu-item .arrow {
-            font-size: 12px;
+            font-size: 10px;
             color: #6b7280;
             transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
             font-weight: bold;
@@ -191,7 +193,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            min-height: 32px;
+            height: 40px;
+            flex-shrink: 0;
         }
 
         .menu-footer .version {
@@ -361,7 +364,7 @@
 
         <div class="menu-footer">
             <span class="version">Version: Beta | 24hrs ago</span>
-            <span class="counter">2/9</span>
+            <span class="counter" id="counter">2/9</span>
         </div>
     </div>
 
@@ -412,7 +415,7 @@
 
             // تحديث موضع السلايدر الخارجي
             const sliderThumb = document.getElementById('sliderThumb');
-            const itemHeight = 47; // ارتفاع كل عنصر
+            const itemHeight = 38; // ارتفاع كل عنصر الجديد
             const topPosition = currentIndex * itemHeight;
             sliderThumb.style.top = `${topPosition}px`;
 
@@ -511,7 +514,7 @@
         });
 
         // مثال لاستخدام صورة مخصصة
-         setHeaderImage('https://media.discordapp.net/attachments/1385406372740464710/1385410059391205510/Gemini_Generated_Image_safm9ssafm9ssafm.png?ex=685748a9&is=6855f729&hm=ea0891ee66e034e99466901e2cf43a70df80ca6d1ae61d203ee89cef3361933e&=&format=webp&quality=lossless');
+        // setHeaderImage('https://your-image-url.com/lean-banner.png');
     </script>
 </body>
 </html>

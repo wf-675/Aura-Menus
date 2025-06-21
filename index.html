@@ -19,7 +19,7 @@
         html, body {
             width: 100%;
             height: 100%;
-            /* ضمان شفافية خلفية الـ NUI في FiveM */
+            /* هذا السطر حيوي لشفافية الـ NUI في FiveM */
             background-color: transparent !important; 
             overflow: hidden;
             font-family: 'Roboto', sans-serif;
@@ -28,10 +28,10 @@
         .menu-container {
             width: 370px;
             height: 530px; 
-            /* تطبيق شفافية مشابهة لـ Aura Menu */
-            background: rgba(0, 0, 0, 0.75); /* لون أسود مع شفافية 75% */
-            /* تم إزالة backdrop-filter و -webkit-backdrop-filter هنا */
-            border-radius: 8px; /* يمكن تعديل radius ليكون أكبر إذا أردت مظهر Aura */
+            /* الخلفية الأساسية للمنيو - تم إزالة البلورية (backdrop-filter) */
+            background: rgba(12, 12, 12, 0.85); /* استخدم 0.7 لشفافية أقوى */
+            /* تم إزالة backdrop-filter و -webkit-backdrop-filter */
+            border-radius: 8px; 
             border: 1px solid rgba(255, 255, 0, 0.3); /* حدود صفراء خفيفة */
             position: absolute;
             top: 90px;
@@ -107,9 +107,9 @@
             left: 0;
             width: 100%;
             height: 38px;
-            background: rgba(255, 255, 0, 0.1); /* أصفر شفاف بلوري للمربع المتحرك */
-            backdrop-filter: blur(5px); /* هذا قد لا يعمل في FiveM ولكنه يحافظ على المظهر في المتصفح */
-            -webkit-backdrop-filter: blur(5px);
+            /* مربع التظليل - تم إزالة البلورية منه */
+            background: rgba(255, 255, 0, 0.1); /* أصفر شفاف فقط */
+            /* تم إزالة backdrop-filter و -webkit-backdrop-filter */
             z-index: 1; 
             transition: top 0.4s ease-out;
         }
@@ -167,10 +167,9 @@
         }
 
         .menu-footer {
-            /* الحفاظ على البلورية في التذييل */
+            /* التذييل - تم إزالة البلورية منه */
             background: rgba(8, 8, 8, 0.7); 
-            backdrop-filter: blur(8px); /* هذا قد لا يعمل في FiveM */
-            -webkit-backdrop-filter: blur(8px); /* هذا قد لا يعمل في FiveM */
+            /* تم إزالة backdrop-filter و -webkit-backdrop-filter */
             padding: 8px 16px;
             font-family: 'Roboto', sans-serif;
             font-size: 11px;
@@ -188,14 +187,13 @@
         }
 
         .menu-footer .counter {
-            /* الحفاظ على البلورية في العداد */
+            /* العداد - تم إزالة البلورية منه */
             color: rgb(255, 255, 0); 
             font-weight: 600;
             font-size: 11px;
             padding: 2px 5px;
             background: rgba(255, 255, 0, 0.15); 
-            backdrop-filter: blur(3px); /* هذا قد لا يعمل في FiveM */
-            -webkit-backdrop-filter: blur(3px); /* هذا قد لا يعمل في FiveM */
+            /* تم إزالة backdrop-filter و -webkit-backdrop-filter */
             border-radius: 6px;
         }
 
@@ -210,10 +208,9 @@
         }
 
         .notification {
-            /* الحفاظ على البلورية في الإشعارات */
+            /* الإشعارات - تم إزالة البلورية منها */
             background: rgba(12, 12, 12, 0.85); 
-            backdrop-filter: blur(12px); /* هذا قد لا يعمل في FiveM */
-            -webkit-backdrop-filter: blur(12px); /* هذا قد لا يعمل في FiveM */
+            /* تم إزالة backdrop-filter و -webkit-backdrop-filter */
             border: 1px solid rgba(255, 255, 0, 0.5);
             padding: 14px 18px;
             border-radius: 10px;

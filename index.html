@@ -3,243 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aura Menu V3</title>
+    <title>Lean Menu</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* إعادة تعيين الأساسيات */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            text-rendering: optimizeLegibility;
         }
 
         html, body {
-            margin: 0;
-            padding: 0;
             width: 100%;
             height: 100%;
-            background-color: transparent !important;
-            overflow: hidden; /* لمنع أي سكرول بار */
+            background: transparent;
+            overflow: hidden;
             font-family: 'Roboto', sans-serif;
         }
 
-        body {
-            color: #E0E0E0;
-            cursor: default;
-            background-color: transparent !important;
-        }
-
-        /* حاوية القائمة الرئيسية - تصميم جديد */
         .menu-container {
-            width: 300px; /* **تعديل: عرض أصغر بكثير** */
+            width: 320px;
             height: auto;
-            min-height: 500px; /* **تعديل: ارتفاع أصغر بكثير** */
-            
-            background-color: rgba(10, 10, 15, 0.95); /* خلفية داكنة جداً */
-            border-radius: 8px; /* حواف أكثر حدة */
-            border: 1px solid #00BFFF; /* **لون أزرق/سماوي** */
-            box-shadow:
-                0 0 25px rgba(0, 191, 255, 0.4), /* ظل أزرق متوهج */
-                inset 0 0 10px rgba(0, 191, 255, 0.15);
-            overflow: hidden;
-            animation: menuSlideIn 0.5s ease-out; /* حركة دخول أسرع وأكثر سلاسة */
+            background: rgba(15, 15, 15, 0.95);
+            border-radius: 12px;
+            border: 2px solid #00FF88;
             position: absolute;
-            top: 5%; /* **موضع قريب جداً من الزاوية العلوية اليسرى** */
-            left: 3%; /* **موضع قريب جداً من الزاوية العلوية اليسرى** */
-            display: flex;
-            flex-direction: column;
-            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5)); /* ظل إضافي للقائمة */
-        }
-
-        .menu-container::before {
-            display: none !important;
-        }
-
-        @keyframes menuSlideIn {
-            0% {
-                opacity: 0;
-                transform: translateX(-80px) scale(0.9);
-                filter: blur(8px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateX(0) scale(1);
-                filter: blur(0);
-            }
-        }
-
-
-        /* رأس القائمة - تصميم جديد */
-        .menu-header {
-            width: 100%;
-            height: 100px; /* **ارتفاع رأس القائمة أصغر** */
-            /* لا يوجد هنا صورة "LEAN MENU" مباشرة، بل تصميم نظيف.
-               إذا أردت دمج الصورة، ستحتاج لوضعها كـ background-image هنا
-               وتعديل الـ height ليتناسب معها، وتعديل الـ header-text ليتموضع بشكل صحيح.
-               سأفترض حالياً أنك تريد تصميماً جديداً كلياً لرأس القائمة.
-            */
-            background: linear-gradient(135deg, rgba(0, 191, 255, 0.8) 0%, rgba(0, 100, 200, 0.8) 100%); /* تدرج أزرق */
-            border-bottom: 1px solid rgba(0, 191, 255, 0.3); /* حدود شفافة */
-            position: relative;
+            top: 100px;
+            left: 80px;
             overflow: hidden;
-            flex-shrink: 0;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+        }
+
+        .menu-header {
+            height: 120px;
+            background: linear-gradient(135deg, #00FF88 0%, #00CC6A 100%);
+            position: relative;
             display: flex;
-            flex-direction: column; /* لجعل النص في المنتصف */
-            justify-content: center;
             align-items: center;
-            padding: 15px; /* تباعد داخلي */
+            justify-content: center;
+            border-bottom: 2px solid #00FF88;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
 
-        .menu-title, .menu-subtitle {
-            display: none; /* إخفاء العناوين القديمة */
-        }
-
-        .header-text {
-            font-family: 'Orbitron', sans-serif; /* **خط مستقبلي لرأس القائمة** */
-            color: #FFFFFF;
-            font-size: 28px; /* **حجم خط أكبر للعنوان الجديد** */
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.5), 0 0 25px rgba(0, 191, 255, 0.8);
+        .header-overlay {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #ffffff;
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
             text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-
-        /* عناصر القائمة - تصميم جديد */
         .menu-items {
-            padding: 5px 0; /* **بادينغ أصغر جداً** */
-            flex-grow: 1;
-            overflow-y: auto; 
-            scrollbar-width: none; 
+            padding: 5px 0;
+            overflow-y: auto;
+            max-height: 400px;
         }
 
         .menu-items::-webkit-scrollbar {
-            display: none;
+            width: 3px;
+        }
+
+        .menu-items::-webkit-scrollbar-track {
+            background: rgba(0, 255, 136, 0.1);
+        }
+
+        .menu-items::-webkit-scrollbar-thumb {
+            background: #00FF88;
+            border-radius: 2px;
         }
 
         .menu-item {
             display: flex;
             align-items: center;
-            padding: 8px 20px; /* **بادينغ أصغر جداً للعناصر** */
-            border-bottom: 1px solid rgba(0, 191, 255, 0.05); /* حدود رقيقة جداً */
+            padding: 12px 18px;
+            margin: 1px 0;
             cursor: pointer;
-            transition: all 0.15s ease-in-out; /* **انتقالات سريعة وسلسة** */
+            transition: all 0.2s ease;
             position: relative;
-            user-select: none;
-            background-color: transparent !important;
-            min-height: 40px; /* **ارتفاع أصغر للعناصر** */
-            width: 100%;
+            background: transparent;
+            border-left: 4px solid transparent;
         }
 
-        .menu-item::before {
-            display: none;
-        }
-
-        .menu-item:last-child {
-            border-bottom: none;
+        .menu-item:hover {
+            background: rgba(0, 255, 136, 0.1);
+            border-left: 4px solid rgba(0, 255, 136, 0.5);
         }
 
         .menu-item.selected {
-            background-color: rgba(0, 191, 255, 0.15); /* **خلفية زرقاء/سماوية شفافة عند التحديد** */
-            border-left: 4px solid #00BFFF; /* **حدود زرقاء/سماوية** */
-            padding-left: 18px; /* تعويض المسافة بسبب الحدود */
-            transform: translateX(0);
-            box-shadow: inset 0 0 10px rgba(0, 191, 255, 0.2);
+            background: rgba(0, 255, 136, 0.15);
+            border-left: 4px solid #00FF88;
         }
 
-        /* الأيقونات المخصصة (Font Awesome) - تصميم جديد */
         .menu-item .icon {
-            width: 25px; /* **أيقونات أصغر** */
-            height: 25px;
-            margin-right: 15px;
-            opacity: 0.8;
-            transition: all 0.15s ease-in-out;
-            font-size: 20px; /* **حجم خط أيقونة Font Awesome أصغر** */
+            width: 24px;
+            height: 24px;
+            margin-right: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #D0D0D0; /* لون أيقونة فاتح غير محدد */
-            text-shadow: none;
+            font-size: 16px;
+            color: #CCCCCC;
+            transition: color 0.2s ease;
+            opacity: 1;
         }
 
         .menu-item.selected .icon {
-            opacity: 1;
-            transform: scale(1.0);
-            filter: drop-shadow(0 0 8px rgba(0, 191, 255, 0.8));
-            color: #FFFFFF; /* **أيقونة بيضاء متوهجة عند التحديد** */
+            color: #00FF88;
+        }
+
+        .menu-item .icon i {
+            display: block;
+            font-size: 16px;
         }
 
         .menu-item .text {
-            font-family: 'Roboto', sans-serif;
             flex: 1;
-            font-size: 16px; /* **نصوص أصغر** */
+            font-family: 'Roboto', sans-serif;
+            font-size: 15px;
             font-weight: 500;
-            color: #F0F0F0;
-            transition: all 0.15s ease-in-out;
-            text-shadow: none;
+            color: #FFFFFF;
+            transition: color 0.2s ease;
         }
 
         .menu-item.selected .text {
-            color: #FFFFFF;
+            color: #00FF88;
             font-weight: 600;
-            text-shadow: none;
         }
 
         .menu-item .arrow {
-            font-size: 14px; /* **أسهم أصغر** */
-            color: #707070;
-            transition: all 0.15s ease-in-out;
+            font-size: 14px;
+            color: #666666;
+            transition: color 0.2s ease;
             font-weight: bold;
-            opacity: 1;
-            text-shadow: none;
+            margin-left: 8px;
         }
 
         .menu-item.selected .arrow {
-            color: #00BFFF; /* **سهم أزرق عند التحديد** */
-            transform: translateX(0);
-            filter: drop-shadow(0 0 6px #00BFFF);
-            opacity: 1;
+            color: #00FF88;
         }
 
-        /* تذييل القائمة - تصميم جديد */
         .menu-footer {
-            background-color: rgba(10, 10, 15, 0.95);
-            padding: 8px 20px; /* **بادينغ أصغر** */
+            background: rgba(10, 10, 10, 0.9);
+            padding: 10px 18px;
             font-family: 'Roboto', sans-serif;
-            font-size: 11px; /* **خط أصغر** */
-            color: #909090;
-            border-top: 1px solid rgba(0, 191, 255, 0.1); /* حدود شفافة */
+            font-size: 12px;
+            color: #AAAAAA;
+            border-top: 1px solid rgba(0, 255, 136, 0.2);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            min-height: 30px; /* **ارتفاع أقل** */
-            flex-shrink: 0;
+            min-height: 35px;
         }
 
         .menu-footer .version {
-            color: #909090;
-            font-weight: 400;
-            text-shadow: none;
+            color: #AAAAAA;
+            font-weight: 500;
         }
 
         .menu-footer .counter {
-            color: #909090;
-            font-weight: 400;
-            font-size: 11px;
-            padding: 0;
-            background-color: transparent;
-            border: none;
+            color: #00FF88;
+            font-weight: 600;
+            font-size: 12px;
         }
 
-        /* إشعارات التفعيل - تصميم جديد */
         .notification-container {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
+            bottom: 30px;
+            right: 30px;
             display: flex;
             flex-direction: column;
             gap: 10px;
@@ -247,20 +184,18 @@
         }
 
         .notification {
-            background: rgba(10, 10, 15, 0.95);
-            border: 1px solid #00BFFF;
-            padding: 12px 18px; /* **بادينغ أصغر** */
-            border-radius: 8px;
-            min-width: 250px; /* **عرض أصغر** */
-            max-width: 320px; /* **عرض أصغر** */
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), 0 0 10px rgba(0, 191, 255, 0.4);
+            background: rgba(15, 15, 15, 0.95);
+            border: 2px solid #00FF88;
+            padding: 15px 20px;
+            border-radius: 12px;
+            min-width: 280px;
+            max-width: 350px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
             display: flex;
             align-items: center;
-            animation: notificationSlideIn 0.4s ease-out forwards; /* حركة أسرع */
+            animation: notificationSlideIn 0.4s ease forwards;
             opacity: 0;
             transform: translateY(20px);
-            transition: opacity 0.3s ease, transform 0.3s ease;
-            position: relative;
         }
 
         .notification.fade-out {
@@ -271,13 +206,11 @@
         @keyframes notificationSlideIn {
             0% {
                 opacity: 0;
-                transform: translateY(20px) scale(0.95);
-                filter: blur(5px);
+                transform: translateY(20px);
             }
             100% {
                 opacity: 1;
-                transform: translateY(0) scale(1);
-                filter: blur(0);
+                transform: translateY(0);
             }
         }
 
@@ -288,16 +221,9 @@
         }
 
         .notification-icon {
-            font-size: 20px; /* **حجم أيقونة أصغر** */
-            margin-right: 10px;
-            color: #00BFFF;
-            filter: drop-shadow(0 0 6px #00BFFF);
-            animation: iconPulse 1.2s infinite ease-in-out; /* نبض أسرع */
-        }
-
-        @keyframes iconPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+            font-size: 20px;
+            margin-right: 12px;
+            color: #00FF88;
         }
 
         .notification-text {
@@ -306,29 +232,28 @@
 
         .notification-title {
             font-family: 'Roboto', sans-serif;
-            font-size: 15px; /* **خط أصغر** */
+            font-size: 16px;
             font-weight: 700;
             color: #FFFFFF;
-            text-shadow: none;
-            margin-bottom: 2px;
+            margin-bottom: 3px;
         }
 
         .notification-message {
             font-family: 'Roboto', sans-serif;
-            font-size: 13px; /* **خط أصغر** */
+            font-size: 13px;
             font-weight: 500;
-            color: #E0E0E0;
-            text-shadow: none;
+            color: #DDDDDD;
         }
 
         .notification-timer {
             width: 100%;
-            height: 2px; /* **شريط أصغر** */
-            background: #00BFFF;
+            height: 3px;
+            background: #00FF88;
             position: absolute;
             bottom: 0;
             left: 0;
             animation: timerProgress 4s linear forwards;
+            border-radius: 0 0 10px 10px;
         }
 
         @keyframes timerProgress {
@@ -339,65 +264,76 @@
 </head>
 <body>
     <div class="menu-container">
-        <div class="menu-header">
-            <div class="header-text">AURA MENU</div> </div>
+        <div class="menu-header" id="menuHeader">
+            <div class="header-overlay">HOME</div>
+        </div>
 
         <div class="menu-items">
             <div class="menu-item" data-index="0" data-action="self">
-                <div class="icon"><i class="fa-solid fa-user"></i></div> <div class="text">Self</div>
+                <div class="icon"><i class="fa-solid fa-user"></i></div>
+                <div class="text">Self</div>
                 <div class="arrow">»</div>
             </div>
             <div class="menu-item" data-index="1" data-action="online">
-                <div class="icon"><i class="fa-solid fa-globe"></i></div> <div class="text">Online</div>
+                <div class="icon"><i class="fa-solid fa-globe"></i></div>
+                <div class="text">Online</div>
                 <div class="arrow">»</div>
             </div>
             <div class="menu-item" data-index="2" data-action="combat">
-                <div class="icon"><i class="fa-solid fa-gun"></i></div> <div class="text">Combat/Weapons</div>
+                <div class="icon"><i class="fa-solid fa-gun"></i></div>
+                <div class="text">Combat/Weapons</div>
                 <div class="arrow">»</div>
             </div>
             <div class="menu-item" data-index="3" data-action="visual">
-                <div class="icon"><i class="fa-solid fa-eye"></i></div> <div class="text">Visual</div>
+                <div class="icon"><i class="fa-solid fa-eye"></i></div>
+                <div class="text">Visual</div>
                 <div class="arrow">»</div>
             </div>
             <div class="menu-item" data-index="4" data-action="vehicle">
-                <div class="icon"><i class="fa-solid fa-car"></i></div> <div class="text">Vehicle</div>
+                <div class="icon"><i class="fa-solid fa-car"></i></div>
+                <div class="text">Vehicle</div>
                 <div class="arrow">»</div>
             </div>
             <div class="menu-item" data-index="5" data-action="misc">
-                <div class="icon"><i class="fa-solid fa-folder-open"></i></div> <div class="text">Miscellaneous</div>
+                <div class="icon"><i class="fa-solid fa-folder-open"></i></div>
+                <div class="text">Miscellaneous</div>
                 <div class="arrow">»</div>
             </div>
             <div class="menu-item" data-index="6" data-action="destructive">
-                <div class="icon"><i class="fa-solid fa-burst"></i></div> <div class="text">Destructive</div>
+                <div class="icon"><i class="fa-solid fa-burst"></i></div>
+                <div class="text">Destructive</div>
                 <div class="arrow">»</div>
             </div>
             <div class="menu-item" data-index="7" data-action="triggers">
-                <div class="icon"><i class="fa-solid fa-bolt"></i></div> <div class="text">Triggers</div>
+                <div class="icon"><i class="fa-solid fa-bolt"></i></div>
+                <div class="text">Triggers</div>
                 <div class="arrow">»</div>
             </div>
             <div class="menu-item" data-index="8" data-action="settings">
-                <div class="icon"><i class="fa-solid fa-gear"></i></div> <div class="text">Settings</div>
+                <div class="icon"><i class="fa-solid fa-gear"></i></div>
+                <div class="text">Settings</div>
                 <div class="arrow">»</div>
             </div>
         </div>
 
         <div class="menu-footer">
-            <span class="version">Aura V3 | Beta</span> <span class="counter">1/9</span> </div>
+            <span class="version">Version: Beta | 24hrs ago</span>
+            <span class="counter">2/9</span>
+        </div>
     </div>
 
     <div class="notification-container" id="notificationContainer">
     </div>
 
     <script>
-        console.log('🌟 Aura Menu V3 - New Design Active');
+        console.log('🌟 Lean Menu - Green Theme Active');
 
-        let currentIndex = 0; // **تعديل: بدأ من 0 ليتوافق مع "Self"**
+        let currentIndex = 1; // بدء من Online كما في الصورة
         const menuItems = document.querySelectorAll('.menu-item');
         const counter = document.querySelector('.counter');
         const notificationContainer = document.getElementById('notificationContainer');
         const menuContainer = document.querySelector('.menu-container');
 
-        // تحديث مصفوفة menuOptions لتشمل Font Awesome icons الجديدة
         const menuOptions = [
             { name: "Self", icon: '<i class="fa-solid fa-user"></i>', desc: "Player Options" },
             { name: "Online", icon: '<i class="fa-solid fa-globe"></i>', desc: "Online Features" },
@@ -410,19 +346,27 @@
             { name: "Settings", icon: '<i class="fa-solid fa-gear"></i>', desc: "System Settings" }
         ];
 
+        // وظيفة لتحديث صورة البنر
+        function setHeaderImage(imageUrl) {
+            const header = document.getElementById('menuHeader');
+            if (imageUrl) {
+                header.style.backgroundImage = `url('${imageUrl}')`;
+            }
+        }
+
         function updateSelection(index) {
             if (index !== undefined && index >= 0 && index < menuItems.length) {
                 currentIndex = index;
             }
 
             menuItems.forEach((item, i) => {
-                if (item.classList.contains('selected')) {
-                    item.classList.remove('selected');
-                }
+                item.classList.remove('selected');
                 if (i === currentIndex) {
                     item.classList.add('selected');
-                    // Scroll to selected item if it's not fully visible
-                    item.parentNode.scrollTop = item.offsetTop - (item.parentNode.offsetHeight / 2) + (item.offsetHeight / 2);
+                    item.scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'center' 
+                    });
                 }
             });
 
@@ -435,31 +379,23 @@
             }
 
             const selectedItem = menuItems[currentIndex];
-            if (selectedItem) {
-                selectedItem.classList.add('clicked');
-                setTimeout(() => selectedItem.classList.remove('clicked'), 400);
-
-                if (typeof (GetParentResourceName) !== 'undefined') {
-                    fetch(`https://${GetParentResourceName()}/menuSelected`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json; charset=UTF-8',
-                        },
-                        body: JSON.stringify({
-                            action: selectedItem.dataset.action,
-                            index: currentIndex
-                        })
-                    }).then(resp => resp.json()).then(resp => console.log('Sent menu selection to FiveM:', resp));
-                }
+            if (selectedItem && typeof (GetParentResourceName) !== 'undefined') {
+                fetch(`https://${GetParentResourceName()}/menuSelected`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json; charset=UTF-8',
+                    },
+                    body: JSON.stringify({
+                        action: selectedItem.dataset.action,
+                        index: currentIndex
+                    })
+                }).then(resp => resp.json()).then(resp => console.log('Sent menu selection to FiveM:', resp));
             }
         }
 
         function showNotification(index) {
             const option = menuOptions[index];
-
-            if (!option) {
-                return;
-            }
+            if (!option) return;
 
             const notification = document.createElement('div');
             notification.className = 'notification';
@@ -516,15 +452,21 @@
                 } else if (data.type === 'enter') {
                     selectEffect(currentIndex);
                 } else if (data.type === 'showMenu') {
-                    menuContainer.style.display = 'flex';
+                    menuContainer.style.display = 'block';
                     updateSelection(data.currentIndex !== undefined ? data.currentIndex : currentIndex);
                 } else if (data.type === 'hideMenu') {
                     menuContainer.style.display = 'none';
+                } else if (data.type === 'setHeaderImage') {
+                    setHeaderImage(data.imageUrl);
                 }
             } catch (error) {
                 console.error('Error processing message from FiveM:', error);
             }
         });
+
+        // تعيين صورة افتراضية أو من رابط خارجي
+        // يمكنك تغيير هذا الرابط لصورتك المخصصة
+        // setHeaderImage('https://your-image-url.com/lean-banner.png');
     </script>
 </body>
 </html>

@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aura Menu</title>
+    <title>Aura Menu V3</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Oxanium:wght@400;500;600;700;800&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
         /* إعادة تعيين الأساسيات */
         * {
@@ -30,41 +30,40 @@
         body {
             color: #E0E0E0;
             cursor: default;
-            /* الموضع والحجم الآن يتم التحكم فيهما بالكامل بواسطة .menu-container */
             background-color: transparent !important;
         }
 
-        /* حاوية القائمة الرئيسية */
+        /* حاوية القائمة الرئيسية - تصميم جديد */
         .menu-container {
-            width: 385px; /* **تعديل: عرض المنيو ليتناسب مع الصورة الأخيرة (أصغر قليلاً)** */
+            width: 300px; /* **تعديل: عرض أصغر بكثير** */
             height: auto;
-            min-height: 620px; /* **تعديل: ارتفاع المنيو ليتناسب مع الصورة الأخيرة (أقصر قليلاً)** */
+            min-height: 500px; /* **تعديل: ارتفاع أصغر بكثير** */
             
-            background-color: rgba(0, 0, 0, 0.9);
-            border-radius: 10px;
-            border: 1px solid #10B981; /* **لون أخضر نيون للحدود** */
+            background-color: rgba(10, 10, 15, 0.95); /* خلفية داكنة جداً */
+            border-radius: 8px; /* حواف أكثر حدة */
+            border: 1px solid #00BFFF; /* **لون أزرق/سماوي** */
             box-shadow:
-                0 0 20px rgba(16, 185, 129, 0.5), /* **ظل أخضر نيون** */
-                inset 0 0 10px rgba(16, 185, 129, 0.2);
+                0 0 25px rgba(0, 191, 255, 0.4), /* ظل أزرق متوهج */
+                inset 0 0 10px rgba(0, 191, 255, 0.15);
             overflow: hidden;
-            animation: menuSlideIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: menuSlideIn 0.5s ease-out; /* حركة دخول أسرع وأكثر سلاسة */
             position: absolute;
-            top: 6%; /* **تعديل: يبعد 6% من أعلى الشاشة** */
-            left: 4%; /* **تعديل: يبعد 4% من يسار الشاشة** */
+            top: 5%; /* **موضع قريب جداً من الزاوية العلوية اليسرى** */
+            left: 3%; /* **موضع قريب جداً من الزاوية العلوية اليسرى** */
             display: flex;
             flex-direction: column;
+            filter: drop-shadow(0 5px 15px rgba(0,0,0,0.5)); /* ظل إضافي للقائمة */
         }
 
         .menu-container::before {
             display: none !important;
         }
 
-        /* تعديل الـ keyframes لتتوافق مع الوضع المطلق والتحريك من الزاوية */
         @keyframes menuSlideIn {
             0% {
                 opacity: 0;
-                transform: translateX(-50px) scale(0.95);
-                filter: blur(10px);
+                transform: translateX(-80px) scale(0.9);
+                filter: blur(8px);
             }
             100% {
                 opacity: 1;
@@ -74,48 +73,50 @@
         }
 
 
-        /* رأس القائمة */
+        /* رأس القائمة - تصميم جديد */
         .menu-header {
             width: 100%;
-            height: 140px;
-            background-image: url('https://media.discordapp.net/attachments/1385406372740464710/1385410059391205510/Gemini_Generated_Image_safm9ssafm9ssafm.png?ex=68569fe9&is=68554e69&hm=016824a8db20976740a2ee6def4e219cc223b34526f6d5718428266c45abc26e&=&format=webp&quality=lossless'); /* **ضع رابط صورتك هنا** */
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            border-bottom: 1px solid #10B981; /* **لون أخضر نيون** */
+            height: 100px; /* **ارتفاع رأس القائمة أصغر** */
+            /* لا يوجد هنا صورة "LEAN MENU" مباشرة، بل تصميم نظيف.
+               إذا أردت دمج الصورة، ستحتاج لوضعها كـ background-image هنا
+               وتعديل الـ height ليتناسب معها، وتعديل الـ header-text ليتموضع بشكل صحيح.
+               سأفترض حالياً أنك تريد تصميماً جديداً كلياً لرأس القائمة.
+            */
+            background: linear-gradient(135deg, rgba(0, 191, 255, 0.8) 0%, rgba(0, 100, 200, 0.8) 100%); /* تدرج أزرق */
+            border-bottom: 1px solid rgba(0, 191, 255, 0.3); /* حدود شفافة */
             position: relative;
             overflow: hidden;
             flex-shrink: 0;
             display: flex;
+            flex-direction: column; /* لجعل النص في المنتصف */
             justify-content: center;
-            align-items: flex-end;
-            padding-bottom: 10px;
+            align-items: center;
+            padding: 15px; /* تباعد داخلي */
         }
 
         .menu-title, .menu-subtitle {
-            display: none; /* إخفاء العنوان والوصف الأصليين */
+            display: none; /* إخفاء العناوين القديمة */
         }
 
         .header-text {
-            font-family: 'Oxanium', sans-serif; /* استخدام Oxanium للعنوان "HOME" */
-            color: #E0E0E0;
-            font-size: 20px;
+            font-family: 'Orbitron', sans-serif; /* **خط مستقبلي لرأس القائمة** */
+            color: #FFFFFF;
+            font-size: 28px; /* **حجم خط أكبر للعنوان الجديد** */
             font-weight: 700;
-            letter-spacing: 1.5px;
-            text-shadow: 0 0 10px rgba(16, 185, 129, 0.8); /* **ظل أخضر نيون** */
+            letter-spacing: 2px;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.5), 0 0 25px rgba(0, 191, 255, 0.8);
             text-transform: uppercase;
         }
 
 
-        /* عناصر القائمة */
+        /* عناصر القائمة - تصميم جديد */
         .menu-items {
-            padding: 10px 0;
+            padding: 5px 0; /* **بادينغ أصغر جداً** */
             flex-grow: 1;
-            overflow-y: auto; /* إضافة سكرول بار إذا زادت العناصر عن الارتفاع */
-            scrollbar-width: none; /* إخفاء سكرول بار Firefox */
+            overflow-y: auto; 
+            scrollbar-width: none; 
         }
 
-        /* إخفاء سكرول بار WebKit (Chrome, Safari) */
         .menu-items::-webkit-scrollbar {
             display: none;
         }
@@ -123,14 +124,14 @@
         .menu-item {
             display: flex;
             align-items: center;
-            padding: 12px 30px;
-            border-bottom: 1px solid rgba(16, 185, 129, 0.1); /* **حدود خضراء نيون شفافة** */
+            padding: 8px 20px; /* **بادينغ أصغر جداً للعناصر** */
+            border-bottom: 1px solid rgba(0, 191, 255, 0.05); /* حدود رقيقة جداً */
             cursor: pointer;
-            transition: background-color 0.2s ease-in-out, border-left 0.2s ease-in-out, color 0.2s ease-in-out; /* **انتقالات سلسة** */
+            transition: all 0.15s ease-in-out; /* **انتقالات سريعة وسلسة** */
             position: relative;
             user-select: none;
             background-color: transparent !important;
-            min-height: 50px;
+            min-height: 40px; /* **ارتفاع أصغر للعناصر** */
             width: 100%;
         }
 
@@ -143,42 +144,42 @@
         }
 
         .menu-item.selected {
-            background-color: #2D3A3B; /* لون خلفية العنصر المحدد كما في الصورة */
-            border-left: 5px solid #32CD32; /* **حدود خضراء نيون (ليمون) سميكة** */
-            padding-left: 25px;
+            background-color: rgba(0, 191, 255, 0.15); /* **خلفية زرقاء/سماوية شفافة عند التحديد** */
+            border-left: 4px solid #00BFFF; /* **حدود زرقاء/سماوية** */
+            padding-left: 18px; /* تعويض المسافة بسبب الحدود */
             transform: translateX(0);
-            box-shadow: none;
+            box-shadow: inset 0 0 10px rgba(0, 191, 255, 0.2);
         }
 
-        /* الأيقونات المخصصة (Font Awesome) */
+        /* الأيقونات المخصصة (Font Awesome) - تصميم جديد */
         .menu-item .icon {
-            width: 30px;
-            height: 30px;
-            margin-right: 18px;
-            opacity: 0.9;
-            transition: all 0.2s ease-in-out; /* **انتقالات سلسة** */
-            font-size: 24px;
+            width: 25px; /* **أيقونات أصغر** */
+            height: 25px;
+            margin-right: 15px;
+            opacity: 0.8;
+            transition: all 0.15s ease-in-out;
+            font-size: 20px; /* **حجم خط أيقونة Font Awesome أصغر** */
             display: flex;
             align-items: center;
             justify-content: center;
-            filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.5));
-            color: #E0E0E0;
+            color: #D0D0D0; /* لون أيقونة فاتح غير محدد */
+            text-shadow: none;
         }
 
         .menu-item.selected .icon {
             opacity: 1;
             transform: scale(1.0);
-            filter: drop-shadow(0 0 10px rgba(50, 205, 50, 0.8)); /* **ظل أخضر نيون** */
-            color: #32CD32; /* **لون أخضر نيون (ليمون) للأيقونة المحددة** */
+            filter: drop-shadow(0 0 8px rgba(0, 191, 255, 0.8));
+            color: #FFFFFF; /* **أيقونة بيضاء متوهجة عند التحديد** */
         }
 
         .menu-item .text {
             font-family: 'Roboto', sans-serif;
             flex: 1;
-            font-size: 18px;
+            font-size: 16px; /* **نصوص أصغر** */
             font-weight: 500;
             color: #F0F0F0;
-            transition: all 0.2s ease-in-out; /* **انتقالات سلسة** */
+            transition: all 0.15s ease-in-out;
             text-shadow: none;
         }
 
@@ -189,32 +190,33 @@
         }
 
         .menu-item .arrow {
-            font-size: 16px;
-            color: #505050;
-            transition: all 0.2s ease-in-out; /* **انتقالات سلسة** */
+            font-size: 14px; /* **أسهم أصغر** */
+            color: #707070;
+            transition: all 0.15s ease-in-out;
             font-weight: bold;
             opacity: 1;
+            text-shadow: none;
         }
 
         .menu-item.selected .arrow {
-            color: #32CD32; /* **أخضر نيون (ليمون) عند التحديد** */
+            color: #00BFFF; /* **سهم أزرق عند التحديد** */
             transform: translateX(0);
-            filter: drop-shadow(0 0 8px #32CD32); /* **ظل أخضر نيون** */
+            filter: drop-shadow(0 0 6px #00BFFF);
             opacity: 1;
         }
 
-        /* تذييل القائمة */
+        /* تذييل القائمة - تصميم جديد */
         .menu-footer {
-            background-color: rgba(0, 0, 0, 0.9);
-            padding: 10px 30px;
+            background-color: rgba(10, 10, 15, 0.95);
+            padding: 8px 20px; /* **بادينغ أصغر** */
             font-family: 'Roboto', sans-serif;
-            font-size: 12px;
+            font-size: 11px; /* **خط أصغر** */
             color: #909090;
-            border-top: 1px solid rgba(16, 185, 129, 0.15); /* **حدود خضراء نيون شفافة** */
+            border-top: 1px solid rgba(0, 191, 255, 0.1); /* حدود شفافة */
             display: flex;
             justify-content: space-between;
             align-items: center;
-            min-height: 40px;
+            min-height: 30px; /* **ارتفاع أقل** */
             flex-shrink: 0;
         }
 
@@ -227,13 +229,13 @@
         .menu-footer .counter {
             color: #909090;
             font-weight: 400;
-            font-size: 12px;
+            font-size: 11px;
             padding: 0;
             background-color: transparent;
             border: none;
         }
 
-        /* إشعارات التفعيل */
+        /* إشعارات التفعيل - تصميم جديد */
         .notification-container {
             position: fixed;
             bottom: 20px;
@@ -245,16 +247,16 @@
         }
 
         .notification {
-            background: #2D3A3B;
-            border: 1px solid #32CD32; /* **حدود خضراء نيون** */
-            padding: 14px 20px;
+            background: rgba(10, 10, 15, 0.95);
+            border: 1px solid #00BFFF;
+            padding: 12px 18px; /* **بادينغ أصغر** */
             border-radius: 8px;
-            min-width: 280px;
-            max-width: 350px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), 0 0 10px rgba(50, 205, 50, 0.4); /* **ظل أخضر نيون** */
+            min-width: 250px; /* **عرض أصغر** */
+            max-width: 320px; /* **عرض أصغر** */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5), 0 0 10px rgba(0, 191, 255, 0.4);
             display: flex;
             align-items: center;
-            animation: notificationSlideIn 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+            animation: notificationSlideIn 0.4s ease-out forwards; /* حركة أسرع */
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 0.3s ease, transform 0.3s ease;
@@ -286,11 +288,11 @@
         }
 
         .notification-icon {
-            font-size: 24px;
+            font-size: 20px; /* **حجم أيقونة أصغر** */
             margin-right: 10px;
-            color: #32CD32; /* **أيقونة إشعار باللون الأخضر النيون** */
-            filter: drop-shadow(0 0 6px #32CD32);
-            animation: iconPulse 1.5s infinite ease-in-out;
+            color: #00BFFF;
+            filter: drop-shadow(0 0 6px #00BFFF);
+            animation: iconPulse 1.2s infinite ease-in-out; /* نبض أسرع */
         }
 
         @keyframes iconPulse {
@@ -304,7 +306,7 @@
 
         .notification-title {
             font-family: 'Roboto', sans-serif;
-            font-size: 16px;
+            font-size: 15px; /* **خط أصغر** */
             font-weight: 700;
             color: #FFFFFF;
             text-shadow: none;
@@ -313,7 +315,7 @@
 
         .notification-message {
             font-family: 'Roboto', sans-serif;
-            font-size: 14px;
+            font-size: 13px; /* **خط أصغر** */
             font-weight: 500;
             color: #E0E0E0;
             text-shadow: none;
@@ -321,8 +323,8 @@
 
         .notification-timer {
             width: 100%;
-            height: 3px;
-            background: #32CD32; /* **شريط الإشعار باللون الأخضر النيون** */
+            height: 2px; /* **شريط أصغر** */
+            background: #00BFFF;
             position: absolute;
             bottom: 0;
             left: 0;
@@ -338,8 +340,7 @@
 <body>
     <div class="menu-container">
         <div class="menu-header">
-            <div class="header-text">HOME</div>
-        </div>
+            <div class="header-text">AURA MENU</div> </div>
 
         <div class="menu-items">
             <div class="menu-item" data-index="0" data-action="self">
@@ -347,11 +348,11 @@
                 <div class="arrow">»</div>
             </div>
             <div class="menu-item" data-index="1" data-action="online">
-                <div class="icon"><i class="fa-solid fa-desktop"></i></div> <div class="text">Online</div>
+                <div class="icon"><i class="fa-solid fa-globe"></i></div> <div class="text">Online</div>
                 <div class="arrow">»</div>
             </div>
             <div class="menu-item" data-index="2" data-action="combat">
-                <div class="icon"><i class="fa-solid fa-crosshairs"></i></div> <div class="text">Combat/Weapons</div>
+                <div class="icon"><i class="fa-solid fa-gun"></i></div> <div class="text">Combat/Weapons</div>
                 <div class="arrow">»</div>
             </div>
             <div class="menu-item" data-index="3" data-action="visual">
@@ -367,7 +368,7 @@
                 <div class="arrow">»</div>
             </div>
             <div class="menu-item" data-index="6" data-action="destructive">
-                <div class="icon"><i class="fa-solid fa-bomb"></i></div> <div class="text">Destructive</div>
+                <div class="icon"><i class="fa-solid fa-burst"></i></div> <div class="text">Destructive</div>
                 <div class="arrow">»</div>
             </div>
             <div class="menu-item" data-index="7" data-action="triggers">
@@ -381,31 +382,30 @@
         </div>
 
         <div class="menu-footer">
-            <span class="version">Version: Beta | 24hrs ago</span>
-            <span class="counter">1/9</span> </div>
+            <span class="version">Aura V3 | Beta</span> <span class="counter">1/9</span> </div>
     </div>
 
     <div class="notification-container" id="notificationContainer">
     </div>
 
     <script>
-        console.log('🌟 Aura Menu - Pixel-Perfect Recreation');
+        console.log('🌟 Aura Menu V3 - New Design Active');
 
-        let currentIndex = 0; // **تعديل: بدأ من 0 ليتوافق مع "Self" في الصورة**
+        let currentIndex = 0; // **تعديل: بدأ من 0 ليتوافق مع "Self"**
         const menuItems = document.querySelectorAll('.menu-item');
         const counter = document.querySelector('.counter');
         const notificationContainer = document.getElementById('notificationContainer');
         const menuContainer = document.querySelector('.menu-container');
 
-        // تحديث مصفوفة menuOptions لتشمل Font Awesome icons
+        // تحديث مصفوفة menuOptions لتشمل Font Awesome icons الجديدة
         const menuOptions = [
             { name: "Self", icon: '<i class="fa-solid fa-user"></i>', desc: "Player Options" },
-            { name: "Online", icon: '<i class="fa-solid fa-desktop"></i>', desc: "Online Features" },
-            { name: "Combat/Weapons", icon: '<i class="fa-solid fa-crosshairs"></i>', desc: "Weapon System" },
+            { name: "Online", icon: '<i class="fa-solid fa-globe"></i>', desc: "Online Features" },
+            { name: "Combat/Weapons", icon: '<i class="fa-solid fa-gun"></i>', desc: "Weapon System" },
             { name: "Visual", icon: '<i class="fa-solid fa-eye"></i>', desc: "Visual Effects" },
             { name: "Vehicle", icon: '<i class="fa-solid fa-car"></i>', desc: "Vehicle Menu" },
             { name: "Miscellaneous", icon: '<i class="fa-solid fa-folder-open"></i>', desc: "Other Options" },
-            { name: "Destructive", icon: '<i class="fa-solid fa-bomb"></i>', desc: "Destruction Tools" },
+            { name: "Destructive", icon: '<i class="fa-solid fa-burst"></i>', desc: "Destruction Tools" },
             { name: "Triggers", icon: '<i class="fa-solid fa-bolt"></i>', desc: "Event Triggers" },
             { name: "Settings", icon: '<i class="fa-solid fa-gear"></i>', desc: "System Settings" }
         ];

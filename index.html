@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lean Menu - Compact</title>
+    <title>Lean Menu</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -11,43 +11,38 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            text-rendering: optimizeLegibility;
         }
 
         html, body {
             width: 100%;
             height: 100%;
-            background: transparent !important;
+            background: transparent;
             overflow: hidden;
             font-family: 'Roboto', sans-serif;
         }
 
         .menu-container {
-            width: 380px; /* عرض المنيو من الصورة الأخيرة */
-            /* **تعديل هنا:** حساب الارتفاع ليتناسب مع المحتوى بالضبط */
-            /* Header (120px) + menu-items (440px) + footer (32px) + menu-items padding (4px top + 4px bottom) = 120 + 440 + 32 + 8 = 600px */
-            height: 600px; 
-            background: rgba(12, 12, 12, 0.85); /* **تعديل: تقليل الشفافية إلى 0.85** */
+            width: 380px;
+            height: auto;
+            background: rgba(12, 12, 12, 0.96);
             border-radius: 10px;
             position: absolute;
-            top: 100px; /* موضع Y من الصورة */
-            left: 95px; /* موضع X من الصورة */
+            top: 100px;
+            left: 95px;
             overflow: hidden;
             box-shadow: 
                 0 8px 32px rgba(0, 0, 0, 0.6),
                 0 0 0 1px rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
         }
 
         .menu-header {
-            height: 120px; 
-            background: linear-gradient(135deg, rgba(26, 77, 58, 0.9) 0%, rgba(13, 40, 24, 0.9) 100%); /* قيم rgba معدلة */
+            height: 120px; /* زيادة الارتفاع من 90px إلى 120px */
+            background: linear-gradient(135deg, #1a4d3a 0%, #0d2818 100%);
             position: relative;
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            /* إذا أردت صورة LEAN MENU، ضعها هنا كـ background-image: url('URL_صورة_LEAN_MENU.png'); */
         }
 
         .header-home-text {
@@ -55,7 +50,7 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(0, 0, 0, 0.85); /* **تعديل: تقليل الشفافية إلى 0.85** */
+            background: rgba(0, 0, 0, 0.7);
             color: #ffffff;
             font-family: 'Roboto', sans-serif;
             font-size: 13px;
@@ -67,179 +62,189 @@
         }
 
         .menu-items {
-            padding: 4px 0; /* **تعديل: بادينغ عام أقل لعناصر القائمة** */
-            /* **تعديل هنا:** ارتفاع ثابت ليتناسب مع 9 عناصر بالضبط */
-            /* 9 عناصر * 47px (min-height + padding) = 423px + 4px*2 (menu-items padding) = 431px. تقريباً 440px مع أي بكسلات غير محسوبة */
-            height: 440px; 
-            overflow-y: hidden; /* **تعديل: إخفاء السكرول بار لأنه لم يعد هناك فراغ** */
+            padding: 6px 0;
+            overflow-y: auto;
+            height: 450px; /* تقليل الارتفاع من 480px إلى 450px لتعويض زيادة البنر */
             position: relative;
-            display: flex;
-            flex-direction: column;
         }
 
-        .menu-items::-webkit-scrollbar {
-            display: none; /* إخفاء سكرول بار WebKit */
-        }
-
+        /* السلايدر الخارجي على اليسار */
         .external-slider {
             position: absolute;
-            left: -12px; 
-            top: 124px; /* **تعديل: موضع Y بعد الهيدر وبادينغ menu-items** */
-            width: 4px; 
-            height: 440px; /* **تعديل: ارتفاع السلايدر ليتناسب مع menu-items** */
-            background: rgba(34, 197, 94, 0.1); 
-            border-radius: 2px;
+            left: -15px;
+            top: 126px; /* تعديل الموضع ليبدأ بعد البنر الجديد */
+            width: 6px;
+            height: 450px; /* تعديل الارتفاع ليتناسب مع .menu-items */
+            background: rgba(34, 197, 94, 0.2);
+            border-radius: 3px;
             z-index: 10;
         }
 
         .slider-thumb {
             position: absolute;
             left: 0;
-            width: 4px; 
-            height: 38px; /* ارتفاع الثمب ليتناسب مع عنصر المنيو المصغر */
+            width: 6px;
+            height: 44px;
             background: #22c55e;
-            border-radius: 2px;
-            transition: all 0.2s ease-out; 
-            box-shadow: 0 1px 5px rgba(34, 197, 94, 0.3);
+            border-radius: 3px;
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+            box-shadow: 0 2px 8px rgba(34, 197, 94, 0.4);
+        }
+
+        .menu-items::-webkit-scrollbar {
+            display: none;
         }
 
         .menu-item {
             display: flex;
             align-items: center;
-            padding: 5px 12px; /* بادينغ أصغر لعنصر المنيو */
-            margin: 0; /* إزالة المارجن لتقريب العناصر */
+            padding: 8px 16px;
+            margin: 1px 0;
             cursor: pointer;
-            transition: all 0.2s ease-out; 
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
             position: relative;
             background: transparent;
-            border-left: 2px solid transparent; 
-            min-height: 38px; /* ارتفاع العنصر أقصر */
+            border-left: 3px solid transparent;
+            min-height: 47px;
         }
 
         .menu-item:hover {
-            background: rgba(34, 197, 94, 0.05); 
-            border-left: 2px solid rgba(34, 197, 94, 0.3); 
-            transform: translateX(0); /* إزالة الحركة الزائدة */
+            background: rgba(34, 197, 94, 0.08);
+            border-left: 3px solid rgba(34, 197, 94, 0.4);
+            transform: translateX(2px);
         }
 
         .menu-item.selected {
-            background: rgba(34, 197, 94, 0.1); 
-            border-left: 2px solid #22c55e; 
-            transform: translateX(0); /* إزالة الحركة الزائدة */
-            box-shadow: none; /* إزالة الظل للتحديد لجعلها أنظف */
+            background: rgba(34, 197, 94, 0.12);
+            border-left: 3px solid #22c55e;
+            transform: translateX(4px);
         }
 
         .menu-item.selected::after {
-            display: none; /* إزالة تأثير التدرج على التحديد */
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                rgba(34, 197, 94, 0.1) 0%, 
+                transparent 70%);
+            pointer-events: none;
         }
 
         .menu-item .icon {
-            width: 20px; 
+            width: 20px;
             height: 20px;
-            margin-right: 10px; 
+            margin-right: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 13px; 
-            color: #b0b0b0; 
-            transition: all 0.2s ease-out;
+            font-size: 14px;
+            color: #9ca3af;
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
         }
 
         .menu-item.selected .icon {
-            color: #22c55e; 
-            transform: scale(1.0); /* إزالة التكبير */
+            color: #22c55e;
+        }
+
+        .menu-item .icon i {
+            display: block;
+            font-size: 14px;
         }
 
         .menu-item .text {
             flex: 1;
             font-family: 'Roboto', sans-serif;
-            font-size: 13px; 
+            font-size: 14px;
             font-weight: 500;
-            color: #e0e0e0; 
-            transition: all 0.2s ease-out;
+            color: #e5e7eb;
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
         }
 
         .menu-item.selected .text {
-            color: #ffffff; 
+            color: #22c55e;
             font-weight: 600;
         }
 
         .menu-item .arrow {
-            font-size: 11px; 
-            color: #606060; 
-            transition: all 0.2s ease-out;
+            font-size: 12px;
+            color: #6b7280;
+            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
             font-weight: bold;
-            margin-left: 6px;
+            margin-left: 8px;
         }
 
         .menu-item.selected .arrow {
-            color: #22c55e; 
-            transform: translateX(0); /* إزالة الحركة */
+            color: #22c55e;
+            transform: translateX(2px);
         }
 
         .menu-footer {
             background: rgba(8, 8, 8, 0.9);
-            padding: 6px 12px; /* بادينغ أصغر للفوتر */
+            padding: 8px 16px;
             font-family: 'Roboto', sans-serif;
-            font-size: 10px; 
-            color: #909090;
-            border-top: 1px solid rgba(34, 197, 94, 0.15); 
+            font-size: 11px;
+            color: #9ca3af;
+            border-top: 1px solid rgba(34, 197, 94, 0.15);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            min-height: 28px; 
+            min-height: 32px;
         }
 
         .menu-footer .version {
-            color: #909090;
+            color: #9ca3af;
             font-weight: 500;
         }
 
         .menu-footer .counter {
             color: #22c55e;
             font-weight: 600;
-            font-size: 10px; 
-            padding: 2px 5px; 
-            background: rgba(34, 197, 94, 0.08); 
-            border-radius: 6px; 
+            font-size: 11px;
+            padding: 2px 6px;
+            background: rgba(34, 197, 94, 0.1);
+            border-radius: 8px;
         }
 
         .notification-container {
             position: fixed;
-            bottom: 20px; 
-            right: 20px; 
+            bottom: 30px;
+            right: 30px;
             display: flex;
             flex-direction: column;
-            gap: 8px; 
+            gap: 10px;
             z-index: 1000;
         }
 
         .notification {
-            background: rgba(12, 12, 12, 0.9); 
-            border: 1px solid rgba(34, 197, 94, 0.2); 
-            padding: 10px 15px; 
-            border-radius: 8px;
-            min-width: 240px; 
-            max-width: 300px; 
+            background: rgba(12, 12, 12, 0.96);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            padding: 14px 18px;
+            border-radius: 10px;
+            min-width: 260px;
+            max-width: 320px;
             box-shadow: 
-                0 5px 15px rgba(0, 0, 0, 0.4),
-                0 0 0 1px rgba(255, 255, 255, 0.03);
+                0 8px 32px rgba(0, 0, 0, 0.4),
+                0 0 0 1px rgba(255, 255, 255, 0.05);
             display: flex;
             align-items: center;
-            animation: notificationSlideIn 0.3s ease-out forwards; 
+            animation: notificationSlideIn 0.4s ease forwards;
             opacity: 0;
-            transform: translateY(15px); 
+            transform: translateY(20px);
+            backdrop-filter: blur(10px);
         }
 
         .notification.fade-out {
             opacity: 0;
-            transform: translateY(15px);
+            transform: translateY(20px);
         }
 
         @keyframes notificationSlideIn {
             0% {
                 opacity: 0;
-                transform: translateY(15px);
+                transform: translateY(20px);
             }
             100% {
                 opacity: 1;
@@ -254,8 +259,8 @@
         }
 
         .notification-icon {
-            font-size: 16px; 
-            margin-right: 8px; 
+            font-size: 18px;
+            margin-right: 10px;
             color: #22c55e;
         }
 
@@ -265,28 +270,28 @@
 
         .notification-title {
             font-family: 'Roboto', sans-serif;
-            font-size: 14px; 
+            font-size: 15px;
             font-weight: 700;
             color: #ffffff;
-            margin-bottom: 1px;
+            margin-bottom: 2px;
         }
 
         .notification-message {
             font-family: 'Roboto', sans-serif;
-            font-size: 11px; 
+            font-size: 12px;
             font-weight: 500;
             color: #d1d5db;
         }
 
         .notification-timer {
             width: 100%;
-            height: 1px; 
+            height: 2px;
             background: #22c55e;
             position: absolute;
             bottom: 0;
             left: 0;
             animation: timerProgress 4s linear forwards;
-            border-radius: 0 0 8px 8px; 
+            border-radius: 0 0 8px 8px;
         }
 
         @keyframes timerProgress {
@@ -297,6 +302,7 @@
 </head>
 <body>
     <div class="menu-container">
+        <!-- السلايدر الخارجي على اليسار -->
         <div class="external-slider">
             <div class="slider-thumb" id="sliderThumb"></div>
         </div>
@@ -312,12 +318,12 @@
                 <div class="arrow">»</div>
             </div>
             <div class="menu-item" data-index="1" data-action="online">
-                <div class="icon"><i class="fa-solid fa-desktop"></i></div>
+                <div class="icon"><i class="fa-solid fa-globe"></i></div>
                 <div class="text">Online</div>
                 <div class="arrow">»</div>
             </div>
             <div class="menu-item" data-index="2" data-action="combat">
-                <div class="icon"><i class="fa-solid fa-crosshairs"></i></div>
+                <div class="icon"><i class="fa-solid fa-gun"></i></div>
                 <div class="text">Combat/Weapons</div>
                 <div class="arrow">»</div>
             </div>
@@ -355,7 +361,7 @@
 
         <div class="menu-footer">
             <span class="version">Version: Beta | 24hrs ago</span>
-            <span class="counter">1/9</span>
+            <span class="counter">2/9</span>
         </div>
     </div>
 
@@ -365,17 +371,16 @@
     <script>
         console.log('🌟 Lean Menu - Enhanced Green Theme');
 
-        let currentIndex = 0; // **تعديل: المنيو في الصورة يبدأ من "Self" وهو Index 0**
+        let currentIndex = 1;
         const menuItems = document.querySelectorAll('.menu-item');
         const counter = document.querySelector('.counter');
         const notificationContainer = document.getElementById('notificationContainer');
         const menuContainer = document.querySelector('.menu-container');
-        const sliderThumb = document.getElementById('sliderThumb'); 
 
         const menuOptions = [
             { name: "Self", icon: '<i class="fa-solid fa-user"></i>', desc: "Player Options" },
-            { name: "Online", icon: '<i class="fa-solid fa-desktop"></i>', desc: "Online Features" },
-            { name: "Combat/Weapons", icon: '<i class="fa-solid fa-crosshairs"></i>', desc: "Weapon System" },
+            { name: "Online", icon: '<i class="fa-solid fa-globe"></i>', desc: "Online Features" },
+            { name: "Combat/Weapons", icon: '<i class="fa-solid fa-gun"></i>', desc: "Weapon System" },
             { name: "Visual", icon: '<i class="fa-solid fa-eye"></i>', desc: "Visual Effects" },
             { name: "Vehicle", icon: '<i class="fa-solid fa-car"></i>', desc: "Vehicle Menu" },
             { name: "Miscellaneous", icon: '<i class="fa-solid fa-folder-open"></i>', desc: "Other Options" },
@@ -384,10 +389,10 @@
             { name: "Settings", icon: '<i class="fa-solid fa-gear"></i>', desc: "System Settings" }
         ];
 
-        // وظيفة لتحديث صورة البنر في الهيدر (إذا أردت استخدامها)
+        // وظيفة لتحديث صورة البنر
         function setHeaderImage(imageUrl) {
             const header = document.getElementById('menuHeader');
-            if (header && imageUrl) {
+            if (imageUrl) {
                 header.style.backgroundImage = `url('${imageUrl}')`;
                 console.log('Header image set to:', imageUrl);
             }
@@ -406,12 +411,11 @@
             });
 
             // تحديث موضع السلايدر الخارجي
-            if (sliderThumb) {
-                const itemHeight = menuItems[0] ? menuItems[0].offsetHeight : 38; // **تعديل: استخدام الارتفاع الجديد لعنصر القائمة**
-                const topPosition = currentIndex * itemHeight;
-                sliderThumb.style.top = `${topPosition}px`;
-            }
-            
+            const sliderThumb = document.getElementById('sliderThumb');
+            const itemHeight = 47; // ارتفاع كل عنصر
+            const topPosition = currentIndex * itemHeight;
+            sliderThumb.style.top = `${topPosition}px`;
+
             counter.textContent = `${currentIndex + 1}/${menuItems.length}`;
         }
 
@@ -474,9 +478,6 @@
                     selectEffect(index);
                 });
             });
-
-            // مثال لاستخدام صورة مخصصة لرأس القائمة:
-            // setHeaderImage('https://i.imgur.com/your_lean_menu_image.png'); 
         });
 
         window.addEventListener('message', function(event) {
@@ -497,7 +498,7 @@
                 } else if (data.type === 'enter') {
                     selectEffect(currentIndex);
                 } else if (data.type === 'showMenu') {
-                    menuContainer.style.display = 'block'; 
+                    menuContainer.style.display = 'block';
                     updateSelection(data.currentIndex !== undefined ? data.currentIndex : currentIndex);
                 } else if (data.type === 'hideMenu') {
                     menuContainer.style.display = 'none';
@@ -508,6 +509,9 @@
                 console.error('Error processing message from FiveM:', error);
             }
         });
+
+        // مثال لاستخدام صورة مخصصة
+         setHeaderImage('https://media.discordapp.net/attachments/1385406372740464710/1385410059391205510/Gemini_Generated_Image_safm9ssafm9ssafm.png?ex=685748a9&is=6855f729&hm=ea0891ee66e034e99466901e2cf43a70df80ca6d1ae61d203ee89cef3361933e&=&format=webp&quality=lossless');
     </script>
 </body>
 </html>

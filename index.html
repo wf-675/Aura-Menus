@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lean Menu</title>
+    <title>Lean Menu - Compact</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -19,241 +19,225 @@
         html, body {
             width: 100%;
             height: 100%;
-            background: transparent !important; /* تأكد أن الخلفية شفافة تماماً */
+            background: transparent !important;
             overflow: hidden;
             font-family: 'Roboto', sans-serif;
         }
 
         .menu-container {
-            width: 380px; /* عرض المنيو من الصورة الأخيرة */
-            height: 600px; /* ارتفاع المنيو من الصورة الأخيرة */
-            background: rgba(12, 12, 12, 0.7); /* **تعديل هنا: alpha إلى 0.7، مثل كودك القديم الذي يعمل للشفافية** */
-            border-radius: 10px;
+            width: 350px; /* **تعديل: عرض أصغر قليلاً** */
+            height: 520px; /* **تعديل: ارتفاع أقصر بكثير للمنيو بأكمله** */
+            background: rgba(12, 12, 12, 0.7); /* شفافية 0.7 */
+            border-radius: 8px; /* حواف أقل استدارة */
             position: absolute;
-            top: 100px; /* موضع Y من الصورة */
-            left: 95px; /* موضع X من الصورة */
+            top: 80px; /* **تعديل: موضع أعلى قليلاً** */
+            left: 80px; /* **تعديل: موضع أقرب للزاوية** */
             overflow: hidden;
             box-shadow: 
-                0 8px 32px rgba(0, 0, 0, 0.6),
-                0 0 0 1px rgba(255, 255, 255, 0.05);
-            /* **تعديل هنا: إزالة backdrop-filter تماماً، لأنه كان سبب المشكلة** */
-            /* backdrop-filter: blur(10px); */ 
-            /* -webkit-backdrop-filter: blur(10px); */
+                0 6px 20px rgba(0, 0, 0, 0.5), /* ظل أخف */
+                0 0 0 1px rgba(255, 255, 255, 0.03); /* حدود رقيقة جداً */
+            display: flex; /* لكي يعمل flex-direction: column */
+            flex-direction: column;
         }
 
         .menu-header {
-            height: 120px; /* ارتفاع رأس القائمة من الصورة */
-            background: linear-gradient(135deg, #1a4d3a 0%, #0d2818 100%); /* تدرج لوني لرأس القائمة من الصورة */
+            height: 100px; /* **تعديل: ارتفاع الهيدر أقصر** */
+            background: linear-gradient(135deg, #1a4d3a 0%, #0d2818 100%);
             position: relative;
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            /* **لإضافة صورة LEAN MENU في الهيدر، ضع هذا السطر وعدل الرابط:** */
-            /* background-image: url('https://i.imgur.com/your_lean_menu_image.png'); */
+            display: flex;
+            justify-content: center;
+            align-items: flex-end; /* ليبقى HOME في الأسفل */
+            padding-bottom: 8px; /* تباعد HOME عن الأسفل */
         }
 
         .header-home-text {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(0, 0, 0, 0.7); /* **تعديل: alpha إلى 0.7** */
             color: #ffffff;
             font-family: 'Roboto', sans-serif;
-            font-size: 13px;
+            font-size: 12px; /* **تعديل: خط HOME أصغر** */
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 1px;
             text-align: center;
-            padding: 8px;
+            background: rgba(0, 0, 0, 0.5); /* خلفية شفافة لـ HOME */
+            padding: 4px 10px; /* بادينغ أصغر لـ HOME */
+            border-radius: 4px;
         }
 
         .menu-items {
-            padding: 6px 0;
-            overflow-y: auto;
-            height: 450px; /* ارتفاع منطقة العناصر من الصورة */
-            position: relative;
+            padding: 4px 0; /* **تعديل: بادينغ عام أقل لعناصر القائمة** */
+            flex-grow: 1; /* لتأخذ المساحة المتبقية */
+            overflow-y: auto; /* لإظهار سكرول بار إذا لزم الأمر */
+            scrollbar-width: none; /* إخفاء سكرول بار Firefox */
+            display: flex;
+            flex-direction: column; /* لجعل العناصر تحت بعضها */
         }
 
-        /* السلايدر الخارجي على اليسار - تفاصيل دقيقة من الصورة */
+        .menu-items::-webkit-scrollbar {
+            display: none; /* إخفاء سكرول بار WebKit */
+        }
+
         .external-slider {
             position: absolute;
-            left: -15px; /* موضع X للسلايدر من الصورة */
-            top: 126px; /* موضع Y للسلايدر ليبدأ بعد البنر */
-            width: 6px;
-            height: 450px; /* ارتفاع السلايدر ليتناسب مع .menu-items */
-            background: rgba(34, 197, 94, 0.2); /* لون شفاف للسلايدر */
-            border-radius: 3px;
+            left: -12px; /* **تعديل: موضع X أقرب للمنيو** */
+            top: 104px; /* **تعديل: موضع Y بعد الهيدر** */
+            width: 4px; /* **تعديل: عرض السلايدر أرفع** */
+            height: 380px; /* **تعديل: ارتفاع السلايدر ليتناسب مع العناصر الجديدة** */
+            background: rgba(34, 197, 94, 0.1); /* لون شفاف للسلايدر */
+            border-radius: 2px;
             z-index: 10;
         }
 
         .slider-thumb {
             position: absolute;
             left: 0;
-            width: 6px;
-            height: 44px; /* ارتفاع السلايدر الثمب من الصورة */
-            background: #22c55e; /* لون أخضر للسلايدر الثمب */
-            border-radius: 3px;
-            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1); 
-            box-shadow: 0 2px 8px rgba(34, 197, 94, 0.4);
-        }
-
-        .menu-items::-webkit-scrollbar {
-            display: none;
+            width: 4px; /* **تعديل: عرض الثمب أرفع** */
+            height: 38px; /* **تعديل: ارتفاع الثمب ليتناسب مع عنصر المنيو المصغر** */
+            background: #22c55e;
+            border-radius: 2px;
+            transition: all 0.2s ease-out; /* **انتقال أسرع وأكثر سلاسة** */
+            box-shadow: 0 1px 5px rgba(34, 197, 94, 0.3); /* ظل أخف */
         }
 
         .menu-item {
             display: flex;
             align-items: center;
-            padding: 8px 16px; /* بادينغ عناصر القائمة من الصورة */
-            margin: 1px 0;
+            padding: 5px 12px; /* **تعديل: بادينغ أصغر لعنصر المنيو** */
+            margin: 0; /* إزالة المارجن بين العناصر لتقريبها */
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+            transition: all 0.2s ease-out; /* **انتقالات سريعة وسلسة** */
             position: relative;
             background: transparent;
-            border-left: 3px solid transparent; 
-            min-height: 47px; /* ارتفاع عناصر القائمة من الصورة */
+            border-left: 2px solid transparent; /* **تعديل: خط تحديد أرفع** */
+            min-height: 38px; /* **تعديل: ارتفاع العنصر أقصر** */
         }
 
         .menu-item:hover {
-            background: rgba(34, 197, 94, 0.08); /* لون خلفية عند التحويم من الصورة */
-            border-left: 3px solid rgba(34, 197, 94, 0.4); /* لون خط عند التحويم من الصورة */
-            transform: translateX(2px); 
+            background: rgba(34, 197, 94, 0.05); /* تأثير تحويم أخف */
+            border-left: 2px solid rgba(34, 197, 94, 0.3); /* خط تحديد أخف عند التحويم */
+            transform: translateX(1px); /* حركة بسيطة جداً */
         }
 
         .menu-item.selected {
-            background: rgba(34, 197, 94, 0.12); /* لون خلفية العنصر المحدد من الصورة */
-            border-left: 3px solid #22c55e; /* لون خط العنصر المحدد من الصورة */
-            transform: translateX(4px); 
+            background: rgba(34, 197, 94, 0.1); /* خلفية عند التحديد */
+            border-left: 2px solid #22c55e; /* خط تحديد ساطع عند التحديد */
+            transform: translateX(2px); /* حركة بسيطة جداً */
+            box-shadow: none; /* إزالة الظل للتحديد لجعلها أنظف */
         }
 
         .menu-item.selected::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, 
-                rgba(34, 197, 94, 0.1) 0%, 
-                transparent 70%);
-            pointer-events: none;
+            display: none; /* إزالة تأثير التدرج على التحديد */
         }
 
         .menu-item .icon {
-            width: 20px; /* حجم أيقونة من الصورة */
+            width: 20px; /* حجم الأيقونة */
             height: 20px;
-            margin-right: 12px;
+            margin-right: 10px; /* مسافة أيقونة أصغر */
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px; /* حجم خط أيقونة Font Awesome من الصورة */
-            color: #9ca3af; /* لون أيقونة غير محددة من الصورة */
-            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+            font-size: 13px; /* **تعديل: حجم خط الأيقونة أصغر** */
+            color: #b0b0b0; /* لون أيقونة أفتح قليلاً */
+            transition: all 0.2s ease-out;
         }
 
         .menu-item.selected .icon {
-            color: #22c55e; /* لون أيقونة محددة من الصورة */
-        }
-
-        .menu-item .icon i {
-            display: block;
-            font-size: 14px; 
+            color: #22c55e; /* لون أيقونة ساطع عند التحديد */
+            transform: scale(1.0); /* إزالة التكبير */
         }
 
         .menu-item .text {
             flex: 1;
             font-family: 'Roboto', sans-serif;
-            font-size: 14px; /* حجم خط نص العنصر من الصورة */
+            font-size: 13px; /* **تعديل: حجم خط النص أصغر** */
             font-weight: 500;
-            color: #e5e7eb; /* لون نص العنصر غير المحدد من الصورة */
-            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+            color: #e0e0e0; /* لون نص أفتح قليلاً */
+            transition: all 0.2s ease-out;
         }
 
         .menu-item.selected .text {
-            color: #22c55e; /* لون نص العنصر المحدد من الصورة */
+            color: #ffffff; /* نص أبيض عند التحديد */
             font-weight: 600;
         }
 
         .menu-item .arrow {
-            font-size: 12px; /* حجم السهم من الصورة */
-            color: #6b7280; /* لون السهم من الصورة */
-            transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+            font-size: 11px; /* **تعديل: حجم السهم أصغر** */
+            color: #606060; /* لون سهم أغمق */
+            transition: all 0.2s ease-out;
             font-weight: bold;
-            margin-left: 8px;
+            margin-left: 6px;
         }
 
         .menu-item.selected .arrow {
-            color: #22c55e; /* لون السهم المحدد من الصورة */
-            transform: translateX(2px);
+            color: #22c55e; /* سهم ساطع عند التحديد */
+            transform: translateX(0); /* إزالة الحركة */
         }
 
         .menu-footer {
-            background: rgba(8, 8, 8, 0.9); /* لون خلفية الفوتر من الصورة */
-            padding: 8px 16px;
+            background: rgba(8, 8, 8, 0.9);
+            padding: 6px 12px; /* **تعديل: بادينغ أصغر للفوتر** */
             font-family: 'Roboto', sans-serif;
-            font-size: 11px;
-            color: #9ca3af;
-            border-top: 1px solid rgba(34, 197, 94, 0.15); /* حدود الفوتر من الصورة */
+            font-size: 10px; /* **تعديل: خط الفوتر أصغر** */
+            color: #909090;
+            border-top: 1px solid rgba(34, 197, 94, 0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            min-height: 32px;
+            min-height: 28px; /* **تعديل: ارتفاع الفوتر أقصر** */
         }
 
         .menu-footer .version {
-            color: #9ca3af; /* لون نص الفوتر من الصورة */
+            color: #909090;
             font-weight: 500;
         }
 
         .menu-footer .counter {
-            color: #22c55e; /* لون عداد الفوتر من الصورة */
+            color: #22c55e;
             font-weight: 600;
-            font-size: 11px;
-            padding: 2px 6px;
-            background: rgba(34, 197, 94, 0.1); /* خلفية العداد من الصورة */
-            border-radius: 8px;
+            font-size: 10px; /* **تعديل: خط العداد أصغر** */
+            padding: 2px 5px; /* بادينغ أصغر للعداد */
+            background: rgba(34, 197, 94, 0.08); /* خلفية أخف للعداد */
+            border-radius: 6px; /* حواف أقل استدارة */
         }
 
         .notification-container {
             position: fixed;
-            bottom: 30px;
-            right: 30px;
+            bottom: 20px; /* موضع الإشعار */
+            right: 20px; /* موضع الإشعار */
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px; /* مسافة أصغر بين الإشعارات */
             z-index: 1000;
         }
 
         .notification {
-            background: rgba(12, 12, 12, 0.96); /* خلفية الإشعار من الصورة */
-            border: 1px solid rgba(34, 197, 94, 0.3); /* حدود الإشعار من الصورة */
-            padding: 14px 18px;
-            border-radius: 10px;
-            min-width: 260px;
-            max-width: 320px;
+            background: rgba(12, 12, 12, 0.9); /* خلفية الإشعار شفافة قليلاً */
+            border: 1px solid rgba(34, 197, 94, 0.2); /* حدود الإشعار أخف */
+            padding: 10px 15px; /* بادينغ أصغر للإشعار */
+            border-radius: 8px;
+            min-width: 240px; /* عرض أصغر للإشعار */
+            max-width: 300px; /* عرض أصغر للإشعار */
             box-shadow: 
-                0 8px 32px rgba(0, 0, 0, 0.4),
-                0 0 0 1px rgba(255, 255, 255, 0.05);
+                0 5px 15px rgba(0, 0, 0, 0.4),
+                0 0 0 1px rgba(255, 255, 255, 0.03);
             display: flex;
             align-items: center;
-            animation: notificationSlideIn 0.4s ease forwards;
+            animation: notificationSlideIn 0.3s ease-out forwards; /* حركة أسرع للإشعار */
             opacity: 0;
-            transform: translateY(20px);
-            /* **تعديل هنا: إزالة backdrop-filter تماماً، لأنه كان سبب المشكلة** */
-            /* backdrop-filter: blur(10px); */ 
-            /* -webkit-backdrop-filter: blur(10px); */
+            transform: translateY(15px); /* حركة دخول أقصر */
         }
 
         .notification.fade-out {
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(15px);
         }
 
         @keyframes notificationSlideIn {
             0% {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(15px);
             }
             100% {
                 opacity: 1;
@@ -268,9 +252,9 @@
         }
 
         .notification-icon {
-            font-size: 18px;
-            margin-right: 10px;
-            color: #22c55e; /* لون أيقونة الإشعار من الصورة */
+            font-size: 16px; /* حجم أيقونة الإشعار أصغر */
+            margin-right: 8px; /* مسافة أصغر */
+            color: #22c55e;
         }
 
         .notification-text {
@@ -279,28 +263,28 @@
 
         .notification-title {
             font-family: 'Roboto', sans-serif;
-            font-size: 15px;
+            font-size: 14px; /* حجم خط عنوان الإشعار أصغر */
             font-weight: 700;
             color: #ffffff;
-            margin-bottom: 2px;
+            margin-bottom: 1px;
         }
 
         .notification-message {
             font-family: 'Roboto', sans-serif;
-            font-size: 12px;
+            font-size: 11px; /* حجم خط رسالة الإشعار أصغر */
             font-weight: 500;
             color: #d1d5db;
         }
 
         .notification-timer {
             width: 100%;
-            height: 2px;
-            background: #22c55e; /* لون شريط الإشعار من الصورة */
+            height: 1px; /* شريط الإشعار أرفع */
+            background: #22c55e;
             position: absolute;
             bottom: 0;
             left: 0;
             animation: timerProgress 4s linear forwards;
-            border-radius: 0 0 8px 8px; /* حواف مستديرة في الأسفل */
+            border-radius: 0 0 8px 8px;
         }
 
         @keyframes timerProgress {
@@ -421,7 +405,7 @@
 
             // تحديث موضع السلايدر الخارجي
             if (sliderThumb) {
-                const itemHeight = menuItems[0] ? menuItems[0].offsetHeight : 47; // ارتفاع العنصر الفعلي أو قيمة افتراضية
+                const itemHeight = menuItems[0] ? menuItems[0].offsetHeight : 38; // **تعديل: استخدام الارتفاع الجديد لعنصر القائمة**
                 const topPosition = currentIndex * itemHeight;
                 sliderThumb.style.top = `${topPosition}px`;
             }

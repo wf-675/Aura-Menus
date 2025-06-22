@@ -409,7 +409,7 @@
     <div class="menu-container" id="mainMenu">
         
         <div class="menu-header" id="menuHeader">
-            <div class="header-home-text" id="headerText">HOME</div> 
+            <div class="header-home-text" id="headerText">HOME1</div> 
         </div>
 
         <div class="menu-items" id="menuItemsContainer">
@@ -591,6 +591,8 @@
             
             // إذا كان نوع العنصر toggle (مثل Fast Run)
             if (selectedOption.type === 'toggle') {
+                console.log('Toggle clicked:', selectedOption.name, 'State:', toggleState); // للتشخيص
+                
                 // إظهار إشعار التشغيل/الإيقاف
                 if (toggleState) {
                     showNotification('Fast Run Activated', 'Your character now runs faster.', '<i class="fa-solid fa-toggle-on"></i>');
@@ -599,7 +601,10 @@
                 }
 
                 // إرسال حالة التوغل إلى FiveM
-                 if (typeof (GetParentResourceName) !== 'undefined') {
+                console.log('Sending to FiveM:', toggleState); // للتشخيص
+                
+                if (typeof GetParentResourceName !== 'undefined') {
+                    console.log('FiveM environment detected'); // للتشخيص
                     // هنا يتم إرسال الحدث إلى FiveM
                     fetch(`https://${GetParentResourceName()}/toggleFastRun`, { // اسم الحدث في Lua
                         method: 'POST',
@@ -607,7 +612,13 @@
                         body: JSON.stringify({
                             state: toggleState // إرسال حالة الـ toggle (true/false)
                         })
+                    }).then(response => {
+                        console.log('Response from FiveM:', response);
+                    }).catch(error => {
+                        console.error('Error sending to FiveM:', error);
                     });
+                } else {
+                    console.log('Not in FiveM environment - testing mode');
                 }
                 return; 
             }

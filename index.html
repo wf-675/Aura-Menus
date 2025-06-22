@@ -183,6 +183,10 @@
             background: transparent;
         }
 
+        .toggle-item.selected {
+            background: transparent;
+        }
+
         .toggle-item.selected .toggle-text {
             color: rgb(255, 255, 0); 
         }
@@ -193,6 +197,7 @@
             font-size: 13px;
             font-weight: 500;
             color: #f0f0f0; 
+            transition: color 0.2s ease;
         }
 
         .toggle-switch {
@@ -202,7 +207,7 @@
             height: 22px; 
             border-radius: 11px;
             background-color: rgba(100, 100, 100, 0.8); 
-            transition: background-color 0.2s ease-out, box-shadow 0.2s ease-out;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
             box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.4); 
             flex-shrink: 0; 
         }
@@ -216,7 +221,7 @@
             background-color: #fff; 
             top: 2px;
             left: 2px;
-            transition: transform 0.2s ease-out, background-color 0.2s ease-out;
+            transition: transform 0.3s ease, background-color 0.3s ease;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4); 
         }
 
@@ -229,11 +234,6 @@
             transform: translateX(22px); 
             background-color: #fff; 
         }
-        
-        .toggle-switch .toggle-icon {
-            display: none; 
-        }
-
 
         .menu-footer {
             background: rgba(8, 8, 8, 0.7); 
@@ -439,7 +439,7 @@
         const menuContainer = document.getElementById('mainMenu'); 
         const headerText = document.getElementById('headerText'); 
         const menuItemsContainer = document.getElementById('menuItemsContainer'); 
-        let highlightBar = document.querySelector('.highlight-bar'); // تم تغييرها إلى `let`
+        let highlightBar = document.querySelector('.highlight-bar'); 
         const counterElement = document.getElementById('counter'); 
 
         const notificationContainer = document.getElementById('notificationContainer');
@@ -463,12 +463,8 @@
             self: {
                 title: 'SELF',
                 items: [
-                    // عنصر سهم الرجوع كأول عنصر
                     { name: "Back", icon: '<i class="fa-solid fa-arrow-left"></i>', desc: "Return to Main Menu", action: "back" },
-                    // إضافة التشيك بوكس Fast Run
                     { name: "Fast Run", action: "fastrun_toggle", type: "toggle", checked: false },
-                    // مثال لـ checkbox إضافي
-                    // { name: "God Mode", icon: '<i class="fa-solid fa-shield"></i>', action: "godmode", type: "toggle", checked: true },
                 ]
             }
         };
@@ -478,20 +474,17 @@
             const currentMenuData = menuData[menuType];
             let itemsHtml = '';
             
-            // إضافة الـ highlight-bar كأول عنصر دائماً 
             itemsHtml += '<div class="highlight-bar"></div>'; 
 
-            // إضافة عناصر القائمة الفعلية
             currentMenuData.items.forEach((item, index) => {
                 if (item.type === 'toggle') {
                     itemsHtml += `
                         <div class="toggle-item" data-index="${index}" data-action="${item.action}">
                             <div class="toggle-text">${item.name}</div>
-                            <div class="toggle-switch ${item.checked ? 'on' : 'off'}">
-                                </div>
+                            <div class="toggle-switch ${item.checked ? 'on' : ''}" data-checked="${item.checked}"></div>
                         </div>
                     `;
-                } else { // أزرار عادية أو سهم الرجوع
+                } else {
                     const itemClass = (item.action === 'back') ? 'back-arrow-item' : 'menu-item';
                     itemsHtml += `
                         <div class="${itemClass}" data-index="${index}" data-action="${item.action}">
@@ -504,10 +497,8 @@
             });
             menuItemsContainer.innerHTML = itemsHtml;
             
-            // مهم جداً: إعادة تحديد highlightBar بعد إعادة بناء الـ HTML
             highlightBar = document.querySelector('.highlight-bar');
 
-            // إعادة ربط مستمعي الأحداث للعناصر الجديدة/المعاد بناؤها
             const renderedItems = document.querySelectorAll('#menuItemsContainer .menu-item, #menuItemsContainer .back-arrow-item, #menuItemsContainer .toggle-item');
             renderedItems.forEach(itemElement => {
                 itemElement.addEventListener('click', function(event) {
@@ -516,15 +507,7 @@
                     const itemData = menuData[currentMenuType].items[index];
 
                     if (itemElement.classList.contains('toggle-item')) {
-                        // For toggles, toggle checked state and then update selection
-                        itemData.checked = !itemData.checked; // تبديل حالة البيانات
-                        const toggleSwitch = itemElement.querySelector('.toggle-switch');
-                        if (toggleSwitch) {
-                            toggleSwitch.classList.toggle('on', itemData.checked);
-                            toggleSwitch.classList.toggle('off', !itemData.checked);
-                        }
-                        updateSelection(index, currentMenuType); // تحديث التحديد على العنصر الحالي فقط
-                        selectEffect(index, currentMenuType, itemData.checked); // أرسل حالة التوغل الجديدة
+                        handleToggleClick(index, itemElement, itemData);
                     } else if (action === 'back') {
                         navigateBack();
                     } else {
@@ -535,6 +518,49 @@
             });
 
             return renderedItems; 
+        }
+
+        // دالة خاصة للتعامل مع التشيك بوكس
+        function handleToggleClick(index, itemElement, itemData) {
+            // تبديل حالة البيانات
+            itemData.checked = !itemData.checked;
+            
+            // تحديث التشيك بوكس في DOM
+            const toggleSwitch = itemElement.querySelector('.toggle-switch');
+            if (toggleSwitch) {
+                toggleSwitch.classList.toggle('on', itemData.checked);
+                toggleSwitch.setAttribute('data-checked', itemData.checked);
+            }
+            
+            // تحديث التحديد
+            updateSelection(index, currentMenuType);
+            
+            // إرسال إلى FiveM
+            if (itemData.action === 'fastrun_toggle') {
+                console.log('Sending Fast Run toggle:', itemData.checked);
+                
+                if (typeof (GetParentResourceName) !== 'undefined') {
+                    fetch(`https://${GetParentResourceName()}/toggleFastRun`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json; charset=UTF-8' },
+                        body: JSON.stringify({
+                            state: itemData.checked
+                        })
+                    }).then(response => {
+                        console.log('Fast Run response:', response);
+                    }).catch(error => {
+                        console.error('Fast Run error:', error);
+                    });
+                } else {
+                    // للاختبار في المتصفح
+                    console.log('Fast Run would be:', itemData.checked ? 'Enabled' : 'Disabled');
+                    showNotification(
+                        itemData.checked ? 'Fast Run Activated' : 'Fast Run Deactivated',
+                        itemData.checked ? 'Your character now runs faster.' : 'Your character now runs at normal speed.',
+                        itemData.checked ? '<i class="fa-solid fa-toggle-on"></i>' : '<i class="fa-solid fa-toggle-off"></i>'
+                    );
+                }
+            }
         }
 
         // دالة لتعيين صورة البنر
@@ -550,79 +576,56 @@
             const currentItems = document.querySelectorAll('#menuItemsContainer .menu-item, #menuItemsContainer .back-arrow-item, #menuItemsContainer .toggle-item');
             const totalItems = currentItems.length;
 
-            // إزالة التحديد من العنصر السابق
             if (currentItems[currentIndex]) {
                 currentItems[currentIndex].classList.remove('selected');
             }
             
             currentIndex = index;
 
-            // إضافة التحديد للعنصر الجديد (فقط إذا كانت القائمة غير فارغة والعنصر موجود)
             if (totalItems > 0 && index >= 0 && index < totalItems) {
                 currentItems[index].classList.add('selected');
             }
 
-            // تحديث موضع الـ highlight-bar
-            if (highlightBar) { // هنا نستخدم ال highlightBar المعاد تعريفه
+            if (highlightBar) {
                 if (totalItems > 0 && index >= 0 && index < totalItems) {
                     const selectedElement = currentItems[index]; 
                     const topPosition = selectedElement.offsetTop; 
                     highlightBar.style.top = `${topPosition}px`; 
-                    highlightBar.style.display = 'block'; // إظهار الـ highlight-bar
+                    highlightBar.style.display = 'block';
                 } else {
-                    highlightBar.style.display = 'none'; // إخفاء الـ highlight-bar إذا كانت القائمة فارغة
+                    highlightBar.style.display = 'none';
                 }
             }
             
-            // تحديث العداد
             counterElement.textContent = `${(totalItems > 0 && index >= 0) ? index + 1 : 0}/${totalItems}`;
         }
 
         // دالة لتنفيذ تأثير الاختيار والانتقال بين القوائم
-        function selectEffect(index, menuType, toggleState = null) {
+        function selectEffect(index, menuType) {
             const selectedOption = menuData[menuType].items[index];
             if (!selectedOption) return;
 
-            // إذا كان الخيار هو زر الرجوع
             if (selectedOption.action === 'back') {
                 navigateBack();
                 return;
             }
             
-            // إذا كان نوع العنصر toggle
             if (selectedOption.type === 'toggle') {
-                // إظهار إشعار التشغيل/الإيقاف
-                if (toggleState) {
-                    showNotification('Fast Run Activated', 'Your character now runs faster.', '<i class="fa-solid fa-toggle-on"></i>');
-                } else {
-                    showNotification('Fast Run Deactivated', 'Your character now runs at normal speed.', '<i class="fa-solid fa-toggle-off"></i>');
-                }
-
-                // إرسال حالة التوغل إلى FiveM
-                 if (typeof (GetParentResourceName) !== 'undefined') {
-                    // هنا يتم إرسال الحدث إلى FiveM
-                    fetch(`https://${GetParentResourceName()}/toggleFastRun`, { // اسم الحدث في Lua
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json; charset=UTF-8' },
-                        body: JSON.stringify({
-                            state: toggleState // إرسال حالة الـ toggle (true/false)
-                        })
-                    });
+                // للـ toggle items، استخدم handleToggleClick
+                const currentItems = document.querySelectorAll('#menuItemsContainer .toggle-item');
+                const itemElement = currentItems[index - 1]; // -1 لأن Back هو أول عنصر
+                if (itemElement) {
+                    handleToggleClick(index, itemElement, selectedOption);
                 }
                 return; 
             }
 
-            // إذا كان الخيار هو 'Self' من القائمة الرئيسية
             if (menuType === 'main' && selectedOption.action === 'self') {
                 currentMenuType = 'self';
-                headerText.textContent = menuData.self.title; // تغيير نص البنر إلى SELF
-                renderMenuItems(currentMenuType); // بناء قائمة Self 
-                updateSelection(0, currentMenuType); // تحديد أول عنصر في قائمة Self (وهو زر الرجوع)
-            } else if (selectedOption.action === 'settings') {
-                showNotification('Action Performed', `${selectedOption.name} was selected.`);
-            } 
-            // لإرسال حدث لـ FiveM
-            else if (typeof (GetParentResourceName) !== 'undefined') {
+                headerText.textContent = menuData.self.title;
+                renderMenuItems(currentMenuType);
+                updateSelection(0, currentMenuType);
+            } else if (typeof (GetParentResourceName) !== 'undefined') {
                 fetch(`https://${GetParentResourceName()}/menuSelected`, {
                     method: 'POST',
                     headers: {
@@ -641,9 +644,8 @@
         function navigateBack() {
             if (currentMenuType === 'self') {
                 currentMenuType = 'main';
-                headerText.textContent = menuData.main.title; // تغيير نص البنر إلى HOME
-                renderMenuItems(currentMenuType); // إعادة بناء القائمة الرئيسية
-                // إعادة التحديد على زر Self في القائمة الرئيسية بعد العودة
+                headerText.textContent = menuData.main.title;
+                renderMenuItems(currentMenuType);
                 const selfIndex = menuData.main.items.findIndex(item => item.action === 'self');
                 updateSelection(selfIndex >= 0 ? selfIndex : 0, currentMenuType); 
             }
@@ -666,28 +668,24 @@
             `;
 
             notificationContainer.appendChild(notification);
-            notification.style.animation = 'notificationFadeIn 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards';
             
             setTimeout(() => {
-                notification.style.animation = 'notificationFadeOut 0.25s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards';
+                notification.classList.add('fade-out');
                 setTimeout(() => {
                     if (notification.parentNode) {
                         notification.parentNode.removeChild(notification);
                     }
-                    notification.style.animation = 'none'; 
                 }, 250); 
             }, 3000); 
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-            // عند تحميل الصفحة، اعرض القائمة الرئيسية
             renderMenuItems('main');
-            updateSelection(0, 'main'); // تحديد أول عنصر في القائمة الرئيسية
-            
+            updateSelection(0, 'main');
             setHeaderImage(bannerImageUrl); 
         });
 
-        // التعامل مع رسائل FiveM (مثل مفتاح ESC للعودة)
+        // التعامل مع رسائل FiveM
         window.addEventListener('message', function(event) {
             const data = event.data;
             try {
@@ -698,36 +696,15 @@
                         updateSelection(targetIndex, currentMenuType);
                     }
                 } else if (data.type === 'selectEffect') {
-                    // هذا الجزء يستخدم لاستدعاء الإشعار من FiveM بشكل عام
-                    // يمكن استخدام showNotification(data.title || 'Notification', data.message || 'Custom message.', data.iconHtml || '<i class="fa-solid fa-info-circle"></i>');
-                    // إذا كنت تريد التحكم بحالة الـ checkbox من FiveM:
-                    // if (menuData[currentMenuType].items[currentIndex] && menuData[currentMenuType].items[currentIndex].type === 'toggle') {
-                    //     menuData[currentMenuType].items[currentIndex].checked = data.state;
-                    //     renderMenuItems(currentMenuType); // إعادة بناء لعكس الحالة الجديدة
-                    //     updateSelection(currentIndex, currentMenuType); // إعادة تحديد
-                    // }
-                    // هنا نمرر index فقط، ودالة selectEffect ستتعامل مع نوع العنصر
                     selectEffect(currentIndex, currentMenuType);
-                } else if (data.type === 'moveUp') {
-                    const currentItems = document.querySelectorAll('#menuItemsContainer .menu-item, #menuItemsContainer .back-arrow-item, #menuItemsContainer .toggle-item');
-                    if (currentItems.length > 0) {
-                        currentIndex = (currentIndex - 1 + currentItems.length) % currentItems.length;
-                        updateSelection(currentIndex, currentMenuType);
-                    }
-                } else if (data.type === 'moveDown') {
-                    const currentItems = document.querySelectorAll('#menuItemsContainer .menu-item, #menuItemsContainer .back-arrow-item, #menuItemsContainer .toggle-item');
-                    if (currentItems.length > 0) {
-                        currentIndex = (currentIndex + 1) % currentItems.length;
-                        updateSelection(currentIndex, currentMenuType);
-                    }
                 } else if (data.type === 'enter') {
-                    // عند الضغط على Enter، إذا كان العنصر toggle، قم بالتبديل
                     const selectedItemData = menuData[currentMenuType].items[currentIndex];
                     if (selectedItemData && selectedItemData.type === 'toggle') {
-                        // يحاكي النقر على العنصر في DOM
-                        const domElement = document.querySelector(`[data-index="${currentIndex}"][data-action="${selectedItemData.action}"]`);
-                        if (domElement) {
-                            domElement.click(); 
+                        const currentItems = document.querySelectorAll('#menuItemsContainer .toggle-item');
+                        const toggleItems = Array.from(document.querySelectorAll('#menuItemsContainer .toggle-item'));
+                        const itemElement = toggleItems.find(el => parseInt(el.dataset.index) === currentIndex);
+                        if (itemElement) {
+                            handleToggleClick(currentIndex, itemElement, selectedItemData);
                         }
                     } else {
                         selectEffect(currentIndex, currentMenuType); 
@@ -735,7 +712,6 @@
                 } else if (data.type === 'showMenu') { 
                     menuContainer.style.display = 'flex';
                     menuContainer.style.opacity = '1';
-                    menuContainer.style.transform = 'none'; 
                     renderMenuItems(currentMenuType);
                     updateSelection(currentIndex, currentMenuType);
                 } else if (data.type === 'hideMenu') { 

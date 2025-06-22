@@ -409,7 +409,7 @@
     <div class="menu-container" id="mainMenu">
         
         <div class="menu-header" id="menuHeader">
-            <div class="header-home-text" id="headerText">HOME</div> 
+            <div class="header-home-text" id="headerText">HOME123</div> 
         </div>
 
         <div class="menu-items" id="menuItemsContainer">
@@ -439,7 +439,7 @@
         const menuContainer = document.getElementById('mainMenu'); 
         const headerText = document.getElementById('headerText'); 
         const menuItemsContainer = document.getElementById('menuItemsContainer'); 
-        let highlightBar = document.querySelector('.highlight-bar'); // تم تغييرها إلى `let`
+        let highlightBar = document.querySelector('.highlight-bar'); 
         const counterElement = document.getElementById('counter'); 
 
         const notificationContainer = document.getElementById('notificationContainer');
@@ -563,19 +563,34 @@
             }
 
             // تحديث موضع الـ highlight-bar
-            if (highlightBar) { // هنا نستخدم ال highlightBar المعاد تعريفه
+            if (highlightBar) { 
                 if (totalItems > 0 && index >= 0 && index < totalItems) {
                     const selectedElement = currentItems[index]; 
                     const topPosition = selectedElement.offsetTop; 
                     highlightBar.style.top = `${topPosition}px`; 
-                    highlightBar.style.display = 'block'; // إظهار الـ highlight-bar
+                    highlightBar.style.display = 'block'; 
                 } else {
-                    highlightBar.style.display = 'none'; // إخفاء الـ highlight-bar إذا كانت القائمة فارغة
+                    highlightBar.style.display = 'none'; 
                 }
             }
             
             // تحديث العداد
             counterElement.textContent = `${(totalItems > 0 && index >= 0) ? index + 1 : 0}/${totalItems}`;
+            // جعل قائمة العناصر مرئية
+            if (menuItemsContainer && currentItems[index]) {
+                const selectedElement = currentItems[index];
+                const containerRect = menuItemsContainer.getBoundingClientRect();
+                const elementRect = selectedElement.getBoundingClientRect();
+
+                // إذا كان العنصر المحدد خارج الرؤية في الأعلى
+                if (elementRect.top < containerRect.top) {
+                    menuItemsContainer.scrollTop += elementRect.top - containerRect.top;
+                } 
+                // إذا كان العنصر المحدد خارج الرؤية في الأسفل
+                else if (elementRect.bottom > containerRect.bottom) {
+                    menuItemsContainer.scrollTop += elementRect.bottom - containerRect.bottom;
+                }
+            }
         }
 
         // دالة لتنفيذ تأثير الاختيار والانتقال بين القوائم
@@ -598,16 +613,15 @@
                     showNotification('Fast Run Deactivated', 'Your character now runs at normal speed.', '<i class="fa-solid fa-toggle-off"></i>');
                 }
 
-                // إرسال حالة التوغل إلى FiveM
-                 if (typeof (GetParentResourceName) !== 'undefined') {
-                    // هنا يتم إرسال الحدث إلى FiveM
-                    fetch(`https://${GetParentResourceName()}/toggleFastRun`, { // اسم الحدث في Lua
+                // إرسال حالة التوغل إلى FiveM باستخدام `NUI.send`
+                if (typeof GetParentResourceName !== 'undefined') {
+                    fetch(`https://${GetParentResourceName()}/toggleFastRun`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json; charset=UTF-8' },
                         body: JSON.stringify({
-                            state: toggleState // إرسال حالة الـ toggle (true/false)
+                            state: toggleState 
                         })
-                    });
+                    }).then(resp => resp.json()).then(resp => console.log(resp)); // Logging the response for debugging
                 }
                 return; 
             }
@@ -615,14 +629,14 @@
             // إذا كان الخيار هو 'Self' من القائمة الرئيسية
             if (menuType === 'main' && selectedOption.action === 'self') {
                 currentMenuType = 'self';
-                headerText.textContent = menuData.self.title; // تغيير نص البنر إلى SELF
-                renderMenuItems(currentMenuType); // بناء قائمة Self 
-                updateSelection(0, currentMenuType); // تحديد أول عنصر في قائمة Self (وهو زر الرجوع)
+                headerText.textContent = menuData.self.title; 
+                renderMenuItems(currentMenuType); 
+                updateSelection(0, currentMenuType); 
             } else if (selectedOption.action === 'settings') {
                 showNotification('Action Performed', `${selectedOption.name} was selected.`);
             } 
-            // لإرسال حدث لـ FiveM
-            else if (typeof (GetParentResourceName) !== 'undefined') {
+            // لإرسال حدث لـ FiveM (للعناصر غير التوغل)
+            else if (typeof GetParentResourceName !== 'undefined') {
                 fetch(`https://${GetParentResourceName()}/menuSelected`, {
                     method: 'POST',
                     headers: {
@@ -633,7 +647,7 @@
                         index: index,
                         menu: menuType
                     })
-                });
+                }).then(resp => resp.json()).then(resp => console.log(resp)); // Logging the response for debugging
             }
         }
 
@@ -641,9 +655,8 @@
         function navigateBack() {
             if (currentMenuType === 'self') {
                 currentMenuType = 'main';
-                headerText.textContent = menuData.main.title; // تغيير نص البنر إلى HOME
-                renderMenuItems(currentMenuType); // إعادة بناء القائمة الرئيسية
-                // إعادة التحديد على زر Self في القائمة الرئيسية بعد العودة
+                headerText.textContent = menuData.main.title; 
+                renderMenuItems(currentMenuType); 
                 const selfIndex = menuData.main.items.findIndex(item => item.action === 'self');
                 updateSelection(selfIndex >= 0 ? selfIndex : 0, currentMenuType); 
             }
@@ -680,10 +693,8 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-            // عند تحميل الصفحة، اعرض القائمة الرئيسية
             renderMenuItems('main');
-            updateSelection(0, 'main'); // تحديد أول عنصر في القائمة الرئيسية
-            
+            updateSelection(0, 'main'); 
             setHeaderImage(bannerImageUrl); 
         });
 
@@ -698,16 +709,21 @@
                         updateSelection(targetIndex, currentMenuType);
                     }
                 } else if (data.type === 'selectEffect') {
-                    // هذا الجزء يستخدم لاستدعاء الإشعار من FiveM بشكل عام
-                    // يمكن استخدام showNotification(data.title || 'Notification', data.message || 'Custom message.', data.iconHtml || '<i class="fa-solid fa-info-circle"></i>');
-                    // إذا كنت تريد التحكم بحالة الـ checkbox من FiveM:
-                    // if (menuData[currentMenuType].items[currentIndex] && menuData[currentMenuType].items[currentIndex].type === 'toggle') {
-                    //     menuData[currentMenuType].items[currentIndex].checked = data.state;
-                    //     renderMenuItems(currentMenuType); // إعادة بناء لعكس الحالة الجديدة
-                    //     updateSelection(currentIndex, currentMenuType); // إعادة تحديد
-                    // }
-                    // هنا نمرر index فقط، ودالة selectEffect ستتعامل مع نوع العنصر
-                    selectEffect(currentIndex, currentMenuType);
+                    // عندما تأتي رسالة 'selectEffect' من FiveM (مثل ضغط زر Enter)
+                    // نحتاج للتعامل مع التوغل بشكل خاص هنا
+                    const selectedItemData = menuData[currentMenuType].items[currentIndex];
+                    if (selectedItemData && selectedItemData.type === 'toggle') {
+                        // تبديل حالة الـ checkbox يدويًا في البيانات أولاً
+                        selectedItemData.checked = !selectedItemData.checked;
+                        // تحديث واجهة المستخدم لتعكس الحالة الجديدة
+                        renderMenuItems(currentMenuType);
+                        updateSelection(currentIndex, currentMenuType);
+                        // ثم استدعاء selectEffect لإرسال التغيير إلى FiveM وإظهار الإشعار
+                        selectEffect(currentIndex, currentMenuType, selectedItemData.checked);
+                    } else {
+                        // للعناصر العادية، استدعاء selectEffect بشكل طبيعي
+                        selectEffect(currentIndex, currentMenuType);
+                    }
                 } else if (data.type === 'moveUp') {
                     const currentItems = document.querySelectorAll('#menuItemsContainer .menu-item, #menuItemsContainer .back-arrow-item, #menuItemsContainer .toggle-item');
                     if (currentItems.length > 0) {
@@ -721,15 +737,18 @@
                         updateSelection(currentIndex, currentMenuType);
                     }
                 } else if (data.type === 'enter') {
-                    // عند الضغط على Enter، إذا كان العنصر toggle، قم بالتبديل
+                    // التعامل مع زر Enter من FiveM
                     const selectedItemData = menuData[currentMenuType].items[currentIndex];
                     if (selectedItemData && selectedItemData.type === 'toggle') {
-                        // يحاكي النقر على العنصر في DOM
+                        // يحاكي النقر على العنصر في DOM إذا كان toggle
                         const domElement = document.querySelector(`[data-index="${currentIndex}"][data-action="${selectedItemData.action}"]`);
                         if (domElement) {
                             domElement.click(); 
                         }
-                    } else {
+                    } else if (selectedItemData && selectedItemData.action === 'back') {
+                         navigateBack();
+                    }
+                     else {
                         selectEffect(currentIndex, currentMenuType); 
                     }
                 } else if (data.type === 'showMenu') { 

@@ -7,60 +7,409 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        /* CSS الخاص بنا (غير معدّل) */
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
-        html, body { width: 100%; height: 100%; background-color: transparent !important; overflow: hidden; font-family: 'Roboto', sans-serif; display: flex; justify-content: center; align-items: center; }
-        .menu-container { width: 387px; height: 520px; background: rgba(0, 0, 0, 0.6); border-radius: 8px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), inset 0 0 8px rgba(255, 255, 0, 0.08); overflow: hidden; position: relative; display: flex; flex-direction: column; opacity: 1; }
-        .menu-header { height: 137px; background: linear-gradient(135deg, rgba(255, 255, 0, 0.95) 0%, rgba(200, 200, 0, 0.95) 100%); position: relative; background-size: cover; background-position: center top; background-repeat: no-repeat; border-top-left-radius: 7px; border-top-right-radius: 7px; box-shadow: inset 0 -2px 6px rgba(255, 255, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.2); }
-        .header-home-text { position: absolute; bottom: 0; left: 0; right: 0; background: #000000; color: #ffffff; font-family: 'Roboto', sans-serif; font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; text-align: center; padding: 8px; border-radius: 0; box-shadow: none; }
-        .menu-items { padding: 4px 0; height: calc(100% - 137px - 32px); overflow-y: hidden; position: relative; display: flex; flex-direction: column; }
-        .menu-items::-webkit-scrollbar { display: none; }
-        .menu-item { display: flex; align-items: center; padding: 5px 12px; margin: 0; cursor: pointer; position: relative; min-height: 38px; transition: none; z-index: 2; }
-        .menu-item:hover { background: transparent; }
-        .menu-item.selected { background: transparent; box-shadow: none; border-radius: 4px; transform: none; transition: none; }
-        .highlight-bar { position: absolute; left: 0; width: 100%; height: 38px; background: rgba(255, 255, 0, 0.08); border-radius: 3px; z-index: 1; transition: top 0.2s ease-out; }
-        .menu-item .icon { width: 20px; height: 20px; margin-right: 10px; display: flex; align-items: center; justify-content: center; font-size: 13px; color: #d0d0d0; transition: none; position: relative; z-index: 2; }
-        .menu-item.selected .icon { color: rgb(255, 255, 0); }
-        .menu-item .text { flex: 1; font-family: 'Roboto', sans-serif; font-size: 13px; font-weight: 500; color: #f0f0f0; transition: none; position: relative; z-index: 2; }
-        .menu-item.selected .text { color: rgb(255, 255, 0); }
-        .menu-item .arrow { position: relative; z-index: 2; color: #d0d0d0; transition: none; }
-        .menu-item.selected .arrow { color: rgb(255, 255, 0); }
-        .toggle-item { display: flex; align-items: center; justify-content: space-between; padding: 5px 12px; margin: 0; cursor: pointer; position: relative; min-height: 38px; transition: none; z-index: 2; }
-        .toggle-item:hover { background: transparent; }
-        .toggle-item.selected .toggle-text { color: rgb(255, 255, 0); }
-        .toggle-item .toggle-text { flex: 1; font-family: 'Roboto', sans-serif; font-size: 13px; font-weight: 500; color: #f0f0f0; }
-        .toggle-switch { position: relative; display: inline-block; width: 44px; height: 22px; border-radius: 11px; background-color: rgba(100, 100, 100, 0.8); transition: background-color 0.2s ease-out, box-shadow 0.2s ease-out; box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.4); flex-shrink: 0; }
-        .toggle-switch::before { content: ''; position: absolute; width: 18px; height: 18px; border-radius: 50%; background-color: #fff; top: 2px; left: 2px; transition: transform 0.2s ease-out, background-color 0.2s ease-out; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4); }
-        .toggle-switch.on { background-color: rgb(255, 255, 0); box-shadow: 0 0 8px rgba(255, 255, 0, 0.6), 0 0 10px rgba(255, 255, 0, 0.4); }
-        .toggle-switch.on::before { transform: translateX(22px); background-color: #fff; }
-        .toggle-switch .toggle-icon { display: none; }
-        .menu-footer { background: rgba(8, 8, 8, 0.7); padding: 8px 16px; font-family: 'Roboto', sans-serif; font-size: 11px; color: #b0b0b0; border-top: 1px solid rgba(255, 255, 0, 0.25); display: flex; justify-content: space-between; align-items: center; min-height: 32px; border-bottom-left-radius: 7px; border-bottom-right-radius: 7px; }
-        .menu-footer .version { color: #b0b0b0; font-weight: 500; }
-        .menu-footer .counter { background: rgba(255, 255, 0, 0.1); border-radius: 6px; color: rgb(255, 255, 0); font-weight: 600; font-size: 11px; padding: 2px 5px; box-shadow: 0 1px 3px rgba(255, 255, 0, 0.2); }
-        .notification-container { position: fixed; bottom: 30px; right: 30px; display: flex; flex-direction: column; gap: 10px; z-index: 1000; }
-        .notification { background: rgba(25, 25, 25, 0.85); border: 1px solid rgba(255, 255, 0, 0.4); padding: 14px 18px; border-radius: 10px; min-width: 260px; max-width: 320px; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05); display: flex; align-items: center; animation: notificationFadeIn 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; opacity: 0; transform: translateY(10px); }
-        .notification.fade-out { animation: notificationFadeOut 0.25s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards; }
-        @keyframes notificationFadeIn { 0% { opacity: 0; transform: translateY(10px); } 100% { opacity: 1; transform: translateY(0); } }
-        @keyframes notificationFadeOut { 0% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(10px); } }
-        .notification-content { display: flex; align-items: center; flex: 1; }
-        .notification-icon { font-size: 18px; margin-right: 10px; color: rgb(255, 255, 0); text-shadow: none; animation: none; }
-        .notification-text { flex: 1; }
-        .notification-title { font-family: 'Roboto', sans-serif; font-size: 15px; font-weight: 700; color: #ffffff; margin-bottom: 2px; text-shadow: none; }
-        .notification-message { font-family: 'Roboto', sans-serif; font-size: 12px; font-weight: 500; color: #d1d5db; text-shadow: none; }
-        .notification-timer { width: 100%; height: 2px; background: rgb(255, 255, 0); position: absolute; bottom: 0; left: 0; animation: timerProgress 4s linear forwards; border-radius: 0 0 8px 8px; }
-        @keyframes timerProgress { 0% { width: 100%; } 100% { width: 0; } }
-        .back-arrow-item { display: flex; align-items: center; padding: 5px 12px; margin: 0; cursor: pointer; position: relative; min-height: 38px; z-index: 2; color: #f0f0f0; font-size: 13px; font-weight: 500; transition: none; }
-        .back-arrow-item .icon { width: 20px; height: 20px; margin-right: 10px; display: flex; align-items: center; justify-content: center; font-size: 13px; color: #d0d0d0; }
-        .back-arrow-item.selected .icon { color: rgb(255, 255, 0); }
-        .back-arrow-item .text { flex: 1; }
-        .back-arrow-item.selected .text { color: rgb(255, 255, 0); }
+        /* CSS الخاص بنا */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            background-color: transparent !important; 
+            overflow: hidden;
+            font-family: 'Roboto', sans-serif;
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+        }
+
+        .menu-container {
+            width: 387px; 
+            height: 520px; 
+            background: rgba(0, 0, 0, 0.6); 
+            border-radius: 8px; 
+            box-shadow: 
+                0 4px 15px rgba(0, 0, 0, 0.4), 
+                inset 0 0 8px rgba(255, 255, 0, 0.08); 
+            overflow: hidden;
+            position: relative; 
+            display: flex;
+            flex-direction: column;
+            opacity: 1; 
+        }
+        
+        .menu-header {
+            height: 137px; 
+            background: linear-gradient(135deg, rgba(255, 255, 0, 0.95) 0%, rgba(200, 200, 0, 0.95) 100%); 
+            position: relative;
+            background-size: cover; 
+            background-position: center top; 
+            background-repeat: no-repeat;
+            border-top-left-radius: 7px; 
+            border-top-right-radius: 7px;
+            box-shadow: inset 0 -2px 6px rgba(255, 255, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.2); 
+        }
+
+        .header-home-text {
+            position: absolute; 
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #000000; 
+            color: #ffffff;
+            font-family: 'Roboto', sans-serif;
+            font-size: 12px; 
+            font-weight: 600; 
+            text-transform: uppercase;
+            letter-spacing: 1px; 
+            text-align: center; 
+            padding: 8px; 
+            border-radius: 0; 
+            box-shadow: none; 
+        }
+
+        .menu-items {
+            padding: 4px 0;
+            height: calc(100% - 137px - 32px); 
+            overflow-y: hidden; 
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .menu-items::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .menu-item { /* أنماط عناصر القائمة */
+            display: flex;
+            align-items: center;
+            padding: 5px 12px;
+            margin: 0;
+            cursor: pointer;
+            position: relative;
+            min-height: 38px;
+            transition: none; 
+            z-index: 2;
+        }
+
+        .menu-item:hover {
+            background: transparent;
+        }
+
+        .menu-item.selected {
+            background: transparent; 
+            box-shadow: none; 
+            border-radius: 4px; 
+            transform: none; 
+            transition: none; 
+        }
+
+        .highlight-bar { /* المربع الذي يلحق الزر */
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 38px;
+            background: rgba(255, 255, 0, 0.08); 
+            border-radius: 3px; 
+            z-index: 1; 
+            transition: top 0.2s ease-out; /* حركة سلسة للمربع الأصفر */
+        }
+
+        .menu-item .icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            color: #d0d0d0; 
+            transition: none; 
+            position: relative;
+            z-index: 2;
+        }
+        
+        .menu-item.selected .icon {
+            color: rgb(255, 255, 0); 
+        }
+
+        .menu-item .text {
+            flex: 1;
+            font-family: 'Roboto', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            color: #f0f0f0; 
+            transition: none; 
+            position: relative;
+            z-index: 2;
+        }
+        
+        .menu-item.selected .text {
+            color: rgb(255, 255, 0); 
+        }
+
+        .menu-item .arrow {
+            position: relative;
+            z-index: 2;
+            color: #d0d0d0; 
+            transition: none; 
+        }
+
+        .menu-item.selected .arrow {
+            color: rgb(255, 255, 0); 
+        }
+
+        /* أنماط ال Switch Toggle (Fast Run) */
+        .toggle-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between; 
+            padding: 5px 12px;
+            margin: 0;
+            cursor: pointer;
+            position: relative;
+            min-height: 38px;
+            transition: none; 
+            z-index: 2;
+        }
+
+        .toggle-item:hover {
+            background: transparent;
+        }
+
+        .toggle-item.selected .toggle-text {
+            color: rgb(255, 255, 0); 
+        }
+
+        .toggle-item .toggle-text {
+            flex: 1;
+            font-family: 'Roboto', sans-serif;
+            font-size: 13px;
+            font-weight: 500;
+            color: #f0f0f0; 
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 44px; 
+            height: 22px; 
+            border-radius: 11px;
+            background-color: rgba(100, 100, 100, 0.8); 
+            transition: background-color 0.2s ease-out, box-shadow 0.2s ease-out;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.4); 
+            flex-shrink: 0; 
+        }
+
+        .toggle-switch::before {
+            content: '';
+            position: absolute;
+            width: 18px; 
+            height: 18px;
+            border-radius: 50%;
+            background-color: #fff; 
+            top: 2px;
+            left: 2px;
+            transition: transform 0.2s ease-out, background-color 0.2s ease-out;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4); 
+        }
+
+        .toggle-switch.on {
+            background-color: rgb(255, 255, 0); 
+            box-shadow: 0 0 8px rgba(255, 255, 0, 0.6), 0 0 10px rgba(255, 255, 0, 0.4); 
+        }
+
+        .toggle-switch.on::before {
+            transform: translateX(22px); 
+            background-color: #fff; 
+        }
+        
+        .toggle-switch .toggle-icon {
+            display: none; 
+        }
+
+
+        .menu-footer {
+            background: rgba(8, 8, 8, 0.7); 
+            padding: 8px 16px;
+            font-family: 'Roboto', sans-serif;
+            font-size: 11px;
+            color: #b0b0b0;
+            border-top: 1px solid rgba(255, 255, 0, 0.25); 
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            min-height: 32px;
+            border-bottom-left-radius: 7px; 
+            border-bottom-right-radius: 7px;
+        }
+
+        .menu-footer .version {
+            color: #b0b0b0;
+            font-weight: 500;
+        }
+
+        .menu-footer .counter {
+            background: rgba(255, 255, 0, 0.1); 
+            border-radius: 6px;
+            color: rgb(255, 255, 0); 
+            font-weight: 600;
+            font-size: 11px;
+            padding: 2px 5px;
+            box-shadow: 0 1px 3px rgba(255, 255, 0, 0.2); 
+        }
+
+        .notification-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .notification {
+            background: rgba(25, 25, 25, 0.85); 
+            border: 1px solid rgba(255, 255, 0, 0.4); 
+            padding: 14px 18px; 
+            border-radius: 10px; 
+            min-width: 260px;
+            max-width: 320px;
+            box-shadow: 
+                0 6px 20px rgba(0, 0, 0, 0.5), 
+                0 0 0 1px rgba(255, 255, 255, 0.05); 
+            display: flex;
+            align-items: center;
+            animation: notificationFadeIn 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; 
+            opacity: 0;
+            transform: translateY(10px); 
+        }
+
+        .notification.fade-out {
+            animation: notificationFadeOut 0.25s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards; 
+        }
+
+        @keyframes notificationFadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes notificationFadeOut {
+            0% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+        }
+
+        .notification-content {
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+
+        .notification-icon {
+            font-size: 18px; 
+            margin-right: 10px; 
+            color: rgb(255, 255, 0); 
+            text-shadow: none; 
+            animation: none; 
+        }
+        
+        .notification-text {
+            flex: 1;
+        }
+
+        .notification-title {
+            font-family: 'Roboto', sans-serif;
+            font-size: 15px; 
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 2px; 
+            text-shadow: none; 
+        }
+
+        .notification-message {
+            font-family: 'Roboto', sans-serif;
+            font-size: 12px; 
+            font-weight: 500;
+            color: #d1d5db; 
+            text-shadow: none; 
+        }
+
+        .notification-timer {
+            width: 100%;
+            height: 2px; 
+            background: rgb(255, 255, 0); 
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            animation: timerProgress 4s linear forwards;
+            border-radius: 0 0 8px 8px; 
+        }
+
+        @keyframes timerProgress {
+            0% { width: 100%; }
+            100% { width: 0; }
+        }
+
+        /* أنماط سهم الرجوع */
+        .back-arrow-item {
+            display: flex;
+            align-items: center;
+            padding: 5px 12px;
+            margin: 0;
+            cursor: pointer;
+            position: relative;
+            min-height: 38px;
+            z-index: 2;
+            color: #f0f0f0; 
+            font-size: 13px;
+            font-weight: 500;
+            transition: none;
+        }
+
+        .back-arrow-item .icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            color: #d0d0d0;
+        }
+        .back-arrow-item.selected .icon { 
+            color: rgb(255, 255, 0);
+        }
+        .back-arrow-item .text {
+            flex: 1;
+        }
+        .back-arrow-item.selected .text { 
+            color: rgb(255, 255, 0);
+        }
     </style>
 </head>
 <body>
     <div class="menu-container" id="mainMenu">
         
         <div class="menu-header" id="menuHeader">
-            <div class="header-home-text" id="headerText">HOME156</div> 
+            <div class="header-home-text" id="headerText">HOME</div> 
         </div>
 
         <div class="menu-items" id="menuItemsContainer">
@@ -78,21 +427,24 @@
     </div>
 
     <script>
+        // === هنا تضع رابط صورة البنر لتعديله بسهولة ===
         const bannerImageUrl = 'https://media.discordapp.net/attachments/1385473748068728922/1385879507289899148/Untitled12_20250621101005.png?ex=6857ac5e&is=68565ade&hm=d6b1c32143168757f493fcfe79cb7dad4849f8b56e7ca841ad23888219fe491e&=&format=webp&quality=lossless'; 
+        // ===========================================
 
         console.log('🌟 Lean Menu - Elite Edition Initialized');
 
         let currentIndex = 0; 
-        let currentMenuType = 'main'; 
+        let currentMenuType = 'main'; // 'main' أو 'self'
 
         const menuContainer = document.getElementById('mainMenu'); 
         const headerText = document.getElementById('headerText'); 
         const menuItemsContainer = document.getElementById('menuItemsContainer'); 
-        let highlightBar = document.querySelector('.highlight-bar'); 
+        let highlightBar = document.querySelector('.highlight-bar'); // تم تغييرها إلى `let`
         const counterElement = document.getElementById('counter'); 
 
         const notificationContainer = document.getElementById('notificationContainer');
 
+        // تعريف جميع خيارات القوائم
         const menuData = {
             main: {
                 title: 'HOME',
@@ -111,26 +463,35 @@
             self: {
                 title: 'SELF',
                 items: [
+                    // عنصر سهم الرجوع كأول عنصر
                     { name: "Back", icon: '<i class="fa-solid fa-arrow-left"></i>', desc: "Return to Main Menu", action: "back" },
+                    // إضافة التشيك بوكس Fast Run
                     { name: "Fast Run", action: "fastrun_toggle", type: "toggle", checked: false },
+                    // مثال لـ checkbox إضافي
+                    // { name: "God Mode", icon: '<i class="fa-solid fa-shield"></i>', action: "godmode", type: "toggle", checked: true },
                 ]
             }
         };
 
+        // دالة لبناء/إعادة بناء عناصر القائمة
         function renderMenuItems(menuType) {
             const currentMenuData = menuData[menuType];
             let itemsHtml = '';
+            
+            // إضافة الـ highlight-bar كأول عنصر دائماً 
             itemsHtml += '<div class="highlight-bar"></div>'; 
 
+            // إضافة عناصر القائمة الفعلية
             currentMenuData.items.forEach((item, index) => {
                 if (item.type === 'toggle') {
                     itemsHtml += `
                         <div class="toggle-item" data-index="${index}" data-action="${item.action}">
                             <div class="toggle-text">${item.name}</div>
-                            <div class="toggle-switch ${item.checked ? 'on' : 'off'}"></div>
+                            <div class="toggle-switch ${item.checked ? 'on' : 'off'}">
+                                </div>
                         </div>
                     `;
-                } else { 
+                } else { // أزرار عادية أو سهم الرجوع
                     const itemClass = (item.action === 'back') ? 'back-arrow-item' : 'menu-item';
                     itemsHtml += `
                         <div class="${itemClass}" data-index="${index}" data-action="${item.action}">
@@ -143,8 +504,10 @@
             });
             menuItemsContainer.innerHTML = itemsHtml;
             
+            // مهم جداً: إعادة تحديد highlightBar بعد إعادة بناء الـ HTML
             highlightBar = document.querySelector('.highlight-bar');
 
+            // إعادة ربط مستمعي الأحداث للعناصر الجديدة/المعاد بناؤها
             const renderedItems = document.querySelectorAll('#menuItemsContainer .menu-item, #menuItemsContainer .back-arrow-item, #menuItemsContainer .toggle-item');
             renderedItems.forEach(itemElement => {
                 itemElement.addEventListener('click', function(event) {
@@ -153,14 +516,15 @@
                     const itemData = menuData[currentMenuType].items[index];
 
                     if (itemElement.classList.contains('toggle-item')) {
-                        itemData.checked = !itemData.checked; 
+                        // For toggles, toggle checked state and then update selection
+                        itemData.checked = !itemData.checked; // تبديل حالة البيانات
                         const toggleSwitch = itemElement.querySelector('.toggle-switch');
                         if (toggleSwitch) {
                             toggleSwitch.classList.toggle('on', itemData.checked);
                             toggleSwitch.classList.toggle('off', !itemData.checked);
                         }
-                        updateSelection(index, currentMenuType); 
-                        selectEffect(index, currentMenuType, itemData.checked); 
+                        updateSelection(index, currentMenuType); // تحديث التحديد على العنصر الحالي فقط
+                        selectEffect(index, currentMenuType, itemData.checked); // أرسل حالة التوغل الجديدة
                     } else if (action === 'back') {
                         navigateBack();
                     } else {
@@ -169,9 +533,11 @@
                     }
                 });
             });
+
             return renderedItems; 
         }
 
+        // دالة لتعيين صورة البنر
         function setHeaderImage(imageUrl) {
             const header = document.getElementById('menuHeader');
             if (header && imageUrl) {
@@ -179,94 +545,84 @@
             }
         }
 
+        // دالة لتحديث التحديد والمربع المتحرك والعداد
         function updateSelection(index, menuType) {
             const currentItems = document.querySelectorAll('#menuItemsContainer .menu-item, #menuItemsContainer .back-arrow-item, #menuItemsContainer .toggle-item');
             const totalItems = currentItems.length;
 
+            // إزالة التحديد من العنصر السابق
             if (currentItems[currentIndex]) {
                 currentItems[currentIndex].classList.remove('selected');
             }
             
             currentIndex = index;
 
+            // إضافة التحديد للعنصر الجديد (فقط إذا كانت القائمة غير فارغة والعنصر موجود)
             if (totalItems > 0 && index >= 0 && index < totalItems) {
                 currentItems[index].classList.add('selected');
             }
 
-            if (highlightBar) { 
+            // تحديث موضع الـ highlight-bar
+            if (highlightBar) { // هنا نستخدم ال highlightBar المعاد تعريفه
                 if (totalItems > 0 && index >= 0 && index < totalItems) {
                     const selectedElement = currentItems[index]; 
                     const topPosition = selectedElement.offsetTop; 
                     highlightBar.style.top = `${topPosition}px`; 
-                    highlightBar.style.display = 'block'; 
+                    highlightBar.style.display = 'block'; // إظهار الـ highlight-bar
                 } else {
-                    highlightBar.style.display = 'none'; 
+                    highlightBar.style.display = 'none'; // إخفاء الـ highlight-bar إذا كانت القائمة فارغة
                 }
             }
             
+            // تحديث العداد
             counterElement.textContent = `${(totalItems > 0 && index >= 0) ? index + 1 : 0}/${totalItems}`;
-            if (menuItemsContainer && currentItems[index]) {
-                const selectedElement = currentItems[index];
-                const containerRect = menuItemsContainer.getBoundingClientRect();
-                const elementRect = selectedElement.getBoundingClientRect();
-
-                if (elementRect.top < containerRect.top) {
-                    menuItemsContainer.scrollTop += elementRect.top - containerRect.top;
-                } 
-                else if (elementRect.bottom > containerRect.bottom) {
-                    menuItemsContainer.scrollTop += elementRect.bottom - containerRect.bottom;
-                }
-            }
         }
 
+        // دالة لتنفيذ تأثير الاختيار والانتقال بين القوائم
         function selectEffect(index, menuType, toggleState = null) {
             const selectedOption = menuData[menuType].items[index];
             if (!selectedOption) return;
 
+            // إذا كان الخيار هو زر الرجوع
             if (selectedOption.action === 'back') {
                 navigateBack();
                 return;
             }
             
+            // إذا كان نوع العنصر toggle
             if (selectedOption.type === 'toggle') {
-                console.log(`⚡ JS: Attempting to send toggleFastRun event with state: ${toggleState} for action: ${selectedOption.action}`); // NEW JS LOG
-                if (typeof GetParentResourceName !== 'undefined') {
-                    fetch(`https://${GetParentResourceName()}/toggleFastRun`, {
+                // إظهار إشعار التشغيل/الإيقاف
+                if (toggleState) {
+                    showNotification('Fast Run Activated', 'Your character now runs faster.', '<i class="fa-solid fa-toggle-on"></i>');
+                } else {
+                    showNotification('Fast Run Deactivated', 'Your character now runs at normal speed.', '<i class="fa-solid fa-toggle-off"></i>');
+                }
+
+                // إرسال حالة التوغل إلى FiveM
+                 if (typeof (GetParentResourceName) !== 'undefined') {
+                    // هنا يتم إرسال الحدث إلى FiveM
+                    fetch(`https://${GetParentResourceName()}/toggleFastRun`, { // اسم الحدث في Lua
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json; charset=UTF-8' },
                         body: JSON.stringify({
-                            state: toggleState 
+                            state: toggleState // إرسال حالة الـ toggle (true/false)
                         })
-                    }).then(resp => {
-                        if (!resp.ok) {
-                            throw new Error(`HTTP error! status: ${resp.status}`);
-                        }
-                        return resp.json();
-                    })
-                      .then(resp => {
-                          console.log('✅ JS: toggleFastRun response from Lua:', resp); // NEW JS LOG
-                          if (toggleState) {
-                            showNotification('Fast Run Activated', 'Your character now runs faster.', '<i class="fa-solid fa-toggle-on"></i>');
-                          } else {
-                            showNotification('Fast Run Deactivated', 'Your character now runs at normal speed.', '<i class="fa-solid fa-toggle-off"></i>');
-                          }
-                      })
-                      .catch(error => console.error('❌ JS: Error sending toggleFastRun:', error)); // NEW JS ERROR LOG
-                } else {
-                    console.warn('⚠️ JS: GetParentResourceName is undefined. Cannot send NUI message for toggle.'); // NEW JS WARN LOG
+                    });
                 }
                 return; 
             }
 
+            // إذا كان الخيار هو 'Self' من القائمة الرئيسية
             if (menuType === 'main' && selectedOption.action === 'self') {
                 currentMenuType = 'self';
-                headerText.textContent = menuData.self.title; 
-                renderMenuItems(currentMenuType); 
-                updateSelection(0, currentMenuType); 
+                headerText.textContent = menuData.self.title; // تغيير نص البنر إلى SELF
+                renderMenuItems(currentMenuType); // بناء قائمة Self 
+                updateSelection(0, currentMenuType); // تحديد أول عنصر في قائمة Self (وهو زر الرجوع)
+            } else if (selectedOption.action === 'settings') {
+                showNotification('Action Performed', `${selectedOption.name} was selected.`);
             } 
-            // This part handles general menu item selections, including 'Settings'
-            else if (typeof GetParentResourceName !== 'undefined') {
-                 console.log(`⚡ JS: Attempting to send menuSelected event for action: ${selectedOption.action}`); // NEW JS LOG
+            // لإرسال حدث لـ FiveM
+            else if (typeof (GetParentResourceName) !== 'undefined') {
                 fetch(`https://${GetParentResourceName()}/menuSelected`, {
                     method: 'POST',
                     headers: {
@@ -277,32 +633,27 @@
                         index: index,
                         menu: menuType
                     })
-                }).then(resp => {
-                    if (!resp.ok) {
-                        throw new Error(`HTTP error! status: ${resp.status}`);
-                    }
-                    return resp.json();
-                })
-                  .then(resp => console.log('✅ JS: menuSelected response from Lua:', resp))
-                  .catch(error => console.error('❌ JS: Error sending menuSelected:', error));
-            } else {
-                console.warn('⚠️ JS: GetParentResourceName is undefined for general menu selection. Cannot send NUI message.'); // NEW JS WARN LOG
+                });
             }
         }
 
+        // دالة للعودة إلى القائمة الرئيسية
         function navigateBack() {
             if (currentMenuType === 'self') {
                 currentMenuType = 'main';
-                headerText.textContent = menuData.main.title; 
-                renderMenuItems(currentMenuType); 
+                headerText.textContent = menuData.main.title; // تغيير نص البنر إلى HOME
+                renderMenuItems(currentMenuType); // إعادة بناء القائمة الرئيسية
+                // إعادة التحديد على زر Self في القائمة الرئيسية بعد العودة
                 const selfIndex = menuData.main.items.findIndex(item => item.action === 'self');
                 updateSelection(selfIndex >= 0 ? selfIndex : 0, currentMenuType); 
             }
         }
 
+        // دالة لإظهار الإشعارات
         function showNotification(title, message, iconHtml = '<i class="fa-solid fa-info-circle"></i>') {
             const notification = document.createElement('div');
             notification.className = 'notification';
+
             notification.innerHTML = `
                 <div class="notification-content">
                     <div class="notification-icon">${iconHtml}</div> 
@@ -313,8 +664,10 @@
                 </div>
                 <div class="notification-timer"></div>
             `;
+
             notificationContainer.appendChild(notification);
             notification.style.animation = 'notificationFadeIn 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards';
+            
             setTimeout(() => {
                 notification.style.animation = 'notificationFadeOut 0.25s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards';
                 setTimeout(() => {
@@ -327,11 +680,14 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
+            // عند تحميل الصفحة، اعرض القائمة الرئيسية
             renderMenuItems('main');
-            updateSelection(0, 'main'); 
+            updateSelection(0, 'main'); // تحديد أول عنصر في القائمة الرئيسية
+            
             setHeaderImage(bannerImageUrl); 
         });
 
+        // التعامل مع رسائل FiveM (مثل مفتاح ESC للعودة)
         window.addEventListener('message', function(event) {
             const data = event.data;
             try {
@@ -342,16 +698,16 @@
                         updateSelection(targetIndex, currentMenuType);
                     }
                 } else if (data.type === 'selectEffect') {
-                    console.log('⚡ JS: Received selectEffect from Lua.'); 
-                    const selectedItemData = menuData[currentMenuType].items[currentIndex];
-                    if (selectedItemData && selectedItemData.type === 'toggle') {
-                        selectedItemData.checked = !selectedItemData.checked;
-                        renderMenuItems(currentMenuType);
-                        updateSelection(currentIndex, currentMenuType);
-                        selectEffect(currentIndex, currentMenuType, selectedItemData.checked);
-                    } else {
-                        selectEffect(currentIndex, currentMenuType); 
-                    }
+                    // هذا الجزء يستخدم لاستدعاء الإشعار من FiveM بشكل عام
+                    // يمكن استخدام showNotification(data.title || 'Notification', data.message || 'Custom message.', data.iconHtml || '<i class="fa-solid fa-info-circle"></i>');
+                    // إذا كنت تريد التحكم بحالة الـ checkbox من FiveM:
+                    // if (menuData[currentMenuType].items[currentIndex] && menuData[currentMenuType].items[currentIndex].type === 'toggle') {
+                    //     menuData[currentMenuType].items[currentIndex].checked = data.state;
+                    //     renderMenuItems(currentMenuType); // إعادة بناء لعكس الحالة الجديدة
+                    //     updateSelection(currentIndex, currentMenuType); // إعادة تحديد
+                    // }
+                    // هنا نمرر index فقط، ودالة selectEffect ستتعامل مع نوع العنصر
+                    selectEffect(currentIndex, currentMenuType);
                 } else if (data.type === 'moveUp') {
                     const currentItems = document.querySelectorAll('#menuItemsContainer .menu-item, #menuItemsContainer .back-arrow-item, #menuItemsContainer .toggle-item');
                     if (currentItems.length > 0) {
@@ -365,17 +721,16 @@
                         updateSelection(currentIndex, currentMenuType);
                     }
                 } else if (data.type === 'enter') {
-                    console.log('⚡ JS: Received enter event from Lua. Simulating click.'); // NEW JS LOG
+                    // عند الضغط على Enter، إذا كان العنصر toggle، قم بالتبديل
                     const selectedItemData = menuData[currentMenuType].items[currentIndex];
-                    if (selectedItemData) { // Check if selectedItemData exists
+                    if (selectedItemData && selectedItemData.type === 'toggle') {
+                        // يحاكي النقر على العنصر في DOM
                         const domElement = document.querySelector(`[data-index="${currentIndex}"][data-action="${selectedItemData.action}"]`);
                         if (domElement) {
                             domElement.click(); 
-                        } else {
-                            console.warn(`⚠️ JS: No DOM element found for index ${currentIndex} and action ${selectedItemData.action}.`); // NEW JS WARN LOG
                         }
                     } else {
-                        console.warn(`⚠️ JS: No item data found for current index ${currentIndex}.`); // NEW JS WARN LOG
+                        selectEffect(currentIndex, currentMenuType); 
                     }
                 } else if (data.type === 'showMenu') { 
                     menuContainer.style.display = 'flex';
@@ -386,7 +741,6 @@
                 } else if (data.type === 'hideMenu') { 
                     menuContainer.style.display = 'none';
                 } else if (data.type === 'back') { 
-                    console.log('⚡ JS: Received back event from Lua. Navigating back.'); 
                     navigateBack();
                 } else if (data.type === 'setHeaderImage') {
                     setHeaderImage(data.imageUrl); 
@@ -394,7 +748,7 @@
                     showNotification(data.title || 'Notification', data.message || 'Custom message from server.', data.iconHtml);
                 }
             } catch (error) {
-                console.error('❌ JS: Error processing message from FiveM:', error); 
+                console.error('Error processing message from FiveM:', error);
             }
         });
     </script>
